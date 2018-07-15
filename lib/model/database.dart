@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 
+typedef MakeQuery = Query Function(CollectionReference collectionRef);
+
 abstract class Database<T> {
   Stream<List<T>> entities(MakeQuery makeQuery);
   Stream<T> entity(String id);
@@ -15,24 +17,23 @@ abstract class Entity {
   Entity({@required this.id});
 }
 
-typedef MakeQuery = Query Function(CollectionReference collectionRef);
-
 class AppDatabase<T extends Entity> implements Database<T> {
-  static final _firestore = Firestore.instance;
   final CollectionReference collectionRef;
-  final SnapshotEncoder encoder;
-  final SnapshotDecoder decoder;
+  final SnapshotEncoder<T> encoder;
+  final SnapshotDecoder<T> decoder;
 
-  AppDatabase(
-      {@required String collectionName,
-        @required this.encoder,
-        @required this.decoder})
-      : collectionRef = _firestore.collection(collectionName);
+  AppDatabase({
+    @required this.collectionRef,
+    @required this.encoder,
+    @required this.decoder,
+  });
 
   Stream<List<T>> entities(MakeQuery makeQuery) {
-    return makeQuery(collectionRef)
-        .snapshots()
-        .map((snap) => snap.documents.map((snap) => decoder.decode(snap)));
+    return makeQuery(collectionRef).snapshots().map((snap) {
+      return snap.documents.map((snap) {
+        return decoder.decode(snap);
+      }).toList();
+    });
   }
 
   Stream<T> entity(String id) {

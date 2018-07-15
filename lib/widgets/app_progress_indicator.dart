@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-class ProgressIndicator extends StatelessWidget {
+class AppProgressIndicator extends StatelessWidget {
+  final Color color;
+  AppProgressIndicator({this.color = Colors.white});
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: color,
       child: Center(
         child: CircularProgressIndicator(),
       ),
