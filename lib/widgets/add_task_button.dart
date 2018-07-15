@@ -10,7 +10,10 @@ class AddTaskButton extends StatelessWidget {
     return FloatingActionButton(
       child: Icon(Icons.add),
       onPressed: () {
-//        Navigator.of(context).push(
+
+        Navigator.of(context).pushNamed(InputTaskPage.routeName);
+//        Navigator.push(
+//          context,
 //          MaterialPageRoute(
 //            fullscreenDialog: true,
 //            builder: (context) {
@@ -19,7 +22,7 @@ class AddTaskButton extends StatelessWidget {
 //          ),
 //        );
         // TODO:
-        bloc.add(new Task(id: null, title: "hello"));
+//        bloc.add(new Task(id: null, title: "hello"));
       },
     );
   }

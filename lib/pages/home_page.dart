@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/bloc/tasks_provider.dart';
 import 'package:taskshare/model/account_model.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -12,19 +13,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<AccountModel>(
         builder: (context, child, model) {
-      return TasksProvider(
-        groupName: model.user.uid,
-        child: Scaffold(
-          bottomNavigationBar: BottomMenu(),
-          appBar: AppBar(
-            title: Text('TaskShare'),
-            actions: <Widget>[MenuButton()],
-          ),
-          body: TaskList(),
-          floatingActionButton: AddTaskButton(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+      return Scaffold(
+        bottomNavigationBar: BottomMenu(),
+        appBar: AppBar(
+          title: Text('TaskShare'),
+          actions: <Widget>[MenuButton()],
         ),
+        body: TaskList(),
+        floatingActionButton: AddTaskButton(),
+        floatingActionButtonLocation:
+        FloatingActionButtonLocation.centerDocked,
       );
     });
   }

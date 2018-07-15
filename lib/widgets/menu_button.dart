@@ -25,14 +25,16 @@ class MenuButton extends StatelessWidget {
 //              },
 //            ),
 //          );
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return SettingPage();
-              },
-            ),
-          );
+//          Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//              builder: (context) {
+//                return SettingPage();
+//              },
+//            ),
+//          );
+
+          Navigator.of(context).pushNamed(SettingPage.routeName);
         },
       );
     });

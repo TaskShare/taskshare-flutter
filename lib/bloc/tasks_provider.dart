@@ -6,9 +6,8 @@ class TasksProvider extends InheritedWidget {
   TasksProvider({
     Key key,
     @required Widget child,
-    @required String groupName,
-  })  : bloc = TasksBloc(groupName: groupName),
-        super(key: key, child: child);
+    @required this.bloc,
+  }) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;

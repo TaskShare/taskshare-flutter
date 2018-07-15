@@ -1,12 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:taskshare/bloc/tasks_bloc.dart';
+import 'package:taskshare/bloc/tasks_provider.dart';
 
 class InputTaskPage extends StatelessWidget {
+  static const routeName = "/input_task";
   @override
   Widget build(BuildContext context) {
+    final bloc = TasksProvider.of(context);
     return Scaffold(
-      backgroundColor: Colors.black.withAlpha(24),
-      body: Text('hoge'),
-    );
+        appBar: AppBar(
+          title: Text('Input New Task'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                'ADD',
+                style: TextStyle(
+                  color: Theme.of(context).canvasColor,
+                ),
+              ),
+              onPressed: () async {
+                await bloc.add(new Task(id: null, title: 'xxxx'));
+              },
+            ),
+          ],
+        ),
+        body: ListView(
+          children: <Widget>[
+            TextField(
+              autofocus: true,
+            )
+          ],
+        ));
   }
 }
 

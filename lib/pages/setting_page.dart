@@ -3,6 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:taskshare/model/account_model.dart';
 
 class SettingPage extends StatelessWidget {
+  static const routeName = "/settings";
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<AccountModel>(builder: (context, child, model) {
