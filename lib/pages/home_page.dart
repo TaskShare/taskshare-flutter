@@ -18,9 +18,7 @@ class HomePage extends StatelessWidget {
           bottomNavigationBar: BottomMenu(),
           appBar: AppBar(
             title: Text('TaskShare'),
-            actions: <Widget>[
-              MenuButton()
-            ],
+            actions: <Widget>[MenuButton()],
           ),
           body: TaskList(),
           floatingActionButton: AddTaskButton(),
@@ -31,5 +29,3 @@ class HomePage extends StatelessWidget {
     });
   }
 }
-
-
