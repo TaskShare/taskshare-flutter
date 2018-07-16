@@ -9,23 +9,28 @@ import 'package:taskshare/pages/setting_page.dart';
 import 'package:taskshare/util/app_logger.dart';
 
 class App extends StatelessWidget {
+  final AccountModel account;
+
+  App({@required this.account});
   @override
   Widget build(BuildContext context) {
-    final accountModel = AccountModel();
+    log.warning('App build called');
     return ScopedModel(
-      model: accountModel,
+      model: account,
       child: ScopedModelDescendant<AccountModel>(
         builder: (context, child, model) {
-          final bloc = TasksBloc(groupName: accountModel.user?.uid);
+          // TODO: もっと上へ
+          final taskBloc = TasksBloc(groupName: account.user?.uid);
           return TasksProvider(
-            bloc: bloc,
+            bloc: taskBloc,
             child: MaterialApp(
               title: 'TaskShare',
               theme: ThemeData(
                   primarySwatch: Colors.deepPurple,
                   accentColor: Colors.purpleAccent,
                   errorColor: Colors.red),
-//        home: RootPage(),
+              home: RootPage(),
+//              routes: { SettingPage.routeName: (context) => SettingPage() },
               onGenerateRoute: routes,
             ),
           );
@@ -36,15 +41,14 @@ class App extends StatelessWidget {
 }
 
 Route routes(RouteSettings settings) {
-  if (settings.name == '/') {
-    return MaterialPageRoute(builder: (context) {
-      return RootPage();
-    });
-  } else if (settings.name == InputTaskPage.routeName) {
+  if (settings.name == InputTaskPage.routeName) {
+    log.warning('name: ${settings.name}');
     return MaterialPageRoute(
         fullscreenDialog: true,
         builder: (context) {
 //          log.warning('bloc: ${TasksProvider.of(context)}');
+
+          log.warning('InputTaskPage returned');
           return InputTaskPage();
         });
   } else if (settings.name == SettingPage.routeName) {

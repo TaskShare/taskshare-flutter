@@ -11,6 +11,7 @@ enum AccountState {
   signedIn
 }
 
+// TODO: BloCにする
 class AccountModel extends Model {
 
   final Authenticator _googleAuth = GoogleAuthenticator();

@@ -13,12 +13,8 @@ class SettingPage extends StatelessWidget {
           ),
           body: ListView(
             children: <Widget>[
-              Card(
-                child: Text('Logout'),
-
-              ),
               ListTile(
-                title: Text('(　´･‿･｀)'),
+                title: Text(model.user.toString()),
               ),
               Divider(
                 height: 1.0,
