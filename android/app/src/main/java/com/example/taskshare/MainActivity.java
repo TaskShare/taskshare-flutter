@@ -1,4 +1,4 @@
-package com.example.taskshare;
+package com.mono0926.taskshare;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
