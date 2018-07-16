@@ -9,3 +9,4 @@ build/
 .flutter-plugins
 GoogleService-Info.plist
 .idea/
+google-services.json
