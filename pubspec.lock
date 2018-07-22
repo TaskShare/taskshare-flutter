@@ -84,7 +84,7 @@ packages:
       name: firebase_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.12"
+    version: "0.5.14"
   firebase_core:
     dependency: transitive
     description:
@@ -430,5 +430,5 @@ packages:
     source: hosted
     version: "2.1.14"
 sdks:
-  dart: ">=2.0.0-dev.62.0 <=2.0.0-dev.67.0.flutter-84ca27a09e"
+  dart: ">=2.0.0-dev.62.0 <=2.0.0-dev.69.0.flutter-937ee2e8ca"
   flutter: ">=0.2.4 <2.0.0"
