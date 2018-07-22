@@ -12,7 +12,9 @@ import 'package:taskshare/model/account_model.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(new App(account: new AccountModel(),));
+    await tester.pumpWidget(new App(
+      account: new AccountModel(),
+    ));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

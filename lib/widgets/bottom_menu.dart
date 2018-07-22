@@ -6,7 +6,6 @@ class BottomMenu extends StatelessWidget {
     return BottomAppBar(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
         children: <Widget>[
           IconButton(
             icon: Icon(Icons.menu),
@@ -20,5 +19,4 @@ class BottomMenu extends StatelessWidget {
       ),
     );
   }
-
 }

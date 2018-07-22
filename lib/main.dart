@@ -6,5 +6,7 @@ import 'package:taskshare/util/app_logger.dart';
 void main() {
   AppLogger.configure();
   final account = AccountModel();
-  runApp(new App(account: account,));
+  runApp(new App(
+    account: account,
+  ));
 }
