@@ -30,34 +30,33 @@ class App extends StatelessWidget {
                   accentColor: Colors.purpleAccent,
                   errorColor: Colors.red),
               home: RootPage(),
-//              routes: { SettingPage.routeName: (context) => SettingPage() },
-              onGenerateRoute: routes,
+              routes: _routes,
+              onGenerateRoute: _handleRoutes,
             ),
           );
         },
       ),
     );
   }
-}
 
-Route routes(RouteSettings settings) {
-  if (settings.name == InputTaskPage.routeName) {
-    log.warning('name: ${settings.name}');
-    return MaterialPageRoute(
-        fullscreenDialog: true,
-        builder: (context) {
+  Map<String, WidgetBuilder> get _routes {
+    return {
+      SettingPage.routeName: (context) => SettingPage(),
+    };
+  }
+
+  Route _handleRoutes(RouteSettings settings) {
+    switch (settings.name) {
+      case InputTaskPage.routeName:
+        log.warning('name: ${settings.name}');
+        return MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (context) {
 //          log.warning('bloc: ${TasksProvider.of(context)}');
 
-          log.warning('InputTaskPage returned');
-          return InputTaskPage();
-        });
-  } else if (settings.name == SettingPage.routeName) {
-    return MaterialPageRoute(builder: (context) {
-      return SettingPage();
-    });
+              log.warning('InputTaskPage returned');
+              return InputTaskPage();
+            });
+    }
   }
-  // TODO:
-  return MaterialPageRoute(builder: (context) {
-    return Text('(　´･‿･｀)');
-  });
 }
