@@ -26,7 +26,8 @@ class GoogleAuthenticator implements Authenticator {
   }
 
   signOut() async {
-    await _googleSignIn.signOut();
+    // TODO:
+//    await _googleSignIn.signOut();
     await _auth.signOut();
   }
 }
