@@ -1,12 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'package:taskshare/model/account_model.dart';
+import 'package:taskshare/export/export_ui.dart';
+import 'package:taskshare/model/account.dart';
 
-class SettingPage extends StatelessWidget {
+class Setting extends StatelessWidget {
   static const routeName = "/settings";
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<AccountModel>(
+    return ScopedModelDescendant<Account>(
       builder: (context, child, model) {
         return Scaffold(
             appBar: AppBar(

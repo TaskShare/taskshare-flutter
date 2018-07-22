@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/bloc/tasks_provider.dart';
-import 'package:taskshare/widgets/app_progress_indicator.dart';
+import 'package:taskshare/export/export_ui.dart';
 
 class TaskList extends StatelessWidget {
   @override

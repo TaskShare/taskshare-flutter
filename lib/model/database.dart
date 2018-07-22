@@ -1,6 +1,4 @@
-import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:meta/meta.dart';
+import 'package:taskshare/export/export_model.dart';
 
 typedef MakeQuery = Query Function(CollectionReference collectionRef);
 

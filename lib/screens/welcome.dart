@@ -1,30 +1,24 @@
-import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'package:taskshare/model/account_model.dart';
-import 'package:taskshare/model/authenticator.dart';
-import 'package:taskshare/util/app_logger.dart';
-import 'package:taskshare/widgets/app_progress_indicator.dart';
+import 'package:taskshare/export/export_ui.dart';
+import 'package:taskshare/model/account.dart';
 
-class WelcomePage extends StatefulWidget {
+class Welcome extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => WelcomePageState();
+  State<StatefulWidget> createState() => WelcomeState();
 }
 
-class WelcomePageState extends State<WelcomePage> {
+class WelcomeState extends State<Welcome> {
   bool _isLogginedIn = false;
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<AccountModel>(
-        builder: (context, child, model) {
+    return ScopedModelDescendant<Account>(builder: (context, child, model) {
       return Scaffold(
         body: _buildBody(model),
       );
     });
   }
 
-  Widget _buildBody(AccountModel model) {
+  Widget _buildBody(Account model) {
     final List<Widget> children = [
       Center(
         child: Column(
@@ -43,6 +37,7 @@ class WelcomePageState extends State<WelcomePage> {
                 setState(() {
                   _isLogginedIn;
                 });
+                // TODO: リファクタリング
                 FirebaseUser user;
                 try {
                   user = await model.signIn();

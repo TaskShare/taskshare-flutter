@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:taskshare/app.dart';
-import 'package:taskshare/model/account_model.dart';
-import 'package:taskshare/util/app_logger.dart';
+import 'package:taskshare/model/account.dart';
+import 'export/export_ui.dart';
 
 void main() {
   AppLogger.configure();
-  final account = AccountModel();
+  final account = Account();
   runApp(new App(
     account: account,
   ));

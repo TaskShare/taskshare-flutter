@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'package:taskshare/model/account_model.dart';
-import 'package:taskshare/pages/setting_page.dart';
+import 'package:taskshare/export/export_ui.dart';
+import 'package:taskshare/model/account.dart';
+import 'package:taskshare/screens/setting.dart';
 
 class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<AccountModel>(
-        builder: (context, child, model) {
+    return ScopedModelDescendant<Account>(builder: (context, child, model) {
       return IconButton(
         icon: ClipOval(
           child: Image.network(
@@ -17,24 +14,7 @@ class MenuButton extends StatelessWidget {
           ),
         ),
         onPressed: () {
-//          Navigator.of(context, rootNavigator: true).push(
-//            CupertinoPageRoute<void>(
-//              fullscreenDialog: true,
-//              builder: (context) {
-//                return SettingPage();
-//              },
-//            ),
-//          );
-//          Navigator.push(
-//            context,
-//            MaterialPageRoute(
-//              builder: (context) {
-//                return SettingPage();
-//              },
-//            ),
-//          );
-
-          Navigator.of(context).pushNamed(SettingPage.routeName);
+          Navigator.of(context).pushNamed(Setting.routeName);
         },
       );
     });

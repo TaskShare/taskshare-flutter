@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
-import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/bloc/tasks_provider.dart';
-import 'package:taskshare/model/account_model.dart';
-import 'package:taskshare/pages/input_task_page.dart';
-import 'package:taskshare/pages/root_page.dart';
-import 'package:taskshare/pages/setting_page.dart';
-import 'package:taskshare/util/app_logger.dart';
+import 'package:taskshare/model/account.dart';
+import 'package:taskshare/screens/home.dart';
+import 'package:taskshare/screens/input_task.dart';
+import 'package:taskshare/screens/setting.dart';
+
+import 'export/export_ui.dart';
 
 class App extends StatelessWidget {
-  final AccountModel account;
+  final Account account;
 
   App({@required this.account});
   @override
@@ -17,7 +15,7 @@ class App extends StatelessWidget {
     log.warning('App build called');
     return ScopedModel(
       model: account,
-      child: ScopedModelDescendant<AccountModel>(
+      child: ScopedModelDescendant<Account>(
         builder: (context, child, model) {
           // TODO: もっと上へ
           final taskBloc = TasksBloc(groupName: account.user?.uid);
@@ -29,7 +27,7 @@ class App extends StatelessWidget {
                   primarySwatch: Colors.deepPurple,
                   accentColor: Colors.purpleAccent,
                   errorColor: Colors.red),
-              home: RootPage(),
+              home: Home(),
               routes: _routes,
               onGenerateRoute: _handleRoutes,
             ),
@@ -41,13 +39,13 @@ class App extends StatelessWidget {
 
   Map<String, WidgetBuilder> get _routes {
     return {
-      SettingPage.routeName: (context) => SettingPage(),
+      Setting.routeName: (context) => Setting(),
     };
   }
 
   Route _handleRoutes(RouteSettings settings) {
     switch (settings.name) {
-      case InputTaskPage.routeName:
+      case InputTask.routeName:
         log.warning('name: ${settings.name}');
         return MaterialPageRoute(
             fullscreenDialog: true,
@@ -55,8 +53,9 @@ class App extends StatelessWidget {
 //          log.warning('bloc: ${TasksProvider.of(context)}');
 
               log.warning('InputTaskPage returned');
-              return InputTaskPage();
+              return InputTask();
             });
     }
+    return null;
   }
 }

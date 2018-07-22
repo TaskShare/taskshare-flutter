@@ -7,13 +7,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:taskshare/app.dart';
-import 'package:taskshare/model/account_model.dart';
+import 'package:taskshare/model/account.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(new App(
-      account: new AccountModel(),
+      account: new Account(),
     ));
 
     // Verify that our counter starts at 0.
