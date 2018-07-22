@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:taskshare/model/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rxdart/rxdart.dart';
 
 class Group {
   static final entity = 'groups';
@@ -37,7 +38,7 @@ class TasksBloc {
   final _firestore = Firestore.instance;
   final String groupName;
   Database<Task> database;
-  Stream<List<Task>> tasks;
+  final tasks = BehaviorSubject<List<Task>>();
 
   TasksBloc({@required this.groupName}) {
     database = AppDatabase(
@@ -48,12 +49,17 @@ class TasksBloc {
         encoder: TaskEncoder(),
         decoder: TaskDecoder());
 
-    tasks = database.entities((ref) {
+    database.entities((ref) {
       return ref;
-    });
+    }).pipe(tasks);
   }
 
   add(Task task) async {
     await database.set(task);
+  }
+
+  // TODO: call
+  dispose() {
+    tasks.close();
   }
 }
