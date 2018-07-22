@@ -1,12 +1,21 @@
-.DS_Store
 .dart_tool/
-
 .packages
 .pub/
-
 build/
 
 .flutter-plugins
-GoogleService-Info.plist
+
+# Android Studio
+*.iml
+*.ipr
+*.iws
 .idea/
+
+## Mac
+.DS_Store
+
+doc/api/
+
+#Firebase
+GoogleService-Info.plist
 google-services.json
