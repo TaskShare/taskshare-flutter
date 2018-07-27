@@ -6,7 +6,6 @@ class AddTaskButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = TasksProvider.of(context);
     return FloatingActionButton.extended(
-//        elevation: 4.0,
       icon: const Icon(Icons.add),
       label: const Text('Add a new task'),
       onPressed: () async {
