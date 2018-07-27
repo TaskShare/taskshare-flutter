@@ -25,7 +25,7 @@ class App extends StatelessWidget {
               title: 'TaskShare',
               theme: ThemeData(
                   primarySwatch: Colors.deepPurple,
-                  accentColor: Colors.purpleAccent,
+                  accentColor: Colors.deepPurpleAccent,
                   errorColor: Colors.red),
               home: Home(),
               routes: _routes,
