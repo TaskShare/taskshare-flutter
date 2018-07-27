@@ -5,8 +5,8 @@ class AddTaskButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-      icon: const Icon(Icons.add),
-      label: const Text('Add a new task'),
+      icon: Icon(Icons.add),
+      label: Text('Add a new task'),
       onPressed: () async {
         _showModalBottomSheet(context);
       },
@@ -27,7 +27,7 @@ class AddTaskButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: Padding(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                 left: 20.0,
                 right: 20.0,
                 top: 20.0,
@@ -46,8 +46,8 @@ class AddTaskButton extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       IconButton(
-                        padding: const EdgeInsets.all(0.0),
-                        icon: new Icon(
+                        padding: EdgeInsets.all(0.0),
+                        icon: Icon(
                           Icons.open_in_new,
                         ),
                         onPressed: () {
@@ -59,10 +59,12 @@ class AddTaskButton extends StatelessWidget {
                         onPressed: () async {
                           _saveTask(bloc, context);
                         },
-                        child: const Text(
+                        child: Text(
                           'Save',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.w600),
+                          style: Theme.of(context).primaryTextTheme.button.apply(
+                                color: Theme.of(context).accentColor,
+                                fontWeightDelta: 2,
+                              ),
                         ),
                         color: Colors.white,
                         splashColor: Colors.blue,

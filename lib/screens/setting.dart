@@ -22,7 +22,7 @@ class Setting extends StatelessWidget {
                 ListTile(
                   title: Text(
                     'Sign out',
-                    style: TextStyle(color: Theme.of(context).errorColor),
+                    style:  TextStyle(color: Theme.of(context).errorColor),
                   ),
                   onTap: () async {
                     await model.signOut();
