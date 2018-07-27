@@ -1,6 +1,6 @@
 import 'package:taskshare/export/export_ui.dart';
 import 'package:taskshare/model/account.dart';
-import 'package:taskshare/screens/task.dart';
+import 'package:taskshare/screens/task_scaffold.dart';
 import 'package:taskshare/screens/welcome.dart';
 
 class Home extends StatelessWidget {
@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
           case AccountState.signedOut:
             return Welcome();
           case AccountState.signedIn:
-            return MyTask();
+            return TaskScaffold();
         }
         assert(false);
         return Container();

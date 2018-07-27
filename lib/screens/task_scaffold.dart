@@ -7,7 +7,7 @@ import 'dart:math' as math;
 
 import 'package:taskshare/widgets/bottom_menu.dart';
 
-class MyTask extends StatelessWidget {
+class TaskScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultMediaQuery = MediaQuery.of(context);
