@@ -14,7 +14,7 @@ class AddTaskButton extends StatelessWidget {
           context: context,
           builder: (context) {
             return Container(
-              color: Colors.black54,
+              color: Colors.black54, // 仕方なくバリアビュー色合わせ
               child: Container(
                 padding: MediaQuery.of(context).viewInsets,
                 decoration: BoxDecoration(
