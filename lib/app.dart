@@ -3,7 +3,7 @@ import 'package:taskshare/model/account.dart';
 import 'package:taskshare/screens/home.dart';
 import 'package:taskshare/screens/input_task.dart';
 import 'package:taskshare/screens/setting.dart';
-import 'package:taskshare/export/export_ui.dart';
+import 'export/export_ui.dart';
 
 class App extends StatelessWidget {
   final Account account;
@@ -21,6 +21,15 @@ class App extends StatelessWidget {
           return TasksProvider(
             bloc: taskBloc,
             child: MaterialApp(
+              localizationsDelegates: [
+                AppLocalizationsDelegate(),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate
+              ],
+              supportedLocales: [
+                Locale('en', 'US'),
+                Locale('ja', 'JP'),
+              ],
               title: 'TaskShare',
               theme: ThemeData(
                   primarySwatch: Colors.deepPurple,

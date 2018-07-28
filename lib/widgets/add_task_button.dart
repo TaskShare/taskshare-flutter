@@ -16,9 +16,10 @@ class AddTaskButton extends StatelessWidget {
 class _AddTaskButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final l10n = L10N.of(context);
     return FloatingActionButton.extended(
       icon: Icon(Icons.add),
-      label: Text('Add a new task'),
+      label: Text(l10n.addTask),
       onPressed: () async {
         _showModalBottomSheet(context);
       },
@@ -27,6 +28,7 @@ class _AddTaskButton extends StatelessWidget {
 
   Future _showModalBottomSheet(BuildContext context) {
     final bloc = TasksProvider.of(context);
+    final l10n = L10N.of(context);
     return showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -70,7 +72,7 @@ class _AddTaskButton extends StatelessWidget {
                         _saveTask(bloc, context);
                       },
                       child: Text(
-                        'SAVE',
+                        l10n.buttonSave,
                         style: Theme.of(context).primaryTextTheme.button.apply(
                               color: Theme.of(context).accentColor,
                               fontWeightDelta: 2,
