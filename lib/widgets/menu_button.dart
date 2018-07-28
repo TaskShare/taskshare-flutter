@@ -8,8 +8,8 @@ class MenuButton extends StatelessWidget {
     return ScopedModelDescendant<Account>(builder: (context, child, model) {
       return IconButton(
         icon: ClipOval(
-          child: Image.network(
-            model.user.photoUrl,
+          child: CachedNetworkImage(
+            imageUrl: model.user.photoUrl,
             fit: BoxFit.cover,
           ),
         ),
