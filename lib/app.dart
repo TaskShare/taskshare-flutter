@@ -27,7 +27,7 @@ class App extends StatelessWidget {
                   primarySwatch: Colors.deepPurple,
                   accentColor: Colors.deepPurpleAccent,
                   errorColor: Colors.red),
-              home: Home(),
+              initialRoute: Home.routeName,
               routes: _routes,
               onGenerateRoute: _handleRoutes,
             ),
@@ -39,6 +39,7 @@ class App extends StatelessWidget {
 
   Map<String, WidgetBuilder> get _routes {
     return {
+      Home.routeName: (context) => Home(),
       Setting.routeName: (context) => Setting(),
     };
   }

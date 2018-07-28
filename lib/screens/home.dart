@@ -4,6 +4,7 @@ import 'package:taskshare/screens/task_scaffold.dart';
 import 'package:taskshare/screens/welcome.dart';
 
 class Home extends StatelessWidget {
+  static final routeName = '/';
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<Account>(
