@@ -60,7 +60,7 @@ class AddTaskButton extends StatelessWidget {
                           _saveTask(bloc, context);
                         },
                         child: Text(
-                          'Save',
+                          'SAVE',
                           style: Theme.of(context).primaryTextTheme.button.apply(
                                 color: Theme.of(context).accentColor,
                                 fontWeightDelta: 2,
