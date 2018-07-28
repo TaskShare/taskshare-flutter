@@ -23,6 +23,7 @@ dependencies:
   path_provider:
   rxdart:
   cloud_firestore:
+  cached_network_image:
 
 dev_dependencies:
   flutter_test:
