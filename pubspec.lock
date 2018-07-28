@@ -192,7 +192,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.12.2+1"
   meta:
     dependency: transitive
     description:
@@ -220,7 +220,7 @@ packages:
       name: node_preamble
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.3"
+    version: "1.4.4"
   package_config:
     dependency: transitive
     description:
@@ -400,7 +400,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.6"
+    version: "2.0.8"
   vm_service_client:
     dependency: transitive
     description:
@@ -430,5 +430,5 @@ packages:
     source: hosted
     version: "2.1.15"
 sdks:
-  dart: ">=2.0.0-dev.62.0 <=2.0.0-dev.69.0.flutter-937ee2e8ca"
+  dart: ">=2.0.0-dev.62.0 <=2.0.0-dev.69.3.flutter-937ee2e8ca"
   flutter: ">=0.2.4 <2.0.0"
