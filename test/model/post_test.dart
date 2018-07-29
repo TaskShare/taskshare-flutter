@@ -5,7 +5,6 @@ void main() {
     final data = {'title': 'title_test'};
     final decoder = new TaskDecoder();
     final task = decoder.decode('id', data);
-    expect('id', task.id);
-    expect('title_test', task.title);
+    expect(new Task(id: 'id', title: 'title_test'), task);
   });
 }
