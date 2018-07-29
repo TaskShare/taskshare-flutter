@@ -1,24 +1,22 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:taskshare/bloc/account_provider.dart';
 import 'package:taskshare/export/export_ui.dart';
-import 'package:taskshare/model/account.dart';
 
-class Welcome extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => WelcomeState();
-}
+class Welcome extends StatelessWidget {
 
-class WelcomeState extends State<Welcome> {
-  bool _isLogginedIn = false;
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<Account>(builder: (context, child, model) {
-      return Scaffold(
-        body: _buildBody(model),
-      );
-    });
+    final accountBloc = AccountProvider.of(context);
+    return Scaffold(
+      body: StreamBuilder(
+        initialData: accountBloc.lastState,
+        builder: (context, AsyncSnapshot<AccountState> snap) {
+          return _buildBody(accountBloc);
+        },
+      ),
+    );
   }
 
-  Widget _buildBody(Account model) {
+  Widget _buildBody(AccountBloc bloc) {
     final List<Widget> children = [
       Center(
         child: Column(
@@ -30,31 +28,15 @@ class WelcomeState extends State<Welcome> {
             ),
             RaisedButton(
               child: Text('Googleログイン'),
-              onPressed: () async {
-                setState(() {
-                  _isLogginedIn = true;
-                });
-                setState(() {
-                  _isLogginedIn;
-                });
-                // TODO: リファクタリング
-                FirebaseUser user;
-                try {
-                  user = await model.signIn();
-                } catch (error) {
-                  log.warning(error);
-                }
-                log.info('user: $user');
-                setState(() {
-                  _isLogginedIn = false;
-                });
+              onPressed: () {
+                bloc.signIn();
               },
             )
           ],
         ),
       )
     ];
-    if (_isLogginedIn) {
+    if (bloc.lastState == AccountState.signingIn) {
       children.add(AppProgressIndicator(
         color: Colors.black.withAlpha(50),
       ));
@@ -64,3 +46,4 @@ class WelcomeState extends State<Welcome> {
     );
   }
 }
+

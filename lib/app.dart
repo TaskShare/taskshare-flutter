@@ -1,46 +1,36 @@
-import 'package:taskshare/bloc/tasks_provider.dart';
-import 'package:taskshare/model/account.dart';
+import 'package:taskshare/bloc/account_provider.dart';
 import 'package:taskshare/screens/home.dart';
 import 'package:taskshare/screens/input_task.dart';
 import 'package:taskshare/screens/setting.dart';
 import 'export/export_ui.dart';
 
 class App extends StatelessWidget {
-  final Account account;
+  final AccountBloc accountBloc;
 
-  App({@required this.account});
+  App({@required this.accountBloc});
   @override
   Widget build(BuildContext context) {
     log.warning('App build called');
-    return ScopedModel(
-      model: account,
-      child: ScopedModelDescendant<Account>(
-        builder: (context, child, model) {
-          // TODO: もっと上へ
-          final taskBloc = TasksBloc(groupName: account.user?.uid);
-          return TasksProvider(
-            bloc: taskBloc,
-            child: MaterialApp(
-              localizationsDelegates: [
-                AppLocalizationsDelegate(),
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate
-              ],
-              supportedLocales: [
-                Locale('en', 'US'),
-                Locale('ja', 'JP'),
-              ],
-              title: 'TaskShare',
-              theme: ThemeData(
-                  primarySwatch: Colors.deepPurple,
-                  accentColor: Colors.deepPurpleAccent,
-                  errorColor: Colors.red),
-              initialRoute: Home.routeName,
-              routes: _routes,
-              onGenerateRoute: _handleRoutes,
-            ),
-          );
-        },
+    return AccountProvider(
+      bloc: accountBloc,
+      child: MaterialApp(
+        localizationsDelegates: [
+          AppLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate
+        ],
+        supportedLocales: [
+          Locale('en', 'US'),
+          Locale('ja', 'JP'),
+        ],
+        title: 'TaskShare',
+        theme: ThemeData(
+            primarySwatch: Colors.deepPurple,
+            accentColor: Colors.deepPurpleAccent,
+            errorColor: Colors.red),
+        initialRoute: Home.routeName,
+        routes: _routes,
+        onGenerateRoute: _handleRoutes,
       ),
     );
   }

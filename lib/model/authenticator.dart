@@ -4,7 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class Authenticator {
   Future<FirebaseUser> signIn();
-  signOut();
+  Future<void> signOut();
 }
 
 class GoogleAuthenticator implements Authenticator {
@@ -25,9 +25,9 @@ class GoogleAuthenticator implements Authenticator {
     return firUser;
   }
 
-  signOut() async {
+  Future<void> signOut() async {
     // TODO:
 //    await _googleSignIn.signOut();
-    await _auth.signOut();
+    return _auth.signOut();
   }
 }

@@ -23,8 +23,8 @@ class TasksBloc {
     }).pipe(tasks);
   }
 
-  add(Task task) async {
-    await database.set(task);
+  add(Task task) {
+    database.set(task);
   }
 
   // TODO: call
