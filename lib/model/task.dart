@@ -17,13 +17,18 @@ class Task implements Entity {
       this.createTime,
       this.updateTime});
 
+  // MEMO: == はid比較だけにするべきかも？
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is Task &&
           runtimeType == other.runtimeType &&
           id == other.id &&
-          title == other.title;
+          title == other.title &&
+          doneTime == other.doneTime &&
+          dueTime == other.dueTime &&
+          createTime == other.createTime &&
+          updateTime == other.updateTime;
 
   @override
   int get hashCode => id.hashCode ^ title.hashCode;
