@@ -1,6 +1,6 @@
 import 'package:taskshare/export/export_model.dart';
 
-class Task extends Entity {
+class Task implements Entity {
   static final entity = 'tasks';
   final String id;
   final String title;
@@ -8,7 +8,7 @@ class Task extends Entity {
   Task({
     @required this.id,
     @required this.title,
-  }) : super(id: id);
+  });
 
   @override
   bool operator ==(Object other) =>

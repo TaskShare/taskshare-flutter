@@ -13,7 +13,6 @@ abstract class Database<T> {
 
 abstract class Entity {
   final String id;
-  Entity({@required this.id});
 }
 
 class AppDatabase<T extends Entity> implements Database<T> {
