@@ -36,7 +36,7 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
           _isInputting = true;
         });
         await _showModalBottomSheet(context);
-        await Future.delayed(Duration(milliseconds: 200));
+        await Future.delayed(Duration(milliseconds: 400));
         setState(() {
           _isInputting = false;
         });
