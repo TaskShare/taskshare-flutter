@@ -49,13 +49,17 @@ class TasksBloc {
         .pipe(tasks);
   }
 
-  update(Task task) async {
+  update(Task task) {
     final now = DateTime.now();
     if (task.createTime == null) {
       task.createTime = now;
     }
     task.updateTime = now;
-    await database.set(task);
+    database.set(task);
+  }
+
+  delete(Task task) {
+    database.delete(task);
   }
 
   // TODO: call

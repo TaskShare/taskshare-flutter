@@ -15,23 +15,31 @@ class TaskList extends StatelessWidget {
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
               final task = snapshot.data[index];
-              return Column(
+              return Dismissible(
                 key: Key(task.id),
-                children: <Widget>[
-                  ListTile(
-                    title: Text(task.title),
-                    leading: Checkbox(
-                      onChanged: (value) {
-                        task.done = value;
-                        bloc.update(task);
-                      },
-                      value: task.done,
+                onDismissed: (direction) {
+                  bloc.delete(task);
+                },
+                background: Container(
+                  color: Theme.of(context).errorColor,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      title: Text(task.title),
+                      leading: Checkbox(
+                        onChanged: (value) {
+                          task.done = value;
+                          bloc.update(task);
+                        },
+                        value: task.done,
+                      ),
                     ),
-                  ),
-                  Divider(
-                    height: 0.0,
-                  )
-                ],
+                    Divider(
+                      height: 0.0,
+                    )
+                  ],
+                ),
               );
             });
       },
