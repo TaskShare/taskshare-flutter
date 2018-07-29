@@ -28,12 +28,16 @@ dependencies:
   cached_network_image:
   shared_preferences:
   intl:
+  built_value:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   intl_translation:
+  build:
   build_runner:
+  source_gen:
+  built_value_generator:
 
 
 # For information on the generic Dart part of this file, see the
