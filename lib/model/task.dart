@@ -20,8 +20,7 @@ class TaskEncoder extends SnapshotEncoder<Task> {
 
 class TaskDecoder extends SnapshotDecoder<Task> {
   @override
-  Task decode(DocumentSnapshot snap) {
-    final data = snap.data;
-    return Task(id: snap.documentID, title: data['title']);
+  Task decode(String documentID, Map<String, dynamic> data) {
+    return Task(id: documentID, title: data['title']);
   }
 }

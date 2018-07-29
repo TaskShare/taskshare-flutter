@@ -29,19 +29,19 @@ class AppDatabase<T extends Entity> implements Database<T> {
   Stream<List<T>> entities(MakeQuery makeQuery) {
     return makeQuery(collectionRef).snapshots().map((snap) {
       return snap.documents.map((snap) {
-        return decoder.decode(snap);
+        return decoder.decode(snap.documentID, snap.data);
       }).toList();
     });
   }
 
   Stream<T> entity(String id) {
     final ref = collectionRef.document(id);
-    return ref.snapshots().map((snap) => decoder.decode(snap));
+    return ref.snapshots().map((snap) => decoder.decode(snap.documentID, snap.data));
   }
 
   Future<T> get(String id) async {
     final ref = collectionRef.document(id);
-    return decoder.decode(await ref.get());
+    return decoder.decode(ref.documentID, (await ref.get()).data);
   }
 
   Future<void> set(T entity) async {
@@ -56,7 +56,7 @@ class AppDatabase<T extends Entity> implements Database<T> {
 }
 
 abstract class SnapshotDecoder<T extends Entity> {
-  T decode(DocumentSnapshot snap);
+  T decode(String documentID, Map<String, dynamic> data);
 }
 
 abstract class SnapshotEncoder<T extends Entity> {
