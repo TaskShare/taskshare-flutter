@@ -19,12 +19,10 @@ class TasksBloc {
         decoder: TaskDecoder());
 
     database.entities((ref) {
-      return ref
-          .orderBy('${TaskProperties.dueTime}', descending: false);
+      return ref.orderBy('${TaskProperties.dueTime}', descending: false);
       // bug: https://github.com/flutter/flutter/issues/15928
 //          .orderBy(TaskProperties.createTime, descending: true);
-    })
-    .map((tasks) {
+    }).map((tasks) {
       tasks.sort((a, b) {
         final compareByCreate = () {
           return -a.createTime.compareTo(b.createTime);
@@ -44,9 +42,11 @@ class TasksBloc {
         }
         return compareByCreate();
       });
+      tasks.removeWhere((task) {
+        return task.doneTime != null && task.updateTime.compareTo(task.doneTime) > 0;
+      });
       return tasks;
-    })
-        .pipe(tasks);
+    }).pipe(tasks);
   }
 
   update(Task task) {

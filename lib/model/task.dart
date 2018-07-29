@@ -4,7 +4,7 @@ class Task implements Entity {
   static final entity = 'tasks';
   final String id;
   final String title;
-  bool done;
+  DateTime doneTime;
   DateTime dueTime;
   DateTime createTime;
   DateTime updateTime;
@@ -12,7 +12,7 @@ class Task implements Entity {
   Task(
       {@required this.id,
       @required this.title,
-        this.done = false,
+      this.doneTime,
       this.dueTime,
       this.createTime,
       this.updateTime});
@@ -35,7 +35,7 @@ class TaskEncoder extends SnapshotEncoder<Task> {
     return {
       Entity.idKey: entity.id,
       TaskProperties.title: entity.title,
-      TaskProperties.done: entity.done,
+      TaskProperties.doneTime: entity.doneTime,
       TaskProperties.dueTime: entity.dueTime,
       TaskProperties.createTime: entity.createTime,
       TaskProperties.updateTime: entity.updateTime
@@ -49,7 +49,7 @@ class TaskDecoder extends SnapshotDecoder<Task> {
     return Task(
       id: data[Entity.idKey],
       title: data[TaskProperties.title],
-      done: data[TaskProperties.done],
+      doneTime: data[TaskProperties.doneTime],
       dueTime: data[TaskProperties.dueTime],
       createTime: data[TaskProperties.createTime],
       updateTime: data[TaskProperties.updateTime],
@@ -60,7 +60,7 @@ class TaskDecoder extends SnapshotDecoder<Task> {
 // 'dart:mirrors'がDart 2では未実装なので
 class TaskProperties {
   static final title = 'title';
-  static final done = 'done';
+  static final doneTime = 'doneTime';
   static final dueTime = 'dueTime';
   static final createTime = 'createTime';
   static final updateTime = 'updateTime';
