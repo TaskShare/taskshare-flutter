@@ -13,28 +13,28 @@ class Task extends Entity {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Task &&
-              runtimeType == other.runtimeType &&
-              id == other.id &&
-              title == other.title;
+      other is Task &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          title == other.title;
 
   @override
-  int get hashCode =>
-      id.hashCode ^
-      title.hashCode;
-
+  int get hashCode => id.hashCode ^ title.hashCode;
 }
 
 class TaskEncoder extends SnapshotEncoder<Task> {
   @override
   Map<String, dynamic> encode(Task entity) {
-    return {'title': entity.title};
+    return {
+      'id': entity.id,
+      'title': entity.title,
+    };
   }
 }
 
 class TaskDecoder extends SnapshotDecoder<Task> {
   @override
-  Task decode(String documentID, Map<String, dynamic> data) {
-    return Task(id: documentID, title: data['title']);
+  Task decode(Map<String, dynamic> data) {
+    return Task(id: data['id'], title: data['title']);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:taskshare/export/export_model.dart';
 
 typedef MakeQuery = Query Function(CollectionReference collectionRef);
+final idKey = 'id';
 
 abstract class Database<T> {
   Stream<List<T>> entities(MakeQuery makeQuery);
@@ -29,24 +30,26 @@ class AppDatabase<T extends Entity> implements Database<T> {
   Stream<List<T>> entities(MakeQuery makeQuery) {
     return makeQuery(collectionRef).snapshots().map((snap) {
       return snap.documents.map((snap) {
-        return decoder.decode(snap.documentID, snap.data);
+        return decoder.decode(snap.data..[idKey] = snap.documentID);
       }).toList();
     });
   }
 
   Stream<T> entity(String id) {
     final ref = collectionRef.document(id);
-    return ref.snapshots().map((snap) => decoder.decode(snap.documentID, snap.data));
+    return ref
+        .snapshots()
+        .map((snap) => decoder.decode(snap.data..[idKey] = snap.documentID));
   }
 
   Future<T> get(String id) async {
     final ref = collectionRef.document(id);
-    return decoder.decode(ref.documentID, (await ref.get()).data);
+    return decoder.decode((await ref.get()).data..[idKey] = ref.documentID);
   }
 
   Future<void> set(T entity) async {
     final ref = collectionRef.document(entity.id);
-    return ref.setData(encoder.encode(entity), merge: true);
+    return ref.setData(encoder.encode(entity)..remove(idKey), merge: true);
   }
 
   Future<void> delete(T entity) async {
@@ -56,7 +59,7 @@ class AppDatabase<T extends Entity> implements Database<T> {
 }
 
 abstract class SnapshotDecoder<T extends Entity> {
-  T decode(String documentID, Map<String, dynamic> data);
+  T decode(Map<String, dynamic> data);
 }
 
 abstract class SnapshotEncoder<T extends Entity> {
