@@ -10,11 +10,12 @@ void main() {
     final decoder = new TaskDecoder();
     final task = decoder.decode(data);
     expect(
-        new Task(
-          id: 'id_test',
-          title: 'title_test',
-        ),
-        task);
+      new Task(
+        id: 'id_test',
+        title: 'title_test',
+      ),
+      task,
+    );
   });
 
   test('TaskEncoder test', () {
@@ -23,9 +24,12 @@ void main() {
       id: 'id_test',
       title: 'title_test',
     ));
-    expect({
-      'id': 'id_test',
-      'title': 'title_test',
-    }, data);
+    expect(
+      {
+        'id': 'id_test',
+        'title': 'title_test',
+      },
+      data,
+    );
   });
 }
