@@ -19,12 +19,43 @@ class TasksBloc {
         decoder: TaskDecoder());
 
     database.entities((ref) {
-      return ref;
-    }).pipe(tasks);
+      return ref
+          .orderBy('${TaskProperties.dueTime}', descending: false);
+      // bug: https://github.com/flutter/flutter/issues/15928
+//          .orderBy(TaskProperties.createTime, descending: true);
+    })
+    .map((tasks) {
+      tasks.sort((a, b) {
+        final compareByCreate = () {
+          return -a.createTime.compareTo(b.createTime);
+        };
+        if (a.dueTime == null) {
+          if (b.dueTime == null) {
+            return compareByCreate();
+          }
+          return 1;
+        }
+        if (b.dueTime == null) {
+          return -1;
+        }
+        final comparedByDue = a.dueTime.compareTo(b.dueTime);
+        if (comparedByDue != 0) {
+          return comparedByDue;
+        }
+        return compareByCreate();
+      });
+      return tasks;
+    })
+        .pipe(tasks);
   }
 
-  add(Task task) {
-    database.set(task);
+  update(Task task) async {
+    final now = DateTime.now();
+    if (task.createTime == null) {
+      task.createTime = now;
+    }
+    task.updateTime = now;
+    await database.set(task);
   }
 
   // TODO: call

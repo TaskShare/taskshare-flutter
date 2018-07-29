@@ -1,7 +1,6 @@
 import 'package:taskshare/export/export_model.dart';
 
 typedef MakeQuery = Query Function(CollectionReference collectionRef);
-final idKey = 'id';
 
 abstract class Database<T> {
   Stream<List<T>> entities(MakeQuery makeQuery);
@@ -12,6 +11,7 @@ abstract class Database<T> {
 }
 
 abstract class Entity {
+  static final idKey = 'id';
   final String id;
   Entity({@required this.id});
 }
@@ -30,7 +30,7 @@ class AppDatabase<T extends Entity> implements Database<T> {
   Stream<List<T>> entities(MakeQuery makeQuery) {
     return makeQuery(collectionRef).snapshots().map((snap) {
       return snap.documents.map((snap) {
-        return decoder.decode(snap.data..[idKey] = snap.documentID);
+        return decoder.decode(snap.data..[Entity.idKey] = snap.documentID);
       }).toList();
     });
   }
@@ -39,17 +39,17 @@ class AppDatabase<T extends Entity> implements Database<T> {
     final ref = collectionRef.document(id);
     return ref
         .snapshots()
-        .map((snap) => decoder.decode(snap.data..[idKey] = snap.documentID));
+        .map((snap) => decoder.decode(snap.data..[Entity.idKey] = snap.documentID));
   }
 
   Future<T> get(String id) async {
     final ref = collectionRef.document(id);
-    return decoder.decode((await ref.get()).data..[idKey] = ref.documentID);
+    return decoder.decode((await ref.get()).data..[Entity.idKey] = ref.documentID);
   }
 
   Future<void> set(T entity) async {
     final ref = collectionRef.document(entity.id);
-    return ref.setData(encoder.encode(entity)..remove(idKey), merge: true);
+    return ref.setData(encoder.encode(entity)..remove(Entity.idKey), merge: true);
   }
 
   Future<void> delete(T entity) async {

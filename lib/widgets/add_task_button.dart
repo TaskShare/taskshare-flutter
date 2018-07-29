@@ -97,12 +97,13 @@ class _AddTaskButton extends StatelessWidget {
 
   void _saveTask(TasksBloc bloc, BuildContext context) {
     final title = textController.text;
-    log.info('text: $title');
-    bloc.add(new Task(id: null, title: title));
+    final task = new Task(id: null, title: title);
+    log.info('wiil create task: $task');
+    bloc.update(task);
     _pop(context);
   }
 
   void _pop(BuildContext context) {
-    Navigator.of(context).pop('hoge');
+    Navigator.of(context).pop();
   }
 }

@@ -19,7 +19,7 @@ class InputTask extends StatelessWidget {
                 ),
               ),
               onPressed: () async {
-                await bloc.add(new Task(id: null, title: 'xxxx'));
+                await bloc.update(new Task(id: null, title: 'xxxx'));
               },
             ),
           ],

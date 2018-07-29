@@ -15,8 +15,23 @@ class TaskList extends StatelessWidget {
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {
               final task = snapshot.data[index];
-              return ListTile(
-                title: Text(task.title),
+              return Column(
+                key: Key(task.id),
+                children: <Widget>[
+                  ListTile(
+                    title: Text(task.title),
+                    leading: Checkbox(
+                      onChanged: (value) {
+                        task.done = value;
+                        bloc.update(task);
+                      },
+                      value: task.done,
+                    ),
+                  ),
+                  Divider(
+                    height: 0.0,
+                  )
+                ],
               );
             });
       },
