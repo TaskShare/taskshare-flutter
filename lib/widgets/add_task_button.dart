@@ -14,16 +14,32 @@ class AddTaskButton extends StatelessWidget {
   }
 }
 
-class _AddTaskButton extends StatelessWidget {
+class _AddTaskButton extends StatefulWidget {
+  @override
+  _AddTaskButtonState createState() => _AddTaskButtonState();
+}
+
+class _AddTaskButtonState extends State<_AddTaskButton> {
+  var _isInputting = false;
   final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    if (_isInputting) {
+      return Container();
+    }
     final l10n = L10N.of(context);
     return FloatingActionButton.extended(
       icon: Icon(Icons.add),
       label: Text(l10n.addTask),
       onPressed: () async {
-        _showModalBottomSheet(context);
+        setState(() {
+          _isInputting = true;
+        });
+        await _showModalBottomSheet(context);
+        await Future.delayed(Duration(milliseconds: 200));
+        setState(() {
+          _isInputting = false;
+        });
       },
     );
   }
