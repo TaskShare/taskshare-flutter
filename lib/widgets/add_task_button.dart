@@ -6,7 +6,8 @@ class AddTaskButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: Colors.transparent, // showModalBottomSheetの背景色をここだけ変えるためのWork Around
+        canvasColor: Colors
+            .transparent, // showModalBottomSheetの背景色をここだけ変えるためのWork Around
       ),
       child: _AddTaskButton(),
     );
@@ -14,6 +15,7 @@ class AddTaskButton extends StatelessWidget {
 }
 
 class _AddTaskButton extends StatelessWidget {
+  final textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final l10n = L10N.of(context);
@@ -49,6 +51,7 @@ class _AddTaskButton extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 TextField(
+                    controller: textController,
                     autofocus: true,
                     decoration: new InputDecoration(
                       border: InputBorder.none,
@@ -93,8 +96,9 @@ class _AddTaskButton extends StatelessWidget {
   }
 
   void _saveTask(TasksBloc bloc, BuildContext context) {
-    // TODO: save task
-    bloc.add(new Task(id: null, title: 'aaa'));
+    final title = textController.text;
+    log.info('text: $title');
+    bloc.add(new Task(id: null, title: title));
     _pop(context);
   }
 
