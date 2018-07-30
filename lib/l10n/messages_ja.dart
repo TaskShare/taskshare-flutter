@@ -17,9 +17,16 @@ typedef MessageIfAbsent(String message_str, List args);
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'ja';
 
+  static m0(title) => "削除: タスク「${title}」";
+
+  static m1(title) => "完了: タスク「${title}」";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "SAVE" : MessageLookupByLibrary.simpleMessage("保存"),
-    "addTask" : MessageLookupByLibrary.simpleMessage("タスクを追加")
+    "UNDO" : MessageLookupByLibrary.simpleMessage("元に戻す"),
+    "addTask" : MessageLookupByLibrary.simpleMessage("タスクを追加"),
+    "snackTaskDeleted" : m0,
+    "snackTaskDone" : m1
   };
 }

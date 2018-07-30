@@ -1,13 +1,32 @@
 {
-  "@@last_modified": "2018-07-28T17:04:02.472617",
+  "@@last_modified": "2018-07-30T15:20:37.916931",
   "addTask": "Add a new task",
   "@addTask": {
     "description": "Add a new task",
     "type": "text",
     "placeholders": {}
   },
+  "snackTaskDone": "Task \"{title}\" done",
+  "@snackTaskDone": {
+    "type": "text",
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "snackTaskDeleted": "Task \"{title}\" deleted",
+  "@snackTaskDeleted": {
+    "type": "text",
+    "placeholders": {
+      "title": {}
+    }
+  },
   "SAVE": "SAVE",
   "@SAVE": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "UNDO": "UNDO",
+  "@UNDO": {
     "type": "text",
     "placeholders": {}
   }

@@ -1,14 +1,33 @@
 {
-  "@@last_modified": "2018-07-28T16:52:29.881026",
+  "@@last_modified": "2018-07-30T15:20:37.916931",
   "addTask": "タスクを追加",
   "@addTask": {
     "description": "Add a new task",
     "type": "text",
     "placeholders": {}
   },
-     "SAVE": "保存",
-     "@SAVE": {
-       "type": "text",
-       "placeholders": {}
-     }
+  "snackTaskDone": "完了: タスク「{title}」",
+  "@snackTaskDone": {
+    "type": "text",
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "snackTaskDeleted": "削除: タスク「{title}」",
+  "@snackTaskDeleted": {
+    "type": "text",
+    "placeholders": {
+      "title": {}
+    }
+  },
+  "SAVE": "保存",
+  "@SAVE": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "UNDO": "元に戻す",
+  "@UNDO": {
+    "type": "text",
+    "placeholders": {}
+  }
 }

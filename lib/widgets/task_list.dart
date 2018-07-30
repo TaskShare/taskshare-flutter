@@ -1,6 +1,11 @@
 import 'package:taskshare/bloc/tasks_provider.dart';
 import 'package:taskshare/export/export_ui.dart';
 
+enum TaskCompletedKind {
+  done,
+  deleted
+}
+
 class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class TaskList extends StatelessWidget {
                 key: Key(task.id),
                 onDismissed: (direction) {
                   bloc.delete(task);
-                  _showDeletedPrompt(context, task);
+                  _showDonePrompt(context, task, TaskCompletedKind.deleted);
                 },
                 background: Container(
                   color: Theme.of(context).errorColor,
@@ -60,39 +65,38 @@ class TaskList extends StatelessWidget {
     await Future<void>.delayed(Duration(milliseconds: 500));
     task.updateTime = DateTime.now();
     await bloc.update(task);
-    _showDonePrompt(context, task);
+    _showDonePrompt(context, task, TaskCompletedKind.done);
   }
 
-  _showDonePrompt(BuildContext context, Task task) {
+  _showDonePrompt(BuildContext context, Task task, TaskCompletedKind kind) {
     final bloc = TasksProvider.of(context);
+    final l10n = L10N.of(context);
+    String title;
+    switch (kind) {
+      case TaskCompletedKind.done:
+        title = l10n.snackTaskDone(task.title);
+        break;
+      case TaskCompletedKind.deleted:
+        title = l10n.snackTaskDeleted(task.title);
+        break;
+    }
     Scaffold.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Task "${task.title}" done',
-        ), // TODO
-        action: SnackBarAction(
-          label: 'UNDO', // TODO
-          onPressed: () {
-            task.doneTime = null;
-            bloc.update(task);
-          },
+          title,
         ),
-      ),
-    );
-  }
-
-  // TODO: 上のメソッドと合体？
-  _showDeletedPrompt(BuildContext context, Task task) {
-    final bloc = TasksProvider.of(context);
-    Scaffold.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'Task "${task.title}" deleted',
-        ), // TODO
         action: SnackBarAction(
-          label: 'UNDO', // TODO
+          label: l10n.buttonUndo,
           onPressed: () {
-            bloc.update(task);
+            switch (kind) {
+              case TaskCompletedKind.done:
+                task.doneTime = null;
+                bloc.update(task);
+                break;
+              case TaskCompletedKind.deleted:
+                bloc.update(task);
+                break;
+            }
           },
         ),
       ),
