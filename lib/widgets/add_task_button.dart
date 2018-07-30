@@ -93,7 +93,7 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
                       child: Text(
                         l10n.buttonSave,
                       ),
-                      textTheme: ButtonTextTheme.primary,
+                      textTheme: ButtonTextTheme.accent,
                     ),
                   ],
                 ),
