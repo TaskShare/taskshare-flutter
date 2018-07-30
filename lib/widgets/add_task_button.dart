@@ -53,7 +53,7 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
         return Container(
           padding: MediaQuery.of(context).viewInsets,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.circular(10.0),
           ),
           child: Padding(
@@ -92,14 +92,8 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
                       },
                       child: Text(
                         l10n.buttonSave,
-                        style: Theme.of(context).primaryTextTheme.button.apply(
-                              color: Theme.of(context).accentColor,
-                              fontWeightDelta: 2,
-                            ),
                       ),
-                      color: Colors.white,
-                      splashColor: Colors.blue,
-                      textColor: Theme.of(context).accentColor,
+                      textTheme: ButtonTextTheme.primary,
                     ),
                   ],
                 ),

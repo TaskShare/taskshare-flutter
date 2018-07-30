@@ -10,13 +10,14 @@ class Welcome extends StatelessWidget {
       body: StreamBuilder(
         initialData: accountBloc.lastState,
         builder: (context, AsyncSnapshot<AccountState> snap) {
-          return _buildBody(accountBloc);
+          return _buildBody(context);
         },
       ),
     );
   }
 
-  Widget _buildBody(AccountBloc bloc) {
+  Widget _buildBody(BuildContext context) {
+    final accountBloc = AccountProvider.of(context);
     final List<Widget> children = [
       Center(
         child: Column(
@@ -29,16 +30,16 @@ class Welcome extends StatelessWidget {
             RaisedButton(
               child: Text('Googleログイン'),
               onPressed: () {
-                bloc.signIn();
+                accountBloc.signIn();
               },
             )
           ],
         ),
       )
     ];
-    if (bloc.lastState == AccountState.signingIn) {
+    if (accountBloc.lastState == AccountState.signingIn) {
       children.add(AppProgressIndicator(
-        color: Colors.black.withAlpha(50),
+        color: Theme.of(context).backgroundColor.withAlpha(50),
       ));
     }
     return Stack(
