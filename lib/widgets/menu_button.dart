@@ -5,11 +5,11 @@ import 'package:taskshare/screens/setting.dart';
 class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    AccountBloc accountBloc = AccountProvider.of(context);
-    return StreamBuilder(
+    final accountBloc = AccountProvider.of(context);
+    return StreamBuilder<FirebaseUser>(
       initialData: accountBloc.lastUser,
       stream: accountBloc.user,
-      builder: (context, AsyncSnapshot<FirebaseUser> snap) {
+      builder: (context, snap) {
         final user = snap.data;
         return IconButton(
           icon: ClipOval(

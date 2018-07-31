@@ -4,14 +4,14 @@ import 'package:taskshare/screens/task_scaffold.dart';
 import 'package:taskshare/screens/welcome.dart';
 
 class Home extends StatelessWidget {
-  static final routeName = '/';
+  static const routeName = '/';
   @override
   Widget build(BuildContext context) {
     final accountBloc = AccountProvider.of(context);
-    return StreamBuilder(
+    return StreamBuilder<AccountState>(
       initialData: accountBloc.lastState,
       stream: accountBloc.state,
-      builder: (context, AsyncSnapshot<AccountState> snapshot) {
+      builder: (context, snapshot) {
         switch (snapshot.data) {
           case AccountState.loading:
             return AppProgressIndicator();

@@ -1,3 +1,3 @@
 class Group {
-  static final entity = 'groups';
+  static const entity = 'groups';
 }

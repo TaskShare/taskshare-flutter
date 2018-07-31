@@ -3,14 +3,14 @@ import 'package:taskshare/bloc/account_provider.dart';
 import 'package:taskshare/export/export_ui.dart';
 
 class Setting extends StatelessWidget {
-  static const routeName = "/settings";
+  static const routeName = '/settings';
   @override
   Widget build(BuildContext context) {
     final accountBloc = AccountProvider.of(context);
-    return StreamBuilder(
+    return StreamBuilder<FirebaseUser>(
       initialData: accountBloc.lastUser,
       stream: accountBloc.user,
-      builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
+      builder: (context, snapshot) {
         final user = snapshot.data;
         return Scaffold(
             appBar: AppBar(
@@ -30,7 +30,7 @@ class Setting extends StatelessWidget {
                     style:  TextStyle(color: Theme.of(context).errorColor),
                   ),
                   onTap: () async {
-                    accountBloc.signOut.add({});
+                    accountBloc.signOut.add(null);
                     Navigator.of(context).pop();
                   },
                 )

@@ -6,17 +6,15 @@ export 'tasks_bloc.dart';
 class TasksProvider extends InheritedWidget {
   final TasksBloc bloc;
   TasksProvider({
-    Key key,
     @required Widget child,
     @required this.bloc,
+    Key key,
   }) : super(key: key, child: child);
 
   @override
-  bool updateShouldNotify(TasksProvider old) => old.bloc != bloc;
+  bool updateShouldNotify(TasksProvider oldWidget) => oldWidget.bloc != bloc;
 
-  static TasksBloc of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(TasksProvider)
-            as TasksProvider)
-        .bloc;
-  }
+  static TasksBloc of(BuildContext context) =>
+      (context.inheritFromWidgetOfExactType(TasksProvider) as TasksProvider)
+          .bloc;
 }

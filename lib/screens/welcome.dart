@@ -2,16 +2,13 @@ import 'package:taskshare/bloc/account_provider.dart';
 import 'package:taskshare/export/export_ui.dart';
 
 class Welcome extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final accountBloc = AccountProvider.of(context);
     return Scaffold(
-      body: StreamBuilder(
+      body: StreamBuilder<AccountState>(
         initialData: accountBloc.lastState,
-        builder: (context, AsyncSnapshot<AccountState> snap) {
-          return _buildBody(context);
-        },
+        builder: (context, snap) => _buildBody(context),
       ),
     );
   }
@@ -30,7 +27,7 @@ class Welcome extends StatelessWidget {
             RaisedButton(
               child: Text('Googleログイン'),
               onPressed: () {
-                accountBloc.signIn.add({});
+                accountBloc.signIn.add(null);
               },
             )
           ],
@@ -47,4 +44,3 @@ class Welcome extends StatelessWidget {
     );
   }
 }
-

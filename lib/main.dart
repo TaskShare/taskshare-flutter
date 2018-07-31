@@ -5,7 +5,7 @@ import 'export/export_ui.dart';
 void main() {
   AppLogger.configure();
   final accountBloc = AccountBloc();
-  runApp(new App(
+  runApp(App(
     accountBloc: accountBloc,
   ));
 }

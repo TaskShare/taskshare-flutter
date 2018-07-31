@@ -11,10 +11,10 @@ class TaskScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accountBloc = AccountProvider.of(context);
-    return StreamBuilder(
+    return StreamBuilder<FirebaseUser>(
       initialData: accountBloc.lastUser,
       stream: accountBloc.user,
-      builder: (context, AsyncSnapshot<FirebaseUser> snap) {
+      builder: (context, snap) {
         // TODO: ここで毎回インスタンス生成して良い？
         final tasksBloc = TasksBloc(groupName: snap.data.uid);
         return TasksProvider(
@@ -24,17 +24,16 @@ class TaskScaffold extends StatelessWidget {
             appBar: _buildAppBar(),
             body: TaskList(),
             floatingActionButton: AddTaskButton(),
-            floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
           ),
         );
       },
     );
   }
 
-  AppBar _buildAppBar() {
-    return AppBar(
+  AppBar _buildAppBar() => AppBar(
       title: Text('TaskShare'),
-      actions: <Widget>[MenuButton()],
+      actions: [MenuButton()],
     );
-  }
 }

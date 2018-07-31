@@ -9,11 +9,12 @@ abstract class Authenticator {
 
 class GoogleAuthenticator implements Authenticator {
   final _auth = FirebaseAuth.instance;
-  final _googleSignIn = new GoogleSignIn(scopes: [
+  final _googleSignIn = GoogleSignIn(scopes: [
     'email',
     'https://www.googleapis.com/auth/contacts.readonly',
   ]);
 
+  @override
   Future<FirebaseUser> signIn() async {
     final gAccount = await _googleSignIn.signIn();
     final gAuth = await gAccount.authentication;
@@ -25,9 +26,6 @@ class GoogleAuthenticator implements Authenticator {
     return firUser;
   }
 
-  Future<void> signOut() async {
-    // TODO:
-//    await _googleSignIn.signOut();
-    return _auth.signOut();
-  }
+  @override
+  Future<void> signOut() async => _auth.signOut();
 }

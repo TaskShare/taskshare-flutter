@@ -11,7 +11,7 @@ abstract class Database<T> {
 }
 
 abstract class Entity {
-  static final idKey = 'id';
+  static const idKey = 'id';
   final String id;
   Entity({@required this.id});
 }
@@ -27,31 +27,35 @@ class AppDatabase<T extends Entity> implements Database<T> {
     @required this.decoder,
   });
 
-  Stream<List<T>> entities(MakeQuery makeQuery) {
-    return makeQuery(collectionRef).snapshots().map((snap) {
-      return snap.documents.map((snap) {
-        return decoder.decode(snap.data..[Entity.idKey] = snap.documentID);
-      }).toList();
-    });
-  }
+  @override
+  Stream<List<T>> entities(MakeQuery makeQuery) =>
+      makeQuery(collectionRef).snapshots().map((snap) => snap.documents
+          .map((snap) =>
+              decoder.decode(snap.data..[Entity.idKey] = snap.documentID))
+          .toList());
 
+  @override
   Stream<T> entity(String id) {
     final ref = collectionRef.document(id);
-    return ref
-        .snapshots()
-        .map((snap) => decoder.decode(snap.data..[Entity.idKey] = snap.documentID));
+    return ref.snapshots().map(
+        (snap) => decoder.decode(snap.data..[Entity.idKey] = snap.documentID));
   }
 
+  @override
   Future<T> get(String id) async {
     final ref = collectionRef.document(id);
-    return decoder.decode((await ref.get()).data..[Entity.idKey] = ref.documentID);
+    return decoder
+        .decode((await ref.get()).data..[Entity.idKey] = ref.documentID);
   }
 
+  @override
   Future<void> set(T entity) async {
     final ref = collectionRef.document(entity.id);
-    return ref.setData(encoder.encode(entity)..remove(Entity.idKey), merge: true);
+    return ref.setData(encoder.encode(entity)..remove(Entity.idKey),
+        merge: true);
   }
 
+  @override
   Future<void> delete(T entity) async {
     final ref = collectionRef.document(entity.id);
     await ref.delete();

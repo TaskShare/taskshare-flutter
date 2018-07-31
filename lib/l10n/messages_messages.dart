@@ -25,8 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
   static _notInlinedMessages(_) => <String, Function> {
     "SAVE" : MessageLookupByLibrary.simpleMessage("SAVE"),
     "UNDO" : MessageLookupByLibrary.simpleMessage("UNDO"),
-    "addTask" : MessageLookupByLibrary.simpleMessage("Add a new task"),
-    "snackTaskDeleted" : m0,
-    "snackTaskDone" : m1
+    'addTask' : MessageLookupByLibrary.simpleMessage("Add a new task"),
+    'snackTaskDeleted' : m0,
+    'snackTaskDone' : m1
   };
 }

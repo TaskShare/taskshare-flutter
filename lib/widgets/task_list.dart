@@ -10,9 +10,9 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = TasksProvider.of(context);
-    return StreamBuilder(
+    return StreamBuilder<List<Task>>(
       stream: bloc.tasks,
-      builder: (context, AsyncSnapshot<List<Task>> snapshot) {
+      builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return AppProgressIndicator();
         }

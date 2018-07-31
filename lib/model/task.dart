@@ -1,7 +1,8 @@
 import 'package:taskshare/export/export_model.dart';
 
 class Task implements Entity {
-  static final entity = 'tasks';
+  static const entity = 'tasks';
+  @override
   final String id;
   final String title;
   DateTime doneTime;
@@ -36,8 +37,7 @@ class Task implements Entity {
 
 class TaskEncoder extends SnapshotEncoder<Task> {
   @override
-  Map<String, dynamic> encode(Task entity) {
-    return {
+  Map<String, dynamic> encode(Task entity) => {
       Entity.idKey: entity.id,
       TaskProperties.title: entity.title,
       TaskProperties.doneTime: entity.doneTime,
@@ -45,13 +45,11 @@ class TaskEncoder extends SnapshotEncoder<Task> {
       TaskProperties.createTime: entity.createTime,
       TaskProperties.updateTime: entity.updateTime
     };
-  }
 }
 
 class TaskDecoder extends SnapshotDecoder<Task> {
   @override
-  Task decode(Map<String, dynamic> data) {
-    return Task(
+  Task decode(Map<String, dynamic> data) => Task(
       id: data[Entity.idKey],
       title: data[TaskProperties.title],
       doneTime: data[TaskProperties.doneTime],
@@ -59,14 +57,13 @@ class TaskDecoder extends SnapshotDecoder<Task> {
       createTime: data[TaskProperties.createTime],
       updateTime: data[TaskProperties.updateTime],
     );
-  }
 }
 
 // 'dart:mirrors'がDart 2では未実装なので
 class TaskProperties {
-  static final title = 'title';
-  static final doneTime = 'doneTime';
-  static final dueTime = 'dueTime';
-  static final createTime = 'createTime';
-  static final updateTime = 'updateTime';
+  static const title = 'title';
+  static const doneTime = 'doneTime';
+  static const dueTime = 'dueTime';
+  static const createTime = 'createTime';
+  static const updateTime = 'updateTime';
 }

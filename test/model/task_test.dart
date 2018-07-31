@@ -11,10 +11,10 @@ void main() {
       'createTime': DateTime(2002),
       'updateTime': DateTime(2003)
     };
-    final decoder = new TaskDecoder();
+    final decoder = TaskDecoder();
     final task = decoder.decode(data);
     expect(
-      new Task(
+      Task(
           id: 'id_test',
           title: 'title_test',
           doneTime: DateTime(2000),
@@ -26,8 +26,8 @@ void main() {
   });
 
   test('TaskEncoder test', () {
-    final encoder = new TaskEncoder();
-    final data = encoder.encode(new Task(
+    final encoder = TaskEncoder();
+    final data = encoder.encode(Task(
         id: 'id_test',
         title: 'title_test',
         doneTime: DateTime(2000),

@@ -38,12 +38,10 @@ class App extends StatelessWidget {
     );
   }
 
-  Map<String, WidgetBuilder> get _routes {
-    return {
+  Map<String, WidgetBuilder> get _routes => {
       Home.routeName: (context) => Home(),
       Setting.routeName: (context) => Setting(),
     };
-  }
 
   Route _handleRoutes(RouteSettings settings) {
     switch (settings.name) {

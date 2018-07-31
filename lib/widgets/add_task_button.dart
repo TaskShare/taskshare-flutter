@@ -3,15 +3,13 @@ import 'package:taskshare/export/export_ui.dart';
 
 class AddTaskButton extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: Theme.of(context).copyWith(
-        canvasColor: Colors
-            .transparent, // showModalBottomSheetの背景色をここだけ変えるためのWork Around
-      ),
-      child: _AddTaskButton(),
-    );
-  }
+  Widget build(BuildContext context) => Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors
+              .transparent, // showModalBottomSheetの背景色をここだけ変えるためのWork Around
+        ),
+        child: _AddTaskButton(),
+      );
 }
 
 class _AddTaskButton extends StatefulWidget {
@@ -49,65 +47,63 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
     final l10n = L10N.of(context);
     return showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return Container(
-          padding: MediaQuery.of(context).viewInsets,
-          decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: 20.0,
-              right: 20.0,
-              top: 20.0,
-              bottom: 8.0,
+      builder: (context) => Container(
+            padding: MediaQuery.of(context).viewInsets,
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextField(
-                    controller: textController,
-                    autofocus: true,
-                    decoration: new InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'New Task',
-                    )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      padding: EdgeInsets.all(0.0),
-                      icon: Icon(
-                        Icons.open_in_new,
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 20.0,
+                right: 20.0,
+                top: 20.0,
+                bottom: 8.0,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  TextField(
+                      controller: textController,
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'New Task',
+                      )),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      IconButton(
+                        padding: EdgeInsets.all(0.0),
+                        icon: Icon(
+                          Icons.open_in_new,
+                        ),
+                        onPressed: () {
+                          _pop(context);
+                        },
+                        color: Theme.of(context).accentColor,
                       ),
-                      onPressed: () {
-                        _pop(context);
-                      },
-                      color: Theme.of(context).accentColor,
-                    ),
-                    FlatButton(
-                      onPressed: () async {
-                        _saveTask(bloc, context);
-                      },
-                      child: Text(
-                        l10n.buttonSave,
+                      FlatButton(
+                        onPressed: () async {
+                          _saveTask(bloc, context);
+                        },
+                        child: Text(
+                          l10n.buttonSave,
+                        ),
+                        textTheme: ButtonTextTheme.accent,
                       ),
-                      textTheme: ButtonTextTheme.accent,
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        );
-      },
     );
   }
 
   void _saveTask(TasksBloc bloc, BuildContext context) {
     final title = textController.text;
-    final task = new Task(id: null, title: title);
+    final task = Task(id: null, title: title);
     log.info('wiil create task: $task');
     bloc.taskUpdate.add(task);
     _pop(context);
