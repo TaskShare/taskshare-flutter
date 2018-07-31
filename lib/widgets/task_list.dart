@@ -64,7 +64,7 @@ class TaskList extends StatelessWidget {
     }
     await Future<void>.delayed(Duration(milliseconds: 500));
     task.updateTime = DateTime.now();
-    await bloc.taskUpdate.add(task);
+    bloc.taskUpdate.add(task);
     _showDonePrompt(context, task, TaskCompletedKind.done);
   }
 

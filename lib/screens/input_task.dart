@@ -18,8 +18,8 @@ class InputTask extends StatelessWidget {
                   color: Theme.of(context).canvasColor,
                 ),
               ),
-              onPressed: () async {
-                await bloc.taskUpdate.add(new Task(id: null, title: 'xxxx'));
+              onPressed: () {
+                bloc.taskUpdate.add(new Task(id: null, title: 'xxxx'));
               },
             ),
           ],
