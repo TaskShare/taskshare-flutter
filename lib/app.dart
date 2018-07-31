@@ -14,6 +14,7 @@ class App extends StatelessWidget {
     return AccountProvider(
       bloc: accountBloc,
       child: MaterialApp(
+//        debugShowCheckedModeBanner: true,
         localizationsDelegates: [
           AppLocalizationsDelegate(),
           GlobalMaterialLocalizations.delegate,
@@ -24,6 +25,8 @@ class App extends StatelessWidget {
           Locale('ja', 'JP'),
         ],
         title: 'TaskShare',
+//        theme: ThemeData.dark(),
+//        theme: ThemeData.light(),
         theme: ThemeData(
             primarySwatch: Colors.deepPurple,
             accentColor: Colors.deepPurpleAccent,

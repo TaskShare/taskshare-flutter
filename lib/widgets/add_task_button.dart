@@ -109,7 +109,7 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
     final title = textController.text;
     final task = new Task(id: null, title: title);
     log.info('wiil create task: $task');
-    bloc.update(task);
+    bloc.taskUpdate.add(task);
     _pop(context);
   }
 

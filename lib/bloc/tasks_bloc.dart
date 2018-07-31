@@ -7,7 +7,12 @@ class TasksBloc {
   final _firestore = Firestore.instance;
   final String groupName;
   Database<Task> database;
-  final tasks = BehaviorSubject<List<Task>>();
+  final _tasks = BehaviorSubject<List<Task>>();
+  final _taskUpdateController = StreamController<Task>();
+  final _taskDeletionController = StreamController<Task>();
+  Stream<List<Task>> get tasks => _tasks.stream;
+  Sink<Task> get taskUpdate => _taskUpdateController.sink;
+  Sink<Task> get taskDeletion => _taskDeletionController.sink;
 
   TasksBloc({@required this.groupName}) {
     database = AppDatabase(
@@ -46,24 +51,26 @@ class TasksBloc {
         return task.doneTime != null && task.updateTime.compareTo(task.doneTime) > 0;
       });
       return tasks;
-    }).pipe(tasks);
-  }
+    }).pipe(_tasks);
 
-  update(Task task) {
-    final now = DateTime.now();
-    if (task.createTime == null) {
-      task.createTime = now;
-    }
-    task.updateTime = now;
-    database.set(task);
-  }
+    _taskUpdateController.stream.listen((task) {
+      final now = DateTime.now();
+      if (task.createTime == null) {
+        task.createTime = now;
+      }
+      task.updateTime = now;
+      database.set(task);
+    });
 
-  delete(Task task) {
-    database.delete(task);
+    _taskDeletionController.stream.listen((task) {
+      database.delete(task);
+    });
   }
 
   // TODO: call
   dispose() {
-    tasks.close();
+    _taskUpdateController.close();
+    _taskDeletionController.close();
+    _tasks.close();
   }
 }

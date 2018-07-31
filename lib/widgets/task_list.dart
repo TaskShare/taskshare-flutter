@@ -23,7 +23,7 @@ class TaskList extends StatelessWidget {
               return Dismissible(
                 key: Key(task.id),
                 onDismissed: (direction) {
-                  bloc.delete(task);
+                  bloc.taskDeletion.add(task);
                   _showDonePrompt(context, task, TaskCompletedKind.deleted);
                 },
                 background: Container(
@@ -58,13 +58,13 @@ class TaskList extends StatelessWidget {
     } else {
       task.doneTime = null;
     }
-    bloc.update(task);
+    bloc.taskUpdate.add(task);
     if (!checked) {
       return;
     }
     await Future<void>.delayed(Duration(milliseconds: 500));
     task.updateTime = DateTime.now();
-    await bloc.update(task);
+    await bloc.taskUpdate.add(task);
     _showDonePrompt(context, task, TaskCompletedKind.done);
   }
 
@@ -91,10 +91,10 @@ class TaskList extends StatelessWidget {
             switch (kind) {
               case TaskCompletedKind.done:
                 task.doneTime = null;
-                bloc.update(task);
+                bloc.taskUpdate.add(task);
                 break;
               case TaskCompletedKind.deleted:
-                bloc.update(task);
+                bloc.taskUpdate.add(task);
                 break;
             }
           },
