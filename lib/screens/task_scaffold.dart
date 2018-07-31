@@ -15,6 +15,7 @@ class TaskScaffold extends StatelessWidget {
       initialData: accountBloc.lastUser,
       stream: accountBloc.user,
       builder: (context, AsyncSnapshot<FirebaseUser> snap) {
+        // TODO: ここで毎回インスタンス生成して良い？
         final tasksBloc = TasksBloc(groupName: snap.data.uid);
         return TasksProvider(
           bloc: tasksBloc,
