@@ -30,7 +30,7 @@ class Welcome extends StatelessWidget {
             RaisedButton(
               child: Text('Googleログイン'),
               onPressed: () {
-                accountBloc.signIn();
+                accountBloc.signIn.add({});
               },
             )
           ],

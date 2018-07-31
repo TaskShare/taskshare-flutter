@@ -16,27 +16,36 @@ class AccountBloc {
   Observable<AccountState> get state => _state.stream;
   AccountState get lastState => _state.value;
 
+  final _signInController = StreamController<void>();
+  Sink<void> get signIn => _signInController.sink;
+
+  final _signOutController = StreamController<void>();
+  Sink<void> get signOut => _signOutController.sink;
+
+
   AccountBloc() {
     _auth.onAuthStateChanged.map((user) {
       log.info('onAuthStateChanged: $user');
       _state.add(user == null ? AccountState.signedOut : AccountState.signedIn);
       return user;
     }).pipe(_user);
-  }
 
-  signIn() {
-    assert(lastState == AccountState.signedOut);
-    _state.add(AccountState.signingIn);
-    _googleAuth.signIn();
-  }
+    _signInController.stream.listen((_) {
+      assert(lastState == AccountState.signedOut);
+      _state.add(AccountState.signingIn);
+      _googleAuth.signIn();
+    });
 
-  signOut() {
-    assert(lastState == AccountState.signedIn);
-    _state.add(AccountState.singingOut);
-    _googleAuth.signOut();
+    _signOutController.stream.listen((_) {
+      assert(lastState == AccountState.signedIn);
+      _state.add(AccountState.singingOut);
+      _googleAuth.signOut();
+    });
   }
 
   dispose() {
     _user.close();
+    _signInController.close();
+    _signOutController.close();
   }
 }

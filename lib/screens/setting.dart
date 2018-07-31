@@ -30,7 +30,7 @@ class Setting extends StatelessWidget {
                     style:  TextStyle(color: Theme.of(context).errorColor),
                   ),
                   onTap: () async {
-                    await accountBloc.signOut();
+                    accountBloc.signOut.add({});
                     Navigator.of(context).pop();
                   },
                 )
