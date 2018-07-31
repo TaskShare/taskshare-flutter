@@ -50,6 +50,7 @@ class TasksBloc {
       tasks.removeWhere((task) {
         return task.doneTime != null && task.updateTime.compareTo(task.doneTime) > 0;
       });
+      log.info('tasks: $tasks');
       return tasks;
     }).pipe(_tasks);
 
