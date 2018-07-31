@@ -1,8 +1,9 @@
 analyzer:
-#  strong-mode:
-#    implicit-casts: false
-  errors:
-    todo: warning
+  strong-mode:
+    implicit-casts: false
+#    implicit-dynamic: false
+#  errors:
+#    todo: warning
   exclude:
     - lib/l10n/messages_*.dart
 

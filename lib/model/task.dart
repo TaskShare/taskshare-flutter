@@ -62,12 +62,12 @@ class TaskEncoder extends SnapshotEncoder<Task> {
 class TaskDecoder extends SnapshotDecoder<Task> {
   @override
   Task decode(Map<String, dynamic> data) => Task(
-        id: data[Entity.idKey],
-        title: data[TaskProperties.title],
-        doneTime: data[TaskProperties.doneTime],
-        dueTime: data[TaskProperties.dueTime],
-        createTime: data[TaskProperties.createTime],
-        updateTime: data[TaskProperties.updateTime],
+        id: data[Entity.idKey] as String,
+        title: data[TaskProperties.title] as String,
+        doneTime: data[TaskProperties.doneTime] as DateTime,
+        dueTime: data[TaskProperties.dueTime] as DateTime,
+        createTime: data[TaskProperties.createTime] as DateTime,
+        updateTime: data[TaskProperties.updateTime] as DateTime,
       );
 }
 
