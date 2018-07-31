@@ -12,7 +12,7 @@ class TasksProvider extends InheritedWidget {
   }) : super(key: key, child: child);
 
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) => true;
+  bool updateShouldNotify(TasksProvider old) => old.bloc != bloc;
 
   static TasksBloc of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(TasksProvider)

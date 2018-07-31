@@ -13,7 +13,7 @@ class AccountProvider extends InheritedWidget {
   }) : super(key: key, child: child);
 
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) => true;
+  bool updateShouldNotify(AccountProvider old) => old.bloc != bloc;
 
   static AccountBloc of(BuildContext context) {
     return (context.inheritFromWidgetOfExactType(AccountProvider)
