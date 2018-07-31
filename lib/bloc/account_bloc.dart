@@ -41,7 +41,7 @@ class AccountBloc {
   final _signOutController = StreamController<void>();
   Sink<void> get signOut => _signOutController.sink;
 
-
+  // TODO: call
   dispose() {
     _user.close();
     _signInController.close();
