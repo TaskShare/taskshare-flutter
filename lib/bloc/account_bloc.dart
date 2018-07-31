@@ -35,4 +35,8 @@ class AccountBloc {
     _state.add(AccountState.singingOut);
     _googleAuth.signOut();
   }
+
+  dispose() {
+    _user.close();
+  }
 }
