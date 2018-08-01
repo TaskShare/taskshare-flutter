@@ -7,6 +7,7 @@ void main() {
   AppLogger.configure();
   final accountBloc = AccountBloc();
   final tasksBloc = TasksBloc();
+  accountBloc.user.map((user) => user?.uid).listen(tasksBloc.groupChanger.add);
   runApp(App(
     accountBloc: accountBloc,
     tasksBloc: tasksBloc,

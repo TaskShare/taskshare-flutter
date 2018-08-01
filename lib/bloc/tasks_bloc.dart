@@ -8,12 +8,17 @@ class TasksBloc {
     log.info('TasksBloc constructor called');
 
     _groupChangeController.stream.listen((groupName) {
+      if (groupName == null) {
+        log.info('same group name is null');
+        _groupName = groupName;
+        return;
+      }
       if (_groupName == groupName) {
         log.info('same group name: $groupName');
         return;
       }
       _groupName = groupName;
-      database = AppDatabase(
+      _database = AppDatabase(
           collectionRef: _firestore
               .collection(Group.entity)
               .document(groupName)
@@ -21,10 +26,11 @@ class TasksBloc {
           encoder: TaskEncoder(),
           decoder: TaskDecoder());
 
-      database
+      _database
           .entities((ref) =>
               ref.orderBy('${TaskProperties.dueTime}', descending: false))
           .map((tasks) {
+        log.info('tasks: $tasks');
         tasks
           ..sort((a, b) {
             compareByCreate() => -a.createTime.compareTo(b.createTime);
@@ -46,25 +52,24 @@ class TasksBloc {
           ..removeWhere((task) =>
               task.doneTime != null &&
               task.updateTime.compareTo(task.doneTime) > 0);
-        log.info('tasks: $tasks');
         return tasks;
-      }).pipe(_tasks);
+      }).listen(_tasks.add);
     });
 
     _taskUpdateController.stream.listen((task) {
       final now = DateTime.now();
       task.createTime ??= now;
       task.updateTime = now;
-      database.set(task);
+      _database.set(task);
     });
 
     _taskDeletionController.stream.listen((task) {
-      database.delete(task);
+      _database.delete(task);
     });
   }
   final _firestore = Firestore.instance;
   String _groupName;
-  Database<Task> database;
+  Database<Task> _database;
   final _tasks = BehaviorSubject<List<Task>>();
   final _groupChangeController = StreamController<String>();
   final _taskUpdateController = StreamController<Task>();

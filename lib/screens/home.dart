@@ -1,5 +1,4 @@
 import 'package:taskshare/bloc/account_provider.dart';
-import 'package:taskshare/bloc/tasks_provider.dart';
 import 'package:taskshare/export/export_ui.dart';
 import 'package:taskshare/screens/task_scaffold.dart';
 import 'package:taskshare/screens/welcome.dart';
@@ -21,8 +20,6 @@ class Home extends StatelessWidget {
             return Welcome();
           case AccountState.signedIn:
           case AccountState.singingOut:
-            final tasksBloc = TasksProvider.of(context);
-            tasksBloc.groupChanger.add(accountBloc.lastUser.uid);
             return TaskScaffold();
         }
         assert(false);
