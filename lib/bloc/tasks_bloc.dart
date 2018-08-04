@@ -67,6 +67,13 @@ class TasksBloc {
       _database.delete(task);
     });
   }
+
+  Stream<List<Task>> get tasks => _tasks.stream;
+
+  Sink<String> get groupChanger => _groupChangeController.sink;
+  Sink<Task> get taskUpdate => _taskUpdateController.sink;
+  Sink<Task> get taskDeletion => _taskDeletionController.sink;
+
   final _firestore = Firestore.instance;
   String _groupName;
   Database<Task> _database;
@@ -74,10 +81,6 @@ class TasksBloc {
   final _groupChangeController = StreamController<String>();
   final _taskUpdateController = StreamController<Task>();
   final _taskDeletionController = StreamController<Task>();
-  Stream<List<Task>> get tasks => _tasks.stream;
-  Sink<String> get groupChanger => _groupChangeController.sink;
-  Sink<Task> get taskUpdate => _taskUpdateController.sink;
-  Sink<Task> get taskDeletion => _taskDeletionController.sink;
 
   // TODO: call
   dispose() {
