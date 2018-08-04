@@ -8,7 +8,6 @@ class Setting extends StatelessWidget {
   Widget build(BuildContext context) {
     final accountBloc = AccountProvider.of(context);
     return StreamBuilder<FirebaseUser>(
-      initialData: accountBloc.lastUser,
       stream: accountBloc.user,
       builder: (context, snapshot) {
         final user = snapshot.data;
@@ -19,7 +18,7 @@ class Setting extends StatelessWidget {
             body: ListView(
               children: <Widget>[
                 ListTile(
-                  title: Text(user.toString()),
+                  title: Text(user?.toString() ?? ''),
                 ),
                 Divider(
                   height: 1.0,

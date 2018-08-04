@@ -13,33 +13,33 @@ class AccountBloc {
     }).pipe(_user);
 
     _signInController.stream.listen((_) {
-      assert(lastState == AccountState.signedOut);
+      assert(_state.value == AccountState.signedOut);
       _state.add(AccountState.signingIn);
       _googleAuth.signIn();
     });
 
     _signOutController.stream.listen((_) {
-      assert(lastState == AccountState.signedIn);
+      assert(_state.value == AccountState.signedIn);
       _state.add(AccountState.singingOut);
       _googleAuth.signOut();
     });
   }
+
+  Observable<FirebaseUser> get user => _user.stream;
+  Observable<AccountState> get state => _state.stream;
+
+  Sink<void> get signIn => _signInController.sink;
+  Sink<void> get signOut => _signOutController.sink;
+
   final Authenticator _googleAuth = GoogleAuthenticator();
   final _auth = FirebaseAuth.instance;
 
   final _user = BehaviorSubject<FirebaseUser>();
-  Observable<FirebaseUser> get user => _user.stream;
-  FirebaseUser get lastUser => _user.value;
-
   final _state = BehaviorSubject<AccountState>(seedValue: AccountState.loading);
-  Observable<AccountState> get state => _state.stream;
-  AccountState get lastState => _state.value;
 
   final _signInController = StreamController<void>();
-  Sink<void> get signIn => _signInController.sink;
 
   final _signOutController = StreamController<void>();
-  Sink<void> get signOut => _signOutController.sink;
 
   // TODO: call
   dispose() {
