@@ -1,4 +1,4 @@
-import 'package:taskshare/export/export_model.dart';
+import 'package:taskshare/model/model.dart';
 
 class Task implements Entity {
   static const entity = 'tasks';

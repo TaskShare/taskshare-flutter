@@ -1,5 +1,5 @@
 import 'package:taskshare/bloc/tasks_provider.dart';
-import 'package:taskshare/export/export_ui.dart';
+import 'package:taskshare/widgets/widgets.dart';
 
 enum TaskCompletedKind {
   done,

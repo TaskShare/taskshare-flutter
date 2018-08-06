@@ -1,5 +1,5 @@
 import 'package:taskshare/model/task.dart';
-import '../export.dart';
+import '../test.dart';
 
 void main() {
   test('TaskDecoder test', () {

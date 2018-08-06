@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskshare/export/export.dart';
+import 'package:taskshare/lib.dart';
 import 'tasks_bloc.dart';
 export 'tasks_bloc.dart';
 

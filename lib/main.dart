@@ -1,7 +1,7 @@
 import 'package:taskshare/app.dart';
 import 'package:taskshare/bloc/account_bloc.dart';
 import 'package:taskshare/bloc/tasks_bloc.dart';
-import 'export/export_ui.dart';
+import 'package:taskshare/widgets/widgets.dart';
 
 void main() {
   AppLogger.configure();

@@ -1,4 +1,4 @@
-import 'package:taskshare/export/export_model.dart';
+import 'package:taskshare/model/model.dart';
 
 typedef MakeQuery = Query Function(CollectionReference collectionRef);
 

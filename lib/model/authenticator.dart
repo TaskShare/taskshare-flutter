@@ -1,4 +1,4 @@
-import 'package:taskshare/export/export_model.dart';
+import 'package:taskshare/model/model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 

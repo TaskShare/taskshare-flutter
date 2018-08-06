@@ -1,4 +1,4 @@
-import 'package:taskshare/export/export_ui.dart';
+import 'package:taskshare/widgets/widgets.dart';
 
 class AppProgressIndicator extends StatelessWidget {
   final Color color;

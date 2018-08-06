@@ -3,7 +3,7 @@ import 'package:taskshare/bloc/tasks_provider.dart';
 import 'package:taskshare/screens/home.dart';
 import 'package:taskshare/screens/input_task.dart';
 import 'package:taskshare/screens/setting.dart';
-import 'export/export_ui.dart';
+import 'package:taskshare/widgets/widgets.dart';
 
 class App extends StatelessWidget {
   final AccountBloc accountBloc;

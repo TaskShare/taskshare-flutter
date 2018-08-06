@@ -1,4 +1,4 @@
-import 'package:taskshare/export/export_model.dart';
+import 'package:taskshare/model/model.dart';
 import 'package:taskshare/model/group.dart';
 import 'package:taskshare/model/task.dart';
 export 'package:taskshare/model/task.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskshare/export/export_model.dart';
+import 'package:taskshare/model/model.dart';
 import 'account_bloc.dart';
 export 'package:firebase_auth/firebase_auth.dart';
 export 'account_bloc.dart';

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taskshare/bloc/account_provider.dart';
-import 'package:taskshare/export/export_ui.dart';
+import 'package:taskshare/widgets/widgets.dart';
 
 class Setting extends StatelessWidget {
   static const routeName = '/settings';
