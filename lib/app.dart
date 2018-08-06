@@ -15,7 +15,7 @@ class App extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    log.warning('App build called');
+    log.finest('App build called');
     return AccountProvider(
       bloc: accountBloc,
       child: TasksProvider(

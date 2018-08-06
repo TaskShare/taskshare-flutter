@@ -30,7 +30,7 @@ class TasksBloc {
           .entities((ref) =>
               ref.orderBy('${TaskProperties.dueTime}', descending: false))
           .map((tasks) {
-        log.info('tasks: $tasks');
+        log.info('tasks updated');
         tasks
           ..sort((a, b) {
             compareByCreate() => -a.createTime.compareTo(b.createTime);
