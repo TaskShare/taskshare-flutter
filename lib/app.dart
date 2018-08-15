@@ -1,48 +1,33 @@
-import 'package:taskshare/bloc/account_provider.dart';
-import 'package:taskshare/bloc/tasks_provider.dart';
 import 'package:taskshare/screens/home.dart';
 import 'package:taskshare/screens/input_task.dart';
 import 'package:taskshare/screens/setting.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class App extends StatelessWidget {
-  final AccountBloc accountBloc;
-  final TasksBloc tasksBloc;
-
-  App({
-    @required this.accountBloc,
-    @required this.tasksBloc,
-  });
   @override
   Widget build(BuildContext context) {
     log.finest('App build called');
-    return AccountProvider(
-      bloc: accountBloc,
-      child: TasksProvider(
-        bloc: tasksBloc,
-        child: MaterialApp(
+    return MaterialApp(
 //        debugShowCheckedModeBanner: true,
-          localizationsDelegates: [
-            AppLocalizationsDelegate(),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate
-          ],
-          supportedLocales: [
-            Locale('en', 'US'),
-            Locale('ja', 'JP'),
-          ],
-          title: 'TaskShare',
+      localizationsDelegates: [
+        AppLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: [
+        Locale('en', 'US'),
+        Locale('ja', 'JP'),
+      ],
+      title: 'TaskShare',
 //        theme: ThemeData.dark(),
 //        theme: ThemeData.light(),
-          theme: ThemeData(
-              primarySwatch: Colors.deepPurple,
-              accentColor: Colors.deepPurpleAccent,
-              errorColor: Colors.red),
-          initialRoute: Home.routeName,
-          routes: _routes,
-          onGenerateRoute: _handleRoutes,
-        ),
-      ),
+      theme: ThemeData(
+          primarySwatch: Colors.deepPurple,
+          accentColor: Colors.deepPurpleAccent,
+          errorColor: Colors.red),
+      initialRoute: Home.routeName,
+      routes: _routes,
+      onGenerateRoute: _handleRoutes,
     );
   }
 

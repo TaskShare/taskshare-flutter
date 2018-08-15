@@ -1,18 +1,21 @@
-import 'package:taskshare/model/model.dart';
+import 'package:taskshare/model/authenticator.dart';
 import 'package:taskshare/model/group.dart';
+import 'package:taskshare/model/model.dart';
 import 'package:taskshare/model/task.dart';
+
 export 'package:taskshare/model/task.dart';
 
 class TasksBloc {
-  TasksBloc() {
+  TasksBloc({@required this.authenticator}) {
     log.info('TasksBloc constructor called');
 
-    _groupChangeController.stream.listen((groupName) {
-      if (groupName == null) {
+    authenticator.user.listen((user) {
+      if (user == null) {
         log.info('same group name is null');
-        _groupName = groupName;
+        _groupName = null;
         return;
       }
+      final groupName = user.uid;
       if (_groupName == groupName) {
         log.info('same group name: $groupName');
         return;
@@ -70,21 +73,20 @@ class TasksBloc {
 
   Stream<List<Task>> get tasks => _tasks.stream;
 
-  Sink<String> get groupChanger => _groupChangeController.sink;
   Sink<Task> get taskUpdate => _taskUpdateController.sink;
+
   Sink<Task> get taskDeletion => _taskDeletionController.sink;
 
+  final Authenticator authenticator;
   final _firestore = Firestore.instance;
   String _groupName;
   Database<Task> _database;
   final _tasks = BehaviorSubject<List<Task>>();
-  final _groupChangeController = StreamController<String>();
   final _taskUpdateController = StreamController<Task>();
   final _taskDeletionController = StreamController<Task>();
 
   // TODO: call
   dispose() {
-    _groupChangeController.close();
     _taskUpdateController.close();
     _taskDeletionController.close();
     _tasks.close();

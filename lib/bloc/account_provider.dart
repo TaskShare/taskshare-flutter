@@ -5,6 +5,7 @@ import 'account_bloc.dart';
 
 export 'package:firebase_auth/firebase_auth.dart';
 
+export '../model/authenticator.dart';
 export 'account_bloc.dart';
 
 class AccountProvider extends InheritedWidget {
