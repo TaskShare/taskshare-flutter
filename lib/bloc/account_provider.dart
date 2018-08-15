@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:taskshare/model/model.dart';
+
 import 'account_bloc.dart';
+
 export 'package:firebase_auth/firebase_auth.dart';
+
 export 'account_bloc.dart';
 
 class AccountProvider extends InheritedWidget {
   final AccountBloc bloc;
+
   AccountProvider({
     @required Widget child,
     @required this.bloc,
