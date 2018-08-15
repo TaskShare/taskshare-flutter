@@ -21,7 +21,7 @@ packages:
       name: args
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.4.4"
+    version: "1.5.0"
   async:
     dependency: transitive
     description:
@@ -63,14 +63,14 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0"
+    version: "0.10.1"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.0"
+    version: "0.3.1"
   built_collection:
     dependency: transitive
     description:
@@ -423,7 +423,7 @@ packages:
     source: hosted
     version: "0.1.2+2"
   quiver:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: quiver
       url: "https://pub.dartlang.org"
@@ -477,7 +477,7 @@ packages:
       name: shelf_web_socket
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.2+3"
+    version: "0.2.2+4"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -617,5 +617,5 @@ packages:
     source: hosted
     version: "2.1.15"
 sdks:
-  dart: ">=2.0.0-dev.65 <=2.0.0-dev.69.5.flutter-8bad5c7b29"
+  dart: ">=2.0.0-dev.65 <=2.0.0-dev.69.5.flutter-eab492385c"
   flutter: ">=0.2.4 <2.0.0"

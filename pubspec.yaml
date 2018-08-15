@@ -29,6 +29,7 @@ dependencies:
   shared_preferences:
   intl:
   built_value:
+  quiver:
 
 dev_dependencies:
   flutter_test:
