@@ -1,13 +1,15 @@
-import 'package:taskshare/bloc/account_provider.dart';
-import 'package:taskshare/widgets/widgets.dart';
+import 'package:taskshare/bloc/BlocProvider.dart';
+import 'package:taskshare/bloc/account_bloc.dart';
 import 'package:taskshare/screens/task_scaffold.dart';
 import 'package:taskshare/screens/welcome.dart';
+import 'package:taskshare/widgets/widgets.dart';
 
 class Home extends StatelessWidget {
   static const routeName = '/';
+
   @override
   Widget build(BuildContext context) {
-    final accountBloc = AccountProvider.of(context);
+    final accountBloc = BlocProvider.of<AccountBloc>(context);
     return StreamBuilder<AccountState>(
       initialData: AccountState.loading,
       stream: accountBloc.state,

@@ -1,15 +1,13 @@
-import 'package:taskshare/bloc/tasks_provider.dart';
+import 'package:taskshare/bloc/BlocProvider.dart';
+import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
-enum TaskCompletedKind {
-  done,
-  deleted
-}
+enum TaskCompletedKind { done, deleted }
 
 class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final bloc = TasksProvider.of(context);
+    final bloc = BlocProvider.of<TasksBloc>(context);
     return StreamBuilder<List<Task>>(
       stream: bloc.tasks,
       builder: (context, snapshot) {
@@ -52,7 +50,7 @@ class TaskList extends StatelessWidget {
   }
 
   _handleChecked(bool checked, BuildContext context, Task task) async {
-    final bloc = TasksProvider.of(context);
+    final bloc = BlocProvider.of<TasksBloc>(context);
     if (checked) {
       task.doneTime = DateTime.now();
     } else {
@@ -69,7 +67,7 @@ class TaskList extends StatelessWidget {
   }
 
   _showDonePrompt(BuildContext context, Task task, TaskCompletedKind kind) {
-    final bloc = TasksProvider.of(context);
+    final bloc = BlocProvider.of<TasksBloc>(context);
     final l10n = L10N.of(context);
     String title;
     switch (kind) {
@@ -81,25 +79,25 @@ class TaskList extends StatelessWidget {
         break;
     }
     Scaffold.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          title,
-        ),
-        action: SnackBarAction(
-          label: l10n.buttonUndo,
-          onPressed: () {
-            switch (kind) {
-              case TaskCompletedKind.done:
-                task.doneTime = null;
-                bloc.taskUpdate.add(task);
-                break;
-              case TaskCompletedKind.deleted:
-                bloc.taskUpdate.add(task);
-                break;
-            }
-          },
-        ),
-      ),
-    );
+          SnackBar(
+            content: Text(
+              title,
+            ),
+            action: SnackBarAction(
+              label: l10n.buttonUndo,
+              onPressed: () {
+                switch (kind) {
+                  case TaskCompletedKind.done:
+                    task.doneTime = null;
+                    bloc.taskUpdate.add(task);
+                    break;
+                  case TaskCompletedKind.deleted:
+                    bloc.taskUpdate.add(task);
+                    break;
+                }
+              },
+            ),
+          ),
+        );
   }
 }

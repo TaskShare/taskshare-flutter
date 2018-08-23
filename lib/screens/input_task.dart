@@ -1,12 +1,14 @@
-import 'package:taskshare/bloc/tasks_provider.dart';
+import 'package:taskshare/bloc/BlocProvider.dart';
+import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class InputTask extends StatelessWidget {
   static const routeName = '/input_task';
+
   @override
   Widget build(BuildContext context) {
     log.warning('InputTaskPage build called');
-    final bloc = TasksProvider.of(context);
+    final bloc = BlocProvider.of<TasksBloc>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text('Input New Task'),

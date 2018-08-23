@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:taskshare/bloc/BlocProvider.dart';
 import 'package:taskshare/model/authenticator.dart';
 import 'package:taskshare/model/model.dart';
 
-class AccountBloc {
+export 'package:taskshare/model/authenticator.dart';
+
+class AccountBloc implements BlocBase {
   AccountBloc({@required this.authenticator}) {
     _signInController.stream.listen((_) {
       authenticator.signIn();
@@ -28,6 +31,7 @@ class AccountBloc {
   final _signOutController = StreamController<void>();
 
   // TODO: call
+  @override
   dispose() {
     _signInController.close();
     _signOutController.close();

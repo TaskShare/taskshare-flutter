@@ -1,13 +1,14 @@
-import 'package:taskshare/bloc/tasks_provider.dart';
+import 'package:taskshare/bloc/BlocProvider.dart';
+import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class AddTaskButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Theme(
         data: Theme.of(context).copyWith(
-          canvasColor: Colors
-              .transparent, // showModalBottomSheetの背景色をここだけ変えるためのWork Around
-        ),
+              canvasColor: Colors
+                  .transparent, // showModalBottomSheetの背景色をここだけ変えるためのWork Around
+            ),
         child: _AddTaskButton(),
       );
 }
@@ -20,6 +21,7 @@ class _AddTaskButton extends StatefulWidget {
 class _AddTaskButtonState extends State<_AddTaskButton> {
   var _isInputting = false;
   final textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     if (_isInputting) {
@@ -43,7 +45,7 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
   }
 
   Future _showModalBottomSheet(BuildContext context) {
-    final bloc = TasksProvider.of(context);
+    final bloc = BlocProvider.of<TasksBloc>(context);
     final l10n = L10N.of(context);
     return showModalBottomSheet(
       context: context,

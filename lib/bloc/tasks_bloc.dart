@@ -1,3 +1,4 @@
+import 'package:taskshare/bloc/BlocProvider.dart';
 import 'package:taskshare/model/authenticator.dart';
 import 'package:taskshare/model/group.dart';
 import 'package:taskshare/model/model.dart';
@@ -5,7 +6,7 @@ import 'package:taskshare/model/task.dart';
 
 export 'package:taskshare/model/task.dart';
 
-class TasksBloc {
+class TasksBloc implements BlocBase {
   TasksBloc({@required this.authenticator}) {
     log.info('TasksBloc constructor called');
 
@@ -86,6 +87,7 @@ class TasksBloc {
   final _taskDeletionController = StreamController<Task>();
 
   // TODO: call
+  @override
   dispose() {
     _taskUpdateController.close();
     _taskDeletionController.close();

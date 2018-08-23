@@ -1,10 +1,11 @@
-import 'package:taskshare/bloc/account_provider.dart';
+import 'package:taskshare/bloc/BlocProvider.dart';
+import 'package:taskshare/bloc/account_bloc.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final accountBloc = AccountProvider.of(context);
+    final accountBloc = BlocProvider.of<AccountBloc>(context);
     final body = StreamBuilder<AccountState>(
       initialData: AccountState.loading,
       stream: accountBloc.state,
