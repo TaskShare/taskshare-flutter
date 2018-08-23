@@ -48,7 +48,7 @@ class GoogleAuthenticator implements Authenticator {
       idToken: gAuth.idToken,
       accessToken: gAuth.accessToken,
     );
-    print(firUser);
+    log.info(firUser);
     return firUser;
   }
 
