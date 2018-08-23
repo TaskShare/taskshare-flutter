@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taskshare/bloc/BlocProvider.dart';
 import 'package:taskshare/model/authenticator.dart';
 import 'package:taskshare/model/group.dart';
@@ -10,7 +11,7 @@ class TasksBloc implements BlocBase {
   TasksBloc({@required this.authenticator}) {
     log.info('TasksBloc constructor called');
 
-    authenticator.user.listen((user) {
+    userSubscription = authenticator.user.listen((user) {
       if (user == null) {
         log.info('same group name is null');
         _groupName = null;
@@ -78,6 +79,7 @@ class TasksBloc implements BlocBase {
 
   Sink<Task> get taskDeletion => _taskDeletionController.sink;
 
+  StreamSubscription<FirebaseUser> userSubscription;
   final Authenticator authenticator;
   final _firestore = Firestore.instance;
   String _groupName;
@@ -89,6 +91,7 @@ class TasksBloc implements BlocBase {
   // TODO: call
   @override
   dispose() {
+    userSubscription.cancel();
     _taskUpdateController.close();
     _taskDeletionController.close();
     _tasks.close();
