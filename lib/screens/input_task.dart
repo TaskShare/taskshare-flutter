@@ -1,4 +1,4 @@
-import 'package:taskshare/bloc/BlocProvider.dart';
+import 'package:taskshare/bloc/bloc_provider.dart';
 import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
