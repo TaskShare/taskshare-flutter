@@ -43,9 +43,9 @@ class _Inherited<T extends BlocBase> extends InheritedWidget {
   final T bloc;
 
   _Inherited({
+    @required Widget child,
+    @required this.bloc,
     Key key,
-    this.bloc,
-    Widget child,
   }) : super(key: key, child: child);
 
   @override
