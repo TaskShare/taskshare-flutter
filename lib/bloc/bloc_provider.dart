@@ -4,22 +4,34 @@ abstract class BlocBase {
   void dispose();
 }
 
-class BlocProvider<T extends BlocBase> extends InheritedWidget {
+class BlocProvider<T extends BlocBase> extends StatefulWidget {
   final T bloc;
+  final Widget child;
 
   BlocProvider({
-    @required Widget child,
+    @required this.child,
     @required this.bloc,
     Key key,
-  }) : super(key: key, child: child);
-
-  @override
-  bool updateShouldNotify(BlocProvider oldWidget) => oldWidget.bloc != bloc;
+  }) : super(key: key);
 
   static T of<T extends BlocBase>(BuildContext context) =>
-      (context.inheritFromWidgetOfExactType(_typeOf<BlocProvider<T>>())
+      (context.ancestorWidgetOfExactType(_typeOf<BlocProvider<T>>())
               as BlocProvider<T>)
           .bloc;
 
   static Type _typeOf<T>() => T;
+
+  @override
+  State<StatefulWidget> createState() => _BlocProviderState();
+}
+
+class _BlocProviderState<T> extends State<BlocProvider<BlocBase>> {
+  @override
+  void dispose() {
+    widget.bloc.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
