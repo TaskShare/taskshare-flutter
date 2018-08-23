@@ -5,7 +5,7 @@ import 'package:taskshare/model/model.dart';
 
 export 'package:taskshare/model/authenticator.dart';
 
-class AccountBloc implements BlocBase {
+class AccountBloc implements Bloc {
   AccountBloc({@required this.authenticator}) {
     _signInController.stream.listen((_) {
       authenticator.signIn();

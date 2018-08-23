@@ -7,7 +7,7 @@ import 'package:taskshare/model/task.dart';
 
 export 'package:taskshare/model/task.dart';
 
-class TasksBloc implements BlocBase {
+class TasksBloc implements Bloc {
   TasksBloc({@required this.authenticator}) {
     log.info('TasksBloc constructor called');
 
