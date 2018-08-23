@@ -63,5 +63,6 @@ class GoogleAuthenticator implements Authenticator {
 
   dispose() {
     _user.close();
+    _state.close();
   }
 }
