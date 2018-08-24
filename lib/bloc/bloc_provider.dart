@@ -33,6 +33,14 @@ class _BlocProviderState<T extends Bloc> extends State<BlocProvider<T>> {
       );
 
   @override
+  void didUpdateWidget(BlocProvider<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.bloc != widget.bloc) {
+      oldWidget.bloc.dispose();
+    }
+  }
+
+  @override
   void dispose() {
     widget.bloc.dispose();
     super.dispose();
