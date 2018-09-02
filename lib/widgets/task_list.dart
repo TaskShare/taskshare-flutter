@@ -5,6 +5,10 @@ import 'package:taskshare/widgets/widgets.dart';
 enum TaskCompletedKind { done, deleted }
 
 class TaskList extends StatelessWidget {
+  TaskList();
+
+  factory TaskList.forDesignTime() => TaskList();
+
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<TasksBloc>(context);
@@ -79,25 +83,25 @@ class TaskList extends StatelessWidget {
         break;
     }
     Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              title,
-            ),
-            action: SnackBarAction(
-              label: l10n.buttonUndo,
-              onPressed: () {
-                switch (kind) {
-                  case TaskCompletedKind.done:
-                    task.doneTime = null;
-                    bloc.taskUpdate.add(task);
-                    break;
-                  case TaskCompletedKind.deleted:
-                    bloc.taskUpdate.add(task);
-                    break;
-                }
-              },
-            ),
-          ),
-        );
+      SnackBar(
+        content: Text(
+          title,
+        ),
+        action: SnackBarAction(
+          label: l10n.buttonUndo,
+          onPressed: () {
+            switch (kind) {
+              case TaskCompletedKind.done:
+                task.doneTime = null;
+                bloc.taskUpdate.add(task);
+                break;
+              case TaskCompletedKind.deleted:
+                bloc.taskUpdate.add(task);
+                break;
+            }
+          },
+        ),
+      ),
+    );
   }
 }

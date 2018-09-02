@@ -5,6 +5,10 @@ import 'package:taskshare/widgets/widgets.dart';
 class InputTask extends StatelessWidget {
   static const routeName = '/input_task';
 
+  InputTask();
+
+  factory InputTask.forDesignTime() => InputTask();
+
   @override
   Widget build(BuildContext context) {
     log.warning('InputTaskPage build called');

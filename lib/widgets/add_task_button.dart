@@ -3,12 +3,14 @@ import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class AddTaskButton extends StatelessWidget {
+  AddTaskButton();
+
+  factory AddTaskButton.forDesignTime() => AddTaskButton();
+
   @override
   Widget build(BuildContext context) => Theme(
-        data: Theme.of(context).copyWith(
-              canvasColor: Colors
-                  .transparent, // showModalBottomSheetの背景色をここだけ変えるためのWork Around
-            ),
+        // showModalBottomSheetの背景色をここだけ変えるためのWork Around
+        data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
         child: _AddTaskButton(),
       );
 }

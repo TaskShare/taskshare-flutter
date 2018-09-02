@@ -3,6 +3,10 @@ import 'package:taskshare/bloc/bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class Welcome extends StatelessWidget {
+  Welcome();
+
+  factory Welcome.forDesignTime() => Welcome();
+
   @override
   Widget build(BuildContext context) {
     final accountBloc = BlocProvider.of<AccountBloc>(context);

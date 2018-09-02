@@ -5,6 +5,10 @@ import 'package:taskshare/screens/setting.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class MenuButton extends StatelessWidget {
+  MenuButton();
+
+  factory MenuButton.forDesignTime() => MenuButton();
+
   @override
   Widget build(BuildContext context) {
     final accountBloc = BlocProvider.of<AccountBloc>(context);
@@ -17,8 +21,8 @@ class MenuButton extends StatelessWidget {
         final user = snap.data;
         return IconButton(
           icon: ClipOval(
-            child: CachedNetworkImage(
-              imageUrl: user.photoUrl,
+            child: Image.network(
+              user.photoUrl,
               fit: BoxFit.cover,
             ),
           ),

@@ -6,6 +6,10 @@ import 'package:taskshare/widgets/widgets.dart';
 class Setting extends StatelessWidget {
   static const routeName = '/settings';
 
+  Setting();
+
+  factory Setting.forDesignTime() => Setting();
+
   @override
   Widget build(BuildContext context) {
     final accountBloc = BlocProvider.of<AccountBloc>(context);

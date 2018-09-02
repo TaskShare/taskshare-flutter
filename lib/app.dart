@@ -4,6 +4,10 @@ import 'package:taskshare/screens/setting.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class App extends StatelessWidget {
+  App();
+
+  factory App.forDesignTime() => App();
+
   @override
   Widget build(BuildContext context) {
     log.finest('App build called');

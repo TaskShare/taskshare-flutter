@@ -7,6 +7,10 @@ import 'package:taskshare/widgets/widgets.dart';
 class Home extends StatelessWidget {
   static const routeName = '/';
 
+  Home();
+
+  factory Home.forDesignTime() => Home();
+
   @override
   Widget build(BuildContext context) {
     final accountBloc = BlocProvider.of<AccountBloc>(context);
