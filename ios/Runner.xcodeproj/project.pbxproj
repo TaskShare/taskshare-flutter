@@ -20,7 +20,6 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		D1B7301356EF5358BF6806D7 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEE4865E8C35E4F702B20AB3 /* Pods_Runner.framework */; };
-		FE6C8DEF213BE20B00254CF1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE6C8DEE213BE20B00254CF1 /* Info.plist */; };
 		FE6C8DF1213BE57900254CF1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE6C8DF0213BE57900254CF1 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -59,7 +58,6 @@
 		AEE4865E8C35E4F702B20AB3 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE6C8DEC213BE1E200254CF1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 		FE6C8DED213BE1E200254CF1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		FE6C8DEE213BE20B00254CF1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../../../Desktop/ios/Runner/Info.plist; sourceTree = "<group>"; };
 		FE6C8DF0213BE57900254CF1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,7 +119,6 @@
 			isa = PBXGroup;
 			children = (
 				FE6C8DF0213BE57900254CF1 /* GoogleService-Info.plist */,
-				FE6C8DEE213BE20B00254CF1 /* Info.plist */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
@@ -221,7 +218,6 @@
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				2D5378261FAA1A9400D5DBA9 /* flutter_assets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
-				FE6C8DEF213BE20B00254CF1 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
