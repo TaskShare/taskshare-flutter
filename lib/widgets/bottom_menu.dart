@@ -7,6 +7,7 @@ class BottomMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BottomAppBar(
+//        shape: CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
