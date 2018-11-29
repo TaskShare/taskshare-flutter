@@ -9,8 +9,8 @@ class TasksBlocProvider extends BlocProvider<TasksBloc> {
   }) : super(
           child: child,
           creator: (context) {
-            final container = ServiceProvider.of(context);
-            return TasksBloc(authenticator: container.authenticator);
+            final provider = ServiceProvider.of(context);
+            return TasksBloc(authenticator: provider.authenticator);
           },
         );
 

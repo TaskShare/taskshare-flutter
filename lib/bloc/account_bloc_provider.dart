@@ -9,8 +9,8 @@ class AccountBlocProvider extends BlocProvider<AccountBloc> {
   }) : super(
           child: child,
           creator: (context) {
-            final container = ServiceProvider.of(context);
-            return AccountBloc(authenticator: container.authenticator);
+            final provider = ServiceProvider.of(context);
+            return AccountBloc(authenticator: provider.authenticator);
           },
         );
 
