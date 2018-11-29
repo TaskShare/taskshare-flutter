@@ -30,6 +30,7 @@ dependencies:
   intl:
   built_value:
   quiver:
+  bloc_provider:
 
 dev_dependencies:
   flutter_test:
