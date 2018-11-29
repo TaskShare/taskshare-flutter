@@ -38,7 +38,6 @@ dev_dependencies:
   build:
   build_runner:
   source_gen:
-  built_value_generator:
 
 
 # For information on the generic Dart part of this file, see the
