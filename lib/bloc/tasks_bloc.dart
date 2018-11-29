@@ -1,5 +1,5 @@
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:taskshare/bloc/bloc_provider.dart';
 import 'package:taskshare/model/authenticator.dart';
 import 'package:taskshare/model/group.dart';
 import 'package:taskshare/model/model.dart';
@@ -38,7 +38,7 @@ class TasksBloc implements Bloc {
         log.info('tasks updated');
         tasks
           ..sort((a, b) {
-            compareByCreate() => -a.createTime.compareTo(b.createTime);
+            int compareByCreate() => -a.createTime.compareTo(b.createTime);
             if (a.dueTime == null) {
               if (b.dueTime == null) {
                 return compareByCreate();
@@ -88,9 +88,8 @@ class TasksBloc implements Bloc {
   final _taskUpdateController = StreamController<Task>();
   final _taskDeletionController = StreamController<Task>();
 
-  // TODO: call
   @override
-  dispose() {
+  void dispose() {
     userSubscription.cancel();
     _taskUpdateController.close();
     _taskDeletionController.close();

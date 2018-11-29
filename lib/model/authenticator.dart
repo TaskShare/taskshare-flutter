@@ -61,7 +61,7 @@ class GoogleAuthenticator implements Authenticator {
     await _auth.signOut();
   }
 
-  dispose() {
+  void dispose() {
     _user.close();
     _state.close();
   }

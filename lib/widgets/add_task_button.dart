@@ -1,5 +1,5 @@
-import 'package:taskshare/bloc/bloc_provider.dart';
 import 'package:taskshare/bloc/tasks_bloc.dart';
+import 'package:taskshare/bloc/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class AddTaskButton extends StatelessWidget {
@@ -47,7 +47,7 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
   }
 
   Future _showModalBottomSheet(BuildContext context) {
-    final bloc = BlocProvider.of<TasksBloc>(context);
+    final bloc = TasksBlocProvider.of(context);
     final l10n = L10N.of(context);
     return showModalBottomSheet(
       context: context,

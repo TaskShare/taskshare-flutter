@@ -1,5 +1,5 @@
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:taskshare/bloc/bloc_provider.dart';
 import 'package:taskshare/model/authenticator.dart';
 import 'package:taskshare/model/model.dart';
 
@@ -30,9 +30,8 @@ class AccountBloc implements Bloc {
 
   final _signOutController = StreamController<void>();
 
-  // TODO: call
   @override
-  dispose() {
+  void dispose() {
     _signInController.close();
     _signOutController.close();
   }

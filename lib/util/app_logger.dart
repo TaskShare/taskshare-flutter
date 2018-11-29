@@ -30,7 +30,7 @@ String createLevelSuffix(Level level) {
 }
 
 class AppLogger {
-  static configure() {
+  static void configure() {
     // TODO: 場合によってオフにする
     recordStackTraceAtLevel = Level.ALL;
     Logger.root.level = Level.ALL;

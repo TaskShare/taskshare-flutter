@@ -1,5 +1,5 @@
-import 'package:taskshare/bloc/bloc_provider.dart';
 import 'package:taskshare/bloc/tasks_bloc.dart';
+import 'package:taskshare/bloc/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 enum TaskCompletedKind { done, deleted }
@@ -11,7 +11,7 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<TasksBloc>(context);
+    final bloc = TasksBlocProvider.of(context);
     return StreamBuilder<List<Task>>(
       stream: bloc.tasks,
       builder: (context, snapshot) {
@@ -53,8 +53,8 @@ class TaskList extends StatelessWidget {
     );
   }
 
-  _handleChecked(bool checked, BuildContext context, Task task) async {
-    final bloc = BlocProvider.of<TasksBloc>(context);
+  void _handleChecked(bool checked, BuildContext context, Task task) async {
+    final bloc = TasksBlocProvider.of(context);
     if (checked) {
       task.doneTime = DateTime.now();
     } else {
@@ -70,8 +70,9 @@ class TaskList extends StatelessWidget {
     _showDonePrompt(context, task, TaskCompletedKind.done);
   }
 
-  _showDonePrompt(BuildContext context, Task task, TaskCompletedKind kind) {
-    final bloc = BlocProvider.of<TasksBloc>(context);
+  void _showDonePrompt(
+      BuildContext context, Task task, TaskCompletedKind kind) {
+    final bloc = TasksBlocProvider.of(context);
     final l10n = L10N.of(context);
     String title;
     switch (kind) {

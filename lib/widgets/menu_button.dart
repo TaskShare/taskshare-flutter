@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:taskshare/bloc/account_bloc.dart';
-import 'package:taskshare/bloc/bloc_provider.dart';
+import 'package:taskshare/bloc/account_bloc_provider.dart';
 import 'package:taskshare/screens/setting.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
@@ -11,7 +10,7 @@ class MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accountBloc = BlocProvider.of<AccountBloc>(context);
+    final accountBloc = AccountBlocProvider.of(context);
     return StreamBuilder<FirebaseUser>(
       stream: accountBloc.user,
       builder: (context, snap) {

@@ -1,3 +1,5 @@
+import 'package:taskshare/bloc/account_bloc_provider.dart';
+import 'package:taskshare/bloc/tasks_bloc_provider.dart';
 import 'package:taskshare/screens/home.dart';
 import 'package:taskshare/screens/input_task.dart';
 import 'package:taskshare/screens/setting.dart';
@@ -11,27 +13,31 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log.finest('App build called');
-    return MaterialApp(
+    return AccountBlocProvider(
+      child: TasksBlocProvider(
+        child: MaterialApp(
 //        debugShowCheckedModeBanner: true,
-      localizationsDelegates: [
-        AppLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
-      supportedLocales: [
-        Locale('en', 'US'),
-        Locale('ja', 'JP'),
-      ],
-      title: 'TaskShare',
+          localizationsDelegates: [
+            AppLocalizationsDelegate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+          supportedLocales: [
+            Locale('en', 'US'),
+            Locale('ja', 'JP'),
+          ],
+          title: 'TaskShare',
 //        theme: ThemeData.dark(),
 //        theme: ThemeData.light(),
-      theme: ThemeData(
-          primarySwatch: Colors.deepPurple,
-          accentColor: Colors.deepPurpleAccent,
-          errorColor: Colors.red),
-      initialRoute: Home.routeName,
-      routes: _routes,
-      onGenerateRoute: _handleRoutes,
+          theme: ThemeData(
+              primarySwatch: Colors.deepPurple,
+              accentColor: Colors.deepPurpleAccent,
+              errorColor: Colors.red),
+          initialRoute: Home.routeName,
+          routes: _routes,
+          onGenerateRoute: _handleRoutes,
+        ),
+      ),
     );
   }
 

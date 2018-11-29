@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:taskshare/model/authenticator.dart';
-
-import 'model.dart';
 
 class ServiceProvider extends InheritedWidget {
   final Authenticator authenticator;
@@ -9,13 +7,12 @@ class ServiceProvider extends InheritedWidget {
   ServiceProvider({
     @required this.authenticator,
     @required Widget child,
-    Key key,
-  }) : super(key: key, child: child);
+  }) : super(child: child);
 
   @override
-  bool updateShouldNotify(ServiceProvider oldWidget) =>
-      oldWidget.authenticator != authenticator;
+  bool updateShouldNotify(InheritedWidget oldWidget) => false;
 
-  static ServiceProvider of(BuildContext context) =>
-      context.inheritFromWidgetOfExactType(ServiceProvider) as ServiceProvider;
+  static ServiceProvider of(BuildContext context) => context
+      .ancestorInheritedElementForWidgetOfExactType(ServiceProvider)
+      .widget as ServiceProvider;
 }

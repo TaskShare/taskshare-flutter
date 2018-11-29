@@ -1,5 +1,5 @@
-import 'package:taskshare/bloc/bloc_provider.dart';
 import 'package:taskshare/bloc/tasks_bloc.dart';
+import 'package:taskshare/bloc/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class InputTask extends StatelessWidget {
@@ -12,7 +12,7 @@ class InputTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log.warning('InputTaskPage build called');
-    final bloc = BlocProvider.of<TasksBloc>(context);
+    final bloc = TasksBlocProvider.of(context);
     return Scaffold(
         appBar: AppBar(
           title: Text('Input New Task'),
