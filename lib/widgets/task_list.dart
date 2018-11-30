@@ -23,7 +23,7 @@ class TaskList extends StatelessWidget {
             itemBuilder: (context, index) {
               final task = snapshot.data[index];
               return Dismissible(
-                key: Key(task.id),
+                key: ValueKey(task.id),
                 onDismissed: (direction) {
                   bloc.taskDeletion.add(task);
                   _showDonePrompt(context, task, TaskCompletedKind.deleted);
