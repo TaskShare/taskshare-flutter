@@ -1,3 +1,5 @@
+import 'package:bloc_provider/bloc_provider.dart';
+import 'package:taskshare/bloc/task_add_bloc.dart';
 import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/bloc/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
@@ -11,7 +13,10 @@ class AddTaskButton extends StatelessWidget {
   Widget build(BuildContext context) => Theme(
         // showModalBottomSheetの背景色をここだけ変えるためのWork Around
         data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
-        child: _AddTaskButton(),
+        child: BlocProvider<TaskAddBloc>(
+          creator: (c) => TaskAddBloc(),
+          child: _AddTaskButton(),
+        ),
       );
 }
 
@@ -22,9 +27,18 @@ class _AddTaskButton extends StatefulWidget {
 
 class _AddTaskButtonState extends State<_AddTaskButton> {
   var _isInputting = false;
-  // TODO: 閉じた時にクリアー
-  // TODO: BLoCにする
-  final textController = TextEditingController();
+  TextEditingController _textController;
+  TaskAddBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController();
+    _bloc = BlocProvider.of<TaskAddBloc>(context);
+    _textController.addListener(() {
+      _bloc.update.add(_textController.text);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +63,6 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
   }
 
   Future _showModalBottomSheet(BuildContext context) {
-    final bloc = TasksBlocProvider.of(context);
     final l10n = L10N.of(context);
     return showModalBottomSheet(
       context: context,
@@ -70,7 +83,7 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextField(
-                      controller: textController,
+                      controller: _textController,
                       autofocus: true,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -91,7 +104,7 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
                       ),
                       FlatButton(
                         onPressed: () async {
-                          _saveTask(bloc, context);
+                          _saveTask(context);
                         },
                         child: Text(
                           l10n.buttonSave,
@@ -107,10 +120,16 @@ class _AddTaskButtonState extends State<_AddTaskButton> {
     );
   }
 
-  void _saveTask(TasksBloc bloc, BuildContext context) {
-    final title = textController.text;
+  void _saveTask(BuildContext context) {
+    final title = _bloc.stream.value;
+    if (title.isEmpty) {
+      // TODO: フィードバック
+      return;
+    }
     final task = Task(id: null, title: title);
+    _textController.text = '';
     log.info('wiil create task: $task');
+    final bloc = TasksBlocProvider.of(context);
     bloc.taskOperation.add(
       TaskOperation(
         task: task,
