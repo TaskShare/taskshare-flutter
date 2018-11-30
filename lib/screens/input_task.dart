@@ -25,7 +25,12 @@ class InputTask extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                bloc.taskUpdate.add(Task(id: null, title: 'xxxx'));
+                bloc.taskOperation.add(
+                  TaskOperation(
+                    task: Task(id: null, title: 'xxxx'),
+                    type: TaskOperationType.add,
+                  ),
+                );
               },
             ),
           ],

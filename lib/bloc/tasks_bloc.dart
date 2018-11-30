@@ -7,6 +7,18 @@ import 'package:taskshare/model/task.dart';
 
 export 'package:taskshare/model/task.dart';
 
+enum TaskOperationType { deleted, checked, add, updated }
+
+class TaskOperation {
+  final Task task;
+  final TaskOperationType type;
+
+  TaskOperation({
+    @required this.task,
+    @required this.type,
+  });
+}
+
 class TasksBloc implements Bloc {
   TasksBloc({@required this.authenticator}) {
     log.info('TasksBloc constructor called');
@@ -35,6 +47,7 @@ class TasksBloc implements Bloc {
           .entities((ref) =>
               ref.orderBy('${TaskProperties.dueTime}', descending: false))
           .map((tasks) {
+        // 更新時に、ローカルと同期完了で2回呼ばれる
         log.info('tasks updated');
         tasks
           ..sort((a, b) {
@@ -61,23 +74,43 @@ class TasksBloc implements Bloc {
       }).listen(_tasks.add);
     });
 
-    _taskUpdateController.stream.listen((task) {
-      final now = DateTime.now();
-      task.createTime ??= now;
-      task.updateTime = now;
-      _database.set(task);
-    });
-
-    _taskDeletionController.stream.listen((task) {
-      _database.delete(task);
+    _taskOperationController.stream
+        .doOnData(_taskOperations.add)
+        .listen((operation) async {
+      final task = operation.task;
+      switch (operation.type) {
+        case TaskOperationType.checked:
+          // TODO: 要改善。_tasks.addをしてしまって、delay後にのが良いかも。
+          task.doneTime = DateTime.now();
+          _setTask(task);
+          await Future<void>.delayed(Duration(milliseconds: 1000));
+          task.updateTime = DateTime.now();
+          _setTask(task);
+          break;
+        case TaskOperationType.updated:
+          _setTask(task);
+          break;
+        case TaskOperationType.add:
+          _setTask(task);
+          break;
+        case TaskOperationType.deleted:
+          await _database.delete(task);
+          break;
+      }
     });
   }
 
+  void _setTask(Task task) {
+    final now = DateTime.now();
+    task.createTime ??= now;
+    task.updateTime = now;
+    _database.set(task);
+  }
+
   Stream<List<Task>> get tasks => _tasks.stream;
+  Stream<TaskOperation> get taskOperations => _taskOperations.stream;
 
-  Sink<Task> get taskUpdate => _taskUpdateController.sink;
-
-  Sink<Task> get taskDeletion => _taskDeletionController.sink;
+  Sink<TaskOperation> get taskOperation => _taskOperationController.sink;
 
   StreamSubscription<FirebaseUser> userSubscription;
   final Authenticator authenticator;
@@ -85,14 +118,14 @@ class TasksBloc implements Bloc {
   String _groupName;
   Database<Task> _database;
   final _tasks = BehaviorSubject<List<Task>>();
-  final _taskUpdateController = StreamController<Task>();
-  final _taskDeletionController = StreamController<Task>();
+  final _taskOperations = BehaviorSubject<TaskOperation>();
+  final _taskOperationController = PublishSubject<TaskOperation>();
 
   @override
   void dispose() {
     userSubscription.cancel();
-    _taskUpdateController.close();
-    _taskDeletionController.close();
+    _taskOperations.close();
+    _taskOperationController.close();
     _tasks.close();
   }
 }

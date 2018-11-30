@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taskshare/bloc/task_event_bloc.dart';
-import 'package:taskshare/bloc/task_event_bloc_provider.dart';
+import 'package:taskshare/bloc/tasks_bloc.dart';
+import 'package:taskshare/bloc/tasks_bloc_provider.dart';
 import 'package:taskshare/model/task.dart';
 
 class TaskListTile extends StatelessWidget {
@@ -13,14 +13,14 @@ class TaskListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = TaskEventBlocProvider.of(context);
+    final bloc = TasksBlocProvider.of(context);
     return Dismissible(
       key: ValueKey(task.id),
       onDismissed: (direction) {
-        bloc.eventOccurred.add(
-          TaskEventContainer(
+        bloc.taskOperation.add(
+          TaskOperation(
             task: task,
-            event: TaskEvent.dismissed,
+            type: TaskOperationType.deleted,
           ),
         );
       },
@@ -33,11 +33,12 @@ class TaskListTile extends StatelessWidget {
             title: Text(task.title),
             leading: Checkbox(
               onChanged: (value) {
-                bloc.eventOccurred.add(
-                  TaskEventContainer(
+                bloc.taskOperation.add(
+                  TaskOperation(
                     task: task,
-                    event: TaskEvent.checkChanged,
-                    isChecked: value,
+                    type: value
+                        ? TaskOperationType.checked
+                        : TaskOperationType.updated,
                   ),
                 );
               },
