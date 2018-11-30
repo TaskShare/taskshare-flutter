@@ -22,6 +22,8 @@ class _AddTaskButton extends StatefulWidget {
 
 class _AddTaskButtonState extends State<_AddTaskButton> {
   var _isInputting = false;
+  // TODO: 閉じた時にクリアー
+  // TODO: BLoCにする
   final textController = TextEditingController();
 
   @override

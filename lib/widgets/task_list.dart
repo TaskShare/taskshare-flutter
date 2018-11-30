@@ -1,5 +1,8 @@
+import 'package:taskshare/bloc/task_event_bloc.dart';
+import 'package:taskshare/bloc/task_event_bloc_provider.dart';
 import 'package:taskshare/bloc/tasks_bloc.dart';
 import 'package:taskshare/bloc/tasks_bloc_provider.dart';
+import 'package:taskshare/widgets/task_list_tile.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 enum TaskCompletedKind { done, deleted }
@@ -12,45 +15,54 @@ class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = TasksBlocProvider.of(context);
-    return StreamBuilder<List<Task>>(
-      stream: bloc.tasks,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return AppProgressIndicator();
-        }
-        return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              final task = snapshot.data[index];
-              return Dismissible(
-                key: ValueKey(task.id),
-                onDismissed: (direction) {
-                  bloc.taskDeletion.add(task);
-                  _showDonePrompt(context, task, TaskCompletedKind.deleted);
-                },
-                background: Container(
-                  color: Theme.of(context).errorColor,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      title: Text(task.title),
-                      leading: Checkbox(
-                        onChanged: (value) {
-                          _handleChecked(value, context, task);
-                        },
-                        value: task.doneTime != null,
-                      ),
-                    ),
-                    Divider(
-                      height: 0.0,
-                    )
-                  ],
-                ),
-              );
-            });
+
+    return TaskEventBlocProvider(
+      blocCreated: (eventBloc) {
+        eventBloc.events.listen((event) => _handleTaskEvent(context, event));
       },
+      child: StreamBuilder<List<Task>>(
+        stream: bloc.tasks,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return AppProgressIndicator();
+          }
+          return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                final task = snapshot.data[index];
+                return TaskListTile(
+                  key: ValueKey(task.id),
+                  task: task,
+                );
+              });
+        },
+      ),
     );
+  }
+
+  void _handleTaskEvent(
+    BuildContext context,
+    TaskEventContainer event,
+  ) {
+    final bloc = TasksBlocProvider.of(context);
+    final task = event.task;
+    switch (event.event) {
+      case TaskEvent.checkChanged:
+        _handleChecked(
+          event.isChecked,
+          context,
+          task,
+        );
+        break;
+      case TaskEvent.dismissed:
+        bloc.taskDeletion.add(task);
+        _showDonePrompt(
+          context,
+          event.task,
+          TaskCompletedKind.deleted,
+        );
+        break;
+    }
   }
 
   void _handleChecked(bool checked, BuildContext context, Task task) async {
