@@ -33,6 +33,7 @@ class TaskListTile extends StatelessWidget {
             title: Text(task.title),
             leading: Checkbox(
               onChanged: (value) {
+                task.doneTime = value ? DateTime.now() : null;
                 bloc.taskOperation.add(
                   TaskOperation(
                     task: task,

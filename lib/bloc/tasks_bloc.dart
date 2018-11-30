@@ -20,6 +20,21 @@ class TaskOperation {
 }
 
 class TasksBloc implements Bloc {
+  Stream<List<Task>> get tasks => _tasks.stream;
+  Stream<TaskOperation> get taskOperations => _taskOperations.stream;
+
+  Sink<TaskOperation> get taskOperation => _taskOperationController.sink;
+
+  StreamSubscription<FirebaseUser> userSubscription;
+  final Authenticator authenticator;
+  final _firestore = Firestore.instance;
+  String _groupName;
+  Database<Task> _database;
+  final _tasks = BehaviorSubject<List<Task>>();
+  final _taskOperations = BehaviorSubject<TaskOperation>();
+  final _taskOperationController = PublishSubject<TaskOperation>();
+  final _pendingDoneIds = Set<String>();
+
   TasksBloc({@required this.authenticator}) {
     log.info('TasksBloc constructor called');
 
@@ -49,6 +64,7 @@ class TasksBloc implements Bloc {
           .map((tasks) {
         // 更新時に、ローカルと同期完了で2回呼ばれる
         log.info('tasks updated');
+        // bug workaround. see: https://github.com/flutter/flutter/issues/15928
         tasks
           ..sort((a, b) {
             int compareByCreate() => -a.createTime.compareTo(b.createTime);
@@ -68,8 +84,7 @@ class TasksBloc implements Bloc {
             return compareByCreate();
           })
           ..removeWhere((task) =>
-              task.doneTime != null &&
-              task.updateTime.compareTo(task.doneTime) > 0);
+              task.doneTime != null && !_pendingDoneIds.contains(task.id));
         return tasks;
       }).listen(_tasks.add);
     });
@@ -80,14 +95,19 @@ class TasksBloc implements Bloc {
       final task = operation.task;
       switch (operation.type) {
         case TaskOperationType.checked:
-          // TODO: 要改善。_tasks.addをしてしまって、delay後にのが良いかも。
-          task.doneTime = DateTime.now();
+          _pendingDoneIds.add(task.id);
           _setTask(task);
           await Future<void>.delayed(Duration(milliseconds: 1000));
-          task.updateTime = DateTime.now();
-          _setTask(task);
+          final tasks = _tasks.value;
+          if (_pendingDoneIds.remove(task.id)) {
+            tasks.removeWhere((t) => t.id == task.id);
+            _tasks.add(tasks);
+          }
           break;
         case TaskOperationType.updated:
+          if (task.doneTime == null) {
+            _pendingDoneIds.remove(task.id);
+          }
           _setTask(task);
           break;
         case TaskOperationType.add:
@@ -106,20 +126,6 @@ class TasksBloc implements Bloc {
     task.updateTime = now;
     _database.set(task);
   }
-
-  Stream<List<Task>> get tasks => _tasks.stream;
-  Stream<TaskOperation> get taskOperations => _taskOperations.stream;
-
-  Sink<TaskOperation> get taskOperation => _taskOperationController.sink;
-
-  StreamSubscription<FirebaseUser> userSubscription;
-  final Authenticator authenticator;
-  final _firestore = Firestore.instance;
-  String _groupName;
-  Database<Task> _database;
-  final _tasks = BehaviorSubject<List<Task>>();
-  final _taskOperations = BehaviorSubject<TaskOperation>();
-  final _taskOperationController = PublishSubject<TaskOperation>();
 
   @override
   void dispose() {
