@@ -1,6 +1,7 @@
 import 'package:taskshare/bloc/account_bloc.dart';
 import 'package:taskshare/bloc/account_bloc_provider.dart';
-import 'package:taskshare/screens/task_scaffold.dart';
+import 'package:taskshare/bloc/task_addtion_bloc_provider.dart';
+import 'package:taskshare/screens/task_screen.dart';
 import 'package:taskshare/screens/welcome.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
@@ -26,7 +27,7 @@ class Home extends StatelessWidget {
             return Welcome();
           case AccountState.signedIn:
           case AccountState.singingOut:
-            return TaskScaffold();
+            return TaskAdditionBlocProvider(child: TaskScreen());
         }
         assert(false);
         return Container();

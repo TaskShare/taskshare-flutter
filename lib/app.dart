@@ -1,5 +1,4 @@
 import 'package:taskshare/bloc/account_bloc_provider.dart';
-import 'package:taskshare/bloc/task_addtion_bloc_provider.dart';
 import 'package:taskshare/bloc/tasks_bloc_provider.dart';
 import 'package:taskshare/screens/home.dart';
 import 'package:taskshare/screens/input_task.dart';
@@ -16,26 +15,24 @@ class App extends StatelessWidget {
     log.finest('App build called');
     return AccountBlocProvider(
       child: TasksBlocProvider(
-        child: TaskAdditionBlocProvider(
-          child: MaterialApp(
-            localizationsDelegates: [
-              AppLocalizationsDelegate(),
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate
-            ],
-            supportedLocales: [
-              Locale('en', 'US'),
-              Locale('ja', 'JP'),
-            ],
-            title: 'TaskShare',
-            theme: ThemeData(
-                primarySwatch: Colors.deepPurple,
-                accentColor: Colors.deepPurpleAccent,
-                errorColor: Colors.red),
-            initialRoute: Home.routeName,
-            routes: _routes,
-            onGenerateRoute: _handleRoutes,
-          ),
+        child: MaterialApp(
+          localizationsDelegates: [
+            AppLocalizationsDelegate(),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+          supportedLocales: [
+            Locale('en', 'US'),
+            Locale('ja', 'JP'),
+          ],
+          title: 'TaskShare',
+          theme: ThemeData(
+              primarySwatch: Colors.deepPurple,
+              accentColor: Colors.deepPurpleAccent,
+              errorColor: Colors.red),
+          initialRoute: Home.routeName,
+          routes: _routes,
+          onGenerateRoute: _handleRoutes,
         ),
       ),
     );

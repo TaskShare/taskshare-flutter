@@ -2,13 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:taskshare/bloc/task_addtion_bloc_provider.dart';
 import 'package:taskshare/l10n/l10n.dart';
 
-class TaskInput extends StatelessWidget {
-  final TextEditingController textController;
+class TaskInput extends StatefulWidget {
+  @override
+  TaskInputState createState() {
+    return new TaskInputState();
+  }
+}
 
-  const TaskInput({
-    Key key,
-    @required this.textController,
-  }) : super(key: key);
+class TaskInputState extends State<TaskInput> {
+  TextEditingController _textController;
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController();
+    final bloc = TaskAdditionBlocProvider.of(context);
+    bloc.added.listen((task) {
+      _textController.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +36,7 @@ class TaskInput extends StatelessWidget {
 //        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
-            controller: textController,
+            controller: _textController,
             autofocus: true,
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -48,7 +59,7 @@ class TaskInput extends StatelessWidget {
               ),
               FlatButton(
                 onPressed: () async {
-                  bloc.save.add(textController.text);
+                  bloc.save.add(_textController.text);
                 },
                 child: Text(
                   l10n.buttonSave,

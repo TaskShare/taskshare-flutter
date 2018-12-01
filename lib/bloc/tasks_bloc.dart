@@ -31,7 +31,7 @@ class TasksBloc implements Bloc {
   String _groupName;
   Database<Task> _database;
   final _tasks = BehaviorSubject<List<Task>>();
-  final _taskOperations = BehaviorSubject<TaskOperation>();
+  final _taskOperations = PublishSubject<TaskOperation>();
   final _taskOperationController = PublishSubject<TaskOperation>();
   final _pendingDoneIds = Set<String>();
 
