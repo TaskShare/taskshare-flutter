@@ -70,10 +70,8 @@ class TaskListState extends State<TaskList> {
     final bloc = TasksBlocProvider.of(context);
     return StreamBuilder<List<Task>>(
       stream: bloc.tasks,
+      initialData: bloc.tasks.value,
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return AppProgressIndicator();
-        }
         return ListView.builder(
             itemCount: snapshot.data.length,
             itemBuilder: (context, index) {

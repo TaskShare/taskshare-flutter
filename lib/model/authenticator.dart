@@ -5,7 +5,7 @@ import 'package:taskshare/model/model.dart';
 enum AccountState { loading, signedOut, signedIn, signingIn, singingOut }
 
 abstract class Authenticator {
-  Observable<FirebaseUser> get user;
+  ValueObservable<FirebaseUser> get user;
 
   Observable<AccountState> get state;
 
@@ -24,7 +24,7 @@ class GoogleAuthenticator implements Authenticator {
   }
 
   @override
-  Observable<FirebaseUser> get user => _user.stream;
+  ValueObservable<FirebaseUser> get user => _user.stream;
 
   @override
   Observable<AccountState> get state => _state.stream;

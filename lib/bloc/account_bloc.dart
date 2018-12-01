@@ -16,7 +16,7 @@ class AccountBloc implements Bloc {
     });
   }
 
-  Observable<FirebaseUser> get user => authenticator.user;
+  ValueObservable<FirebaseUser> get user => authenticator.user;
 
   Observable<AccountState> get state => authenticator.state;
 

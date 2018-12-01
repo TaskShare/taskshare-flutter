@@ -20,7 +20,7 @@ class TaskOperation {
 }
 
 class TasksBloc implements Bloc {
-  Stream<List<Task>> get tasks => _tasks.stream;
+  ValueObservable<List<Task>> get tasks => _tasks.stream;
   Stream<TaskOperation> get taskOperations => _taskOperations.stream;
 
   Sink<TaskOperation> get taskOperation => _taskOperationController.sink;

@@ -14,13 +14,31 @@ class TaskScreen extends StatefulWidget {
   }
 }
 
-class TaskScreenState extends State<TaskScreen> {
+// TODO: fade animation
+// 閉じる時は下のビューもフェードアウトしてほしい
+class TaskScreenState extends State<TaskScreen>
+    with SingleTickerProviderStateMixin {
   TaskAdditionBloc _bloc;
+  TaskScreenMode _mode;
+  Animation<double> _animation;
+  Animation<double> _fabFadeAnimation;
+  AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500))
+          ..addListener(() {
+            // TODO: リファクター
+            setState(() {});
+          });
+    _animation =
+        Tween<double>(begin: 0, end: 100).animate(_animationController);
+    _fabFadeAnimation =
+        Tween<double>(begin: 1, end: 0).animate(_animationController);
     _bloc = TaskAdditionBlocProvider.of(context);
+    _mode = _bloc.screenMode.value;
     _bloc.fullscreenDemanded.listen((x) => Navigator.of(context).pop());
     _bloc.added.listen((task) {
       _bloc.updateScreenMode.add(TaskScreenMode.list);
@@ -28,6 +46,28 @@ class TaskScreenState extends State<TaskScreen> {
     _bloc.failed.listen((error) {
       // TODO:
     });
+    _bloc.screenMode.listen((toMode) async {
+      if (toMode == _mode) {
+        return;
+      }
+      switch (toMode) {
+        case TaskScreenMode.input:
+          setState(() => _mode = toMode);
+          _animationController.forward();
+          break;
+        case TaskScreenMode.list:
+          FocusScope.of(context).requestFocus(FocusNode());
+          await _animationController.reverse(); //from: 1);
+          setState(() => _mode = toMode);
+          break;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,53 +76,48 @@ class TaskScreenState extends State<TaskScreen> {
       bottomNavigationBar: BottomMenu(),
       appBar: _buildAppBar(),
       body: TaskList(),
-      floatingActionButton: AddTaskButton(),
+      floatingActionButton: FadeTransition(
+        child: AddTaskButton(),
+        opacity: _fabFadeAnimation,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
-    return StreamBuilder<TaskScreenMode>(
-      stream: _bloc.screenMode,
-      initialData: _bloc.screenMode.value,
-      builder: (context, snap) {
-        switch (snap.data) {
-          case TaskScreenMode.list:
-            return main;
-          case TaskScreenMode.input:
-            // TODO: fade animation
-            return Stack(
-              children: [
-                main,
-                Stack(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () =>
-                          _bloc.updateScreenMode.add(TaskScreenMode.list),
-                      child: Scaffold(
-                        backgroundColor: Colors.black.withAlpha(100),
-                        body: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Container(
-                              decoration: BoxDecoration(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: TaskInput(),
+    switch (_mode) {
+      case TaskScreenMode.list:
+        return main;
+      case TaskScreenMode.input:
+        return Stack(
+          children: [
+            main,
+            Stack(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () => _bloc.updateScreenMode.add(TaskScreenMode.list),
+                  child: Scaffold(
+                    backgroundColor:
+                        Colors.black.withAlpha(_animation.value.toInt()),
+                    body: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
                             ),
-                          ],
+                          ),
+                          child: TaskInput(),
                         ),
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ],
-            );
-        }
-      },
-    );
+            ),
+          ],
+        );
+    }
   }
 
   AppBar _buildAppBar() => AppBar(

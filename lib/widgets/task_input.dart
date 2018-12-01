@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskshare/bloc/task_addtion_bloc_provider.dart';
 import 'package:taskshare/l10n/l10n.dart';
+import 'package:taskshare/util/app_logger.dart';
 
 class TaskInput extends StatefulWidget {
   @override
@@ -10,15 +11,25 @@ class TaskInput extends StatefulWidget {
 }
 
 class TaskInputState extends State<TaskInput> {
+  // TODO: テキストを維持するために上に持っていく？
   TextEditingController _textController;
+  final _focusNode = FocusNode();
   @override
   void initState() {
+    log.info('TaskInputState initState');
     super.initState();
     _textController = TextEditingController();
     final bloc = TaskAdditionBlocProvider.of(context);
     bloc.added.listen((task) {
       _textController.clear();
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    FocusScope.of(context).requestFocus(_focusNode);
   }
 
   @override
@@ -37,7 +48,8 @@ class TaskInputState extends State<TaskInput> {
         children: <Widget>[
           TextField(
             controller: _textController,
-            autofocus: true,
+//            autofocus: true,
+            focusNode: _focusNode,
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'New Task',

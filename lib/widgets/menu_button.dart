@@ -13,11 +13,12 @@ class MenuButton extends StatelessWidget {
     final accountBloc = AccountBlocProvider.of(context);
     return StreamBuilder<FirebaseUser>(
       stream: accountBloc.user,
+      initialData: accountBloc.user.value,
       builder: (context, snap) {
-        if (!snap.hasData) {
+        final user = snap.data;
+        if (user == null) {
           return AppProgressIndicator();
         }
-        final user = snap.data;
         return IconButton(
           icon: ClipOval(
             child: Image.network(
