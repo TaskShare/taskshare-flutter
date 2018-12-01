@@ -30,6 +30,7 @@ dependencies:
   intl:
   built_value:
   quiver:
+  tuple:
   bloc_provider:
 
 dev_dependencies:
