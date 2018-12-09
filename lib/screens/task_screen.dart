@@ -86,33 +86,42 @@ class TaskScreenState extends State<TaskScreen>
       case TaskScreenMode.list:
         return main;
       case TaskScreenMode.input:
+        final mediaQuery = MediaQuery.of(context);
+        final EdgeInsets minInsets =
+            mediaQuery.padding.copyWith(bottom: mediaQuery.viewInsets.bottom);
         return Stack(
           children: [
             main,
-            GestureDetector(
-              onTap: () => _bloc.updateScreenMode.add(TaskScreenMode.list),
-              child: Scaffold(
-                backgroundColor:
-                    Colors.black.withAlpha(_animation.value.toInt()),
-                body: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {}, // suppress tap
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
-                          ),
-                        ),
-                        child: TaskInput(),
-                      ),
-                    ),
-                  ],
+            Stack(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () => _bloc.updateScreenMode.add(TaskScreenMode.list),
+                  child: Container(
+                    color: Colors.black.withAlpha(_animation.value.toInt()),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: minInsets,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Material(
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: TaskInput(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         );
