@@ -20,9 +20,12 @@ class TaskListState extends State<TaskList> {
     super.initState();
     final bloc = TasksBlocProvider.of(context);
     bloc.taskOperations.listen((operation) {
+      if (context == null) {
+        return;
+      }
+      final l10n = L10N.of(context);
       final task = operation.task;
       final type = operation.type;
-      final l10n = L10N.of(context);
       String title;
       switch (type) {
         case TaskOperationType.checked:
