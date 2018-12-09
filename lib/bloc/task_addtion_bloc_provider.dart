@@ -9,10 +9,10 @@ class TaskAdditionBlocProvider extends BlocProvider<TaskAdditionBloc> {
     @required Widget child,
   }) : super(
           child: child,
-          creator: (context) {
+          creator: (context, bag) {
             final bloc = TaskAdditionBloc();
             final tasksBloc = TasksBlocProvider.of(context);
-            bloc.added.listen((task) {
+            final subscription = bloc.added.listen((task) {
               tasksBloc.taskOperation.add(
                 TaskOperation(
                   task: task,
@@ -20,6 +20,7 @@ class TaskAdditionBlocProvider extends BlocProvider<TaskAdditionBloc> {
                 ),
               );
             });
+            bag.onDisposed = subscription.cancel;
             return bloc;
           },
         );

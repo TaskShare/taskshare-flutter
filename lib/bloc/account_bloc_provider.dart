@@ -8,7 +8,7 @@ class AccountBlocProvider extends BlocProvider<AccountBloc> {
     @required Widget child,
   }) : super(
           child: child,
-          creator: (context) {
+          creator: (context, _bag) {
             final provider = ServiceProvider.of(context);
             return AccountBloc(authenticator: provider.authenticator);
           },

@@ -8,7 +8,7 @@ class TasksBlocProvider extends BlocProvider<TasksBloc> {
     @required Widget child,
   }) : super(
           child: child,
-          creator: (context) {
+          creator: (context, _bag) {
             final provider = ServiceProvider.of(context);
             return TasksBloc(authenticator: provider.authenticator);
           },
