@@ -20,6 +20,9 @@ class TaskListState extends State<TaskList> {
     super.initState();
     final bloc = TasksBlocProvider.of(context);
     bloc.taskOperations.listen((operation) {
+      if (context == null) {
+        return;
+      }
       final bloc = TasksBlocProvider.of(context);
       final task = operation.task;
       final type = operation.type;
