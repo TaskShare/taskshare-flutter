@@ -20,7 +20,7 @@ class TaskAdditionBlocProvider extends BlocProvider<TaskAdditionBloc> {
                 ),
               );
             });
-            bag.onDisposed = subscription.cancel;
+            bag.register(onDisposed: subscription.cancel);
             return bloc;
           },
         );
