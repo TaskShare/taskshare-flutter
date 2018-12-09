@@ -15,14 +15,12 @@ class TaskList extends StatefulWidget {
 }
 
 class TaskListState extends State<TaskList> {
+  StreamSubscription _subscription;
   @override
   void initState() {
     super.initState();
     final bloc = TasksBlocProvider.of(context);
-    bloc.taskOperations.listen((operation) {
-      if (context == null) {
-        return;
-      }
+    _subscription = bloc.taskOperations.listen((operation) {
       final l10n = L10N.of(context);
       final task = operation.task;
       final type = operation.type;
@@ -88,5 +86,11 @@ class TaskListState extends State<TaskList> {
             });
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    super.dispose();
   }
 }
