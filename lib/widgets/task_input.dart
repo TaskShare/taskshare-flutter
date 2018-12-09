@@ -44,11 +44,9 @@ class TaskInputState extends State<TaskInput> {
         bottom: 8.0,
       ),
       child: Column(
-//        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           TextField(
             controller: _textController,
-//            autofocus: true,
             focusNode: _focusNode,
             decoration: InputDecoration(
               border: InputBorder.none,
