@@ -8,7 +8,7 @@ class TaskAdditionBloc implements Bloc {
   final _saveController = PublishSubject<String>();
   final _fullscreenController = PublishSubject<void>();
   final _addedController = PublishSubject<Task>();
-  final _failedController = PublishSubject<Error>();
+  final _failedController = BehaviorSubject<Error>(seedValue: null);
   final _screenStateController =
       BehaviorSubject<TaskScreenMode>(seedValue: TaskScreenMode.list);
 
@@ -19,6 +19,7 @@ class TaskAdditionBloc implements Bloc {
       } else {
         final task = Task(id: null, title: title);
         _addedController.add(task);
+        _failedController.add(null);
       }
     });
   }
@@ -26,7 +27,7 @@ class TaskAdditionBloc implements Bloc {
   Stream<void> get fullscreenDemanded => _fullscreenController.stream;
   Sink<void> get demandFullscreen => _fullscreenController.sink;
   Stream<Task> get added => _addedController.stream;
-  Stream<Error> get failed => _failedController.stream;
+  ValueObservable<Error> get failed => _failedController.stream;
   Sink<String> get save => _saveController.sink;
   ValueObservable<TaskScreenMode> get screenMode =>
       _screenStateController.stream;

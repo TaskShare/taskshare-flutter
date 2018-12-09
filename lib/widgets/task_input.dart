@@ -45,14 +45,20 @@ class TaskInputState extends State<TaskInput> {
       ),
       child: Column(
         children: <Widget>[
-          TextField(
-            controller: _textController,
-            focusNode: _focusNode,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'New Task',
-//              errorText: 'hoge',
-            ),
+          StreamBuilder<Error>(
+            initialData: bloc.failed.value,
+            stream: bloc.failed,
+            builder: (context, snap) {
+              return TextField(
+                controller: _textController,
+                focusNode: _focusNode,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'New Task',
+                  errorText: snap.data == null ? null : snap.data.toString(),
+                ),
+              );
+            },
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -43,9 +43,6 @@ class TaskScreenState extends State<TaskScreen>
     _bloc.added.listen((task) {
       _bloc.updateScreenMode.add(TaskScreenMode.list);
     });
-    _bloc.failed.listen((error) {
-      // TODO:
-    });
     _bloc.screenMode.listen((toMode) async {
       if (toMode == _mode) {
         return;
