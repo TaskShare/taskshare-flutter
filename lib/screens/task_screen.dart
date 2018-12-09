@@ -118,6 +118,8 @@ class TaskScreenState extends State<TaskScreen>
           ],
         );
     }
+    assert(false);
+    return null;
   }
 
   AppBar _buildAppBar() => AppBar(
