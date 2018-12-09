@@ -89,31 +89,27 @@ class TaskScreenState extends State<TaskScreen>
         return Stack(
           children: [
             main,
-            Stack(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () => _bloc.updateScreenMode.add(TaskScreenMode.list),
-                  child: Scaffold(
-                    backgroundColor:
-                        Colors.black.withAlpha(_animation.value.toInt()),
-                    body: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
-                          ),
-                          child: TaskInput(),
+            GestureDetector(
+              onTap: () => _bloc.updateScreenMode.add(TaskScreenMode.list),
+              child: Scaffold(
+                backgroundColor:
+                    Colors.black.withAlpha(_animation.value.toInt()),
+                body: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
                         ),
-                      ],
+                      ),
+                      child: TaskInput(),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ],
         );
