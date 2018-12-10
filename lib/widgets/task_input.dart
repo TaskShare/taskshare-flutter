@@ -23,7 +23,6 @@ class TaskInputState extends State<TaskInput> {
       _textController.clear();
     });
     _textController.addListener(() {
-      print(_textController.text);
       bloc.updateText.add(_textController.text);
     });
   }
