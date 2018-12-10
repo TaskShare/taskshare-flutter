@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:taskshare/bloc/task_addtion_bloc_provider.dart';
 import 'package:taskshare/l10n/l10n.dart';
-import 'package:taskshare/util/app_logger.dart';
 
 class TaskInput extends StatefulWidget {
   @override
@@ -12,21 +13,24 @@ class TaskInputState extends State<TaskInput> {
   // TODO: テキストを維持するために上に持っていく？
   TextEditingController _textController;
   final _focusNode = FocusNode();
+  StreamSubscription _blocSubscription;
   @override
   void initState() {
-    log.info('TaskInputState initState');
     super.initState();
     _textController = TextEditingController();
     final bloc = TaskAdditionBlocProvider.of(context);
-    bloc.added.listen((task) {
+    _blocSubscription = bloc.added.listen((task) {
       _textController.clear();
+    });
+    _textController.addListener(() {
+      print(_textController.text);
+      bloc.updateText.add(_textController.text);
     });
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     FocusScope.of(context).requestFocus(_focusNode);
   }
 
@@ -86,5 +90,12 @@ class TaskInputState extends State<TaskInput> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    _blocSubscription.cancel();
+    super.dispose();
   }
 }
