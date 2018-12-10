@@ -9,9 +9,7 @@ import 'package:taskshare/widgets/widgets.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
-  TaskScreenState createState() {
-    return new TaskScreenState();
-  }
+  TaskScreenState createState() => TaskScreenState();
 }
 
 // TODO: fade animation
