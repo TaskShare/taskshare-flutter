@@ -97,10 +97,8 @@ class TaskScreenState extends State<TaskScreen>
                     color: Colors.black.withAlpha(_animation.value.toInt()),
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
+                Positioned.fill(
+                  top: null,
                   child: Padding(
                     padding: minInsets,
                     child: Material(
