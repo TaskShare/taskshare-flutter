@@ -1,5 +1,5 @@
-import 'package:taskshare/bloc/task_addition_bloc.dart';
-import 'package:taskshare/bloc/task_addtion_bloc_provider.dart';
+import 'package:taskshare/task_input/task_addition_bloc.dart';
+import 'package:taskshare/task_input/task_addtion_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class AddTaskButton extends StatelessWidget {

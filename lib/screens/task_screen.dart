@@ -1,10 +1,10 @@
-import 'package:taskshare/bloc/task_addition_bloc.dart';
-import 'package:taskshare/bloc/task_addtion_bloc_provider.dart';
+import 'package:taskshare/task_input/task_addition_bloc.dart';
+import 'package:taskshare/task_input/task_addtion_bloc_provider.dart';
+import 'package:taskshare/task_input/task_input.dart';
+import 'package:taskshare/tasks/task_list.dart';
 import 'package:taskshare/widgets/add_task_button.dart';
 import 'package:taskshare/widgets/bottom_menu.dart';
 import 'package:taskshare/widgets/menu_button.dart';
-import 'package:taskshare/widgets/task_input.dart';
-import 'package:taskshare/widgets/task_list.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class TaskScreen extends StatefulWidget {
