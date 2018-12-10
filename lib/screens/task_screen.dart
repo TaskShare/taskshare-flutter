@@ -18,23 +18,29 @@ class TaskScreenState extends State<TaskScreen>
     with SingleTickerProviderStateMixin {
   TaskAdditionBloc _bloc;
   TaskScreenMode _mode;
-  Animation<double> _animation;
+  Animation<double> _backgroundFadeAnimation;
   Animation<double> _fabFadeAnimation;
+  Animation<double> _reverseInputViewFadeAnimation;
   AnimationController _animationController;
 
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500))
-          ..addListener(() {
-            // TODO: リファクター
-            setState(() {});
-          });
-    _animation =
-        Tween<double>(begin: 0, end: 100).animate(_animationController);
-    _fabFadeAnimation =
-        Tween<double>(begin: 1, end: 0).animate(_animationController);
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 200),
+    );
+    _backgroundFadeAnimation =
+        Tween<double>(begin: 0, end: 0.4).animate(_animationController);
+    _fabFadeAnimation = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(0, 0.4),
+    ));
+    _reverseInputViewFadeAnimation =
+        Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(0.4, 1),
+    ));
     _bloc = TaskAdditionBlocProvider.of(context);
     _mode = _bloc.screenMode.value;
     _bloc.fullscreenDemanded.listen((x) => Navigator.of(context).pop());
@@ -91,8 +97,9 @@ class TaskScreenState extends State<TaskScreen>
               children: <Widget>[
                 GestureDetector(
                   onTap: () => _bloc.updateScreenMode.add(TaskScreenMode.list),
-                  child: Container(
-                    color: Colors.black.withAlpha(_animation.value.toInt()),
+                  child: FadeTransition(
+                    opacity: _backgroundFadeAnimation,
+                    child: Container(color: Colors.black),
                   ),
                 ),
                 Positioned.fill(
@@ -101,15 +108,18 @@ class TaskScreenState extends State<TaskScreen>
                     padding: minInsets,
                     child: Material(
                       color: Colors.transparent,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            topRight: Radius.circular(10),
+                      child: FadeTransition(
+                        opacity: _reverseInputViewFadeAnimation,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
                           ),
+                          child: TaskInput(),
                         ),
-                        child: TaskInput(),
                       ),
                     ),
                   ),
