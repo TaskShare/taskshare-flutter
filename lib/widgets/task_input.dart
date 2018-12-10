@@ -5,9 +5,7 @@ import 'package:taskshare/util/app_logger.dart';
 
 class TaskInput extends StatefulWidget {
   @override
-  TaskInputState createState() {
-    return new TaskInputState();
-  }
+  TaskInputState createState() => TaskInputState();
 }
 
 class TaskInputState extends State<TaskInput> {
