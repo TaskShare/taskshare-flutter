@@ -43,17 +43,18 @@ class TaskInputState extends State<TaskInput> {
       ),
       child: Column(
         children: <Widget>[
-          StreamBuilder<Error>(
+          StreamBuilder<String>(
             initialData: bloc.failed.value,
             stream: bloc.failed,
             builder: (context, snap) {
+              // TODO: expand touch area
               return TextField(
                 controller: _textController,
                 focusNode: _focusNode,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'New Task',
-                  errorText: snap.data == null ? null : snap.data.toString(),
+                  errorText: snap.data,
                 ),
               );
             },
