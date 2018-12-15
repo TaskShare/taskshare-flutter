@@ -27,6 +27,7 @@ class TasksBloc implements Bloc {
 
   StreamSubscription<FirebaseUser> userSubscription;
   final Authenticator authenticator;
+  // TODO: 依存を引き剥がす。下のコードもスッキリできそう
   final _firestore = Firestore.instance;
   String _groupName;
   Database<Task> _database;
