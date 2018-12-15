@@ -28,7 +28,7 @@ packages:
       name: bloc_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.20"
+    version: "0.0.21"
   boolean_selector:
     dependency: transitive
     description:
