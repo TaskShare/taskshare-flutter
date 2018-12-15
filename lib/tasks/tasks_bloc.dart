@@ -59,32 +59,15 @@ class TasksBloc implements Bloc {
           decoder: TaskDecoder());
 
       _database
-          .entities((ref) =>
-              ref.orderBy('${TaskProperties.dueTime}', descending: false))
+          .entities((ref) => ref
+              .orderBy('${TaskProperties.dueTime}', descending: false)
+              .orderBy('${TaskProperties.createTime}', descending: true))
           .map((tasks) {
         // 更新時に、ローカルと同期完了で2回呼ばれる
         log.info('tasks updated');
         // bug workaround. see: https://github.com/flutter/flutter/issues/15928
-        tasks
-          ..sort((a, b) {
-            int compareByCreate() => -a.createTime.compareTo(b.createTime);
-            if (a.dueTime == null) {
-              if (b.dueTime == null) {
-                return compareByCreate();
-              }
-              return 1;
-            }
-            if (b.dueTime == null) {
-              return -1;
-            }
-            final comparedByDue = a.dueTime.compareTo(b.dueTime);
-            if (comparedByDue != 0) {
-              return comparedByDue;
-            }
-            return compareByCreate();
-          })
-          ..removeWhere((task) =>
-              task.doneTime != null && !_pendingDoneIds.contains(task.id));
+        tasks.removeWhere((task) =>
+            task.doneTime != null && !_pendingDoneIds.contains(task.id));
         return tasks;
       }).listen(_tasks.add);
     });
