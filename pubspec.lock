@@ -7,7 +7,7 @@ packages:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.33.6"
+    version: "0.33.6+1"
   args:
     dependency: transitive
     description:
@@ -28,7 +28,7 @@ packages:
       name: bloc_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.18"
+    version: "0.0.20"
   boolean_selector:
     dependency: transitive
     description:
@@ -84,7 +84,7 @@ packages:
       name: built_value
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.1.6"
+    version: "6.2.0"
   charcode:
     dependency: transitive
     description:
@@ -190,7 +190,7 @@ packages:
       name: front_end
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.6+8"
+    version: "0.1.6+9"
   glob:
     dependency: transitive
     description:
@@ -274,7 +274,7 @@ packages:
       name: kernel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.6+8"
+    version: "0.3.6+9"
   logging:
     dependency: "direct main"
     description:
@@ -379,7 +379,7 @@ packages:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.19.0"
+    version: "0.20.0"
   scoped_model:
     dependency: "direct main"
     description:
@@ -419,7 +419,7 @@ packages:
       name: source_gen
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.2"
+    version: "0.9.3"
   source_span:
     dependency: transitive
     description:
