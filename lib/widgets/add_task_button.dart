@@ -3,7 +3,7 @@ import 'package:taskshare/task_input/task_addtion_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class AddTaskButton extends StatelessWidget {
-  AddTaskButton();
+  const AddTaskButton();
 
   factory AddTaskButton.forDesignTime() => AddTaskButton();
 

@@ -82,11 +82,11 @@ class TaskScreenState extends State<TaskScreen>
   @override
   Widget build(BuildContext context) {
     final main = Scaffold(
-      bottomNavigationBar: BottomMenu(),
+      bottomNavigationBar: const BottomMenu(),
       appBar: _buildAppBar(),
       body: TaskList(),
       floatingActionButton: FadeTransition(
-        child: AddTaskButton(),
+        child: const AddTaskButton(),
         opacity: _fabFadeAnimation,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -145,6 +145,6 @@ class TaskScreenState extends State<TaskScreen>
 
   AppBar _buildAppBar() => AppBar(
         title: Text('TaskShare'),
-        actions: [MenuButton()],
+        actions: [const MenuButton()],
       );
 }

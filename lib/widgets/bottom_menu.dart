@@ -1,13 +1,12 @@
 import 'package:taskshare/widgets/widgets.dart';
 
 class BottomMenu extends StatelessWidget {
-  BottomMenu();
+  const BottomMenu();
 
   factory BottomMenu.forDesignTime() => BottomMenu();
 
   @override
   Widget build(BuildContext context) => BottomAppBar(
-//        shape: CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

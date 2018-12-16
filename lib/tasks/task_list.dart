@@ -73,7 +73,7 @@ class TaskListState extends State<TaskList> {
       initialData: bloc.tasks.value,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return AppProgressIndicator();
+          return const AppProgressIndicator();
         }
         return ListView.builder(
             itemCount: snapshot.data.length,

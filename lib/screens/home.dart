@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
       builder: (context, snapshot) {
         switch (snapshot.data) {
           case AccountState.loading:
-            return AppProgressIndicator();
+            return const AppProgressIndicator();
           case AccountState.signedOut:
           case AccountState.signingIn:
             return Welcome();

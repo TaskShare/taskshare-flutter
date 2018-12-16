@@ -4,7 +4,7 @@ import 'package:taskshare/screens/setting.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class MenuButton extends StatelessWidget {
-  MenuButton();
+  const MenuButton();
 
   factory MenuButton.forDesignTime() => MenuButton();
 
@@ -17,7 +17,7 @@ class MenuButton extends StatelessWidget {
       builder: (context, snap) {
         final user = snap.data;
         if (user == null) {
-          return AppProgressIndicator();
+          return const AppProgressIndicator();
         }
         return IconButton(
           icon: ClipOval(
