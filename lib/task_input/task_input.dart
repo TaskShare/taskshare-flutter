@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taskshare/l10n/l10n.dart';
+import 'package:taskshare/task_input/task_addition_bloc.dart';
 import 'package:taskshare/task_input/task_addtion_bloc_provider.dart';
+import 'package:taskshare/util/app_logger.dart';
 
 class TaskInput extends StatefulWidget {
   final TextEditingController textController;
@@ -18,10 +20,13 @@ class TaskInputState extends State<TaskInput> {
   final _focusNode = FocusNode();
   @override
   void initState() {
-    super.initState();
     final bloc = TaskAdditionBlocProvider.of(context);
-    widget.textController.addListener(() {
-      bloc.updateText.add(widget.textController.text);
+    super.initState();
+    _focusNode.addListener(() {
+      log.info(_focusNode);
+      if (!_focusNode.hasFocus) {
+        bloc.updateScreenMode.add(TaskScreenMode.list);
+      }
     });
   }
 
@@ -57,6 +62,7 @@ class TaskInputState extends State<TaskInput> {
                   hintText: 'New Task',
                   errorText: snap.data,
                 ),
+                onSubmitted: log.info,
               );
             },
           ),

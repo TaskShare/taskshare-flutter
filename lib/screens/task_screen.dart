@@ -42,11 +42,18 @@ class TaskScreenState extends State<TaskScreen>
     ));
     _bloc = TaskAdditionBlocProvider.of(context);
     _mode = _bloc.screenMode.value;
+
     _bloc.fullscreenDemanded.listen((x) => Navigator.of(context).pop());
+
     _bloc.added.listen((task) {
       _bloc.updateScreenMode.add(TaskScreenMode.list);
       _textController.clear();
     });
+
+    _textController.addListener(() {
+      _bloc.updateText.add(_textController.text);
+    });
+
     _bloc.screenMode.listen((toMode) async {
       if (toMode == _mode) {
         return;
