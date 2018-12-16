@@ -1,7 +1,7 @@
 import 'package:logging/logging.dart';
 import 'package:stack_trace/stack_trace.dart';
 
-String createLevelSuffix(Level level) {
+String _createLevelSuffix(Level level) {
   if (level == Level.FINEST) {
     return '👣';
   }
@@ -46,8 +46,8 @@ class AppLogger {
         }
         return null;
       }();
-      final level = '${createLevelSuffix(rec.level)}';
-      print('$level: ${rec.time}: $frame: ${rec.message}');
+      final level = '${_createLevelSuffix(rec.level)}';
+      print('$level ${rec.level} | ${rec.time} | $frame | ${rec.message}');
     });
   }
 }
