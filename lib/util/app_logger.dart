@@ -16,8 +16,8 @@ class AppLogger implements logger.Logger {
           return null;
         }
         final frames = Trace.from(stackTrace).frames;
-        if (frames.length >= 3) {
-          return frames[2];
+        if (frames.length >= 4) {
+          return frames[3];
         }
         return null;
       }();
