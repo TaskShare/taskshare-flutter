@@ -44,7 +44,6 @@ class TaskInputState extends State<TaskInput> {
             initialData: bloc.failed.value,
             stream: bloc.failed,
             builder: (context, snap) {
-              // TODO: expand touch area
               return TextField(
                 controller: widget.textController,
                 focusNode: _focusNode,
