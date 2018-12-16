@@ -1,10 +1,12 @@
 abstract class Logger {
-  void trace(message);
-  void debug(message);
+  void finest(message);
+  void finer(message);
+  void fine(message);
+  void config(message);
   void info(message);
-  void warn(message);
-  void error(message);
-  void fault(message);
-}
+  void warning(message);
+  void severe(message);
+  void shout(message);
 
-enum Level { trace, debug, info, warn, error, fault }
+  void dispose();
+}

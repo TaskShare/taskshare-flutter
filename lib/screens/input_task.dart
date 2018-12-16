@@ -11,7 +11,7 @@ class InputTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log.warn('InputTaskPage build called');
+    log.warning('InputTaskPage build called');
     final bloc = TasksBlocProvider.of(context);
     return Scaffold(
         appBar: AppBar(

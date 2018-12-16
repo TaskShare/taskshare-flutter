@@ -1,85 +1,74 @@
+import 'dart:async';
+
 import 'package:logging/logging.dart';
 import 'package:stack_trace/stack_trace.dart';
 
 import 'logger.dart' as logger;
 
+/// グローバルにアクセスできるlogインスタンス
 final logger.Logger log = AppLogger();
 
+/// プラットフォーム固有の処理を書けるように標準Loggerをラップ
+/// (AngularDartでは別途実装クラスを用意するイメージ)
 class AppLogger implements logger.Logger {
   final _logger = Logger('ShareTask');
+  StreamSubscription _subscription;
 
   AppLogger() {
-    Logger.root.onRecord.listen((rec) {
-      final Frame frame = () {
-        final stackTrace = rec.stackTrace;
-        if (stackTrace == null) {
-          return null;
-        }
-        final frames = Trace.from(stackTrace).frames;
-        if (frames.length >= 4) {
-          return frames[3];
-        }
-        return null;
-      }();
-      final level = '${_createLevelSuffix(rec.level)}';
-      print('$level ${rec.level} | ${rec.time} | $frame | ${rec.message}');
+    _subscription = Logger.root.onRecord.listen((record) {
+      final frame = _getTargetFrame(record);
+      final level = '${_createLevelSuffix(record.level)}';
+      print(
+          '$level ${record.level} | ${record.time} | $frame | ${record.message}');
     });
   }
 
-  @override
-  void trace(message) {
-    _logger.finest(message);
+  Frame _getTargetFrame(LogRecord record) {
+    final stackTrace = record.stackTrace;
+    if (stackTrace == null) {
+      return null;
+    }
+    final frames = Trace.from(stackTrace).frames;
+    const index = 3;
+    if (frames.length > index) {
+      return frames[index];
+    }
+    return frames.last;
   }
 
   @override
-  void debug(message) {
-    _logger.fine(message);
-  }
+  void finest(message) => _logger.finest(message);
 
   @override
-  void info(message) {
-    _logger.info(message);
-  }
+  void finer(message) => _logger.finer(message);
 
   @override
-  void warn(message) {
-    _logger.warning(message);
-  }
+  void fine(message) => _logger.fine(message);
 
   @override
-  void error(message) {
-    _logger.severe(message);
-  }
+  void config(message) => _logger.config(message);
 
   @override
-  void fault(message) {
-    _logger.shout(message);
+  void info(message) => _logger.info(message);
+
+  @override
+  void warning(message) => _logger.warning(message);
+
+  @override
+  void severe(message) => _logger.severe(message);
+
+  @override
+  void shout(message) => _logger.shout(message);
+
+  @override
+  void dispose() {
+    _subscription.cancel();
   }
 }
 
-void configureLogger(logger.Level level) {
-  final _level = _convertLevel(level);
-  recordStackTraceAtLevel = _level;
-  Logger.root.level = _level;
-}
-
-Level _convertLevel(logger.Level level) {
-  switch (level) {
-    case logger.Level.trace:
-      return Level.FINEST;
-    case logger.Level.debug:
-      return Level.FINE;
-    case logger.Level.info:
-      return Level.INFO;
-    case logger.Level.warn:
-      return Level.WARNING;
-    case logger.Level.error:
-      return Level.SEVERE;
-    case logger.Level.fault:
-      return Level.SHOUT;
-  }
-  assert(false);
-  return null;
+void configureLogger(Level level) {
+  recordStackTraceAtLevel = level;
+  Logger.root.level = level;
 }
 
 String _createLevelSuffix(Level level) {
