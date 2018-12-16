@@ -15,6 +15,7 @@ class TasksBlocProvider extends BlocProvider<TasksBloc> {
             return TasksBloc(
               authenticator: provider.authenticator,
               store: provider.tasksStore,
+              logger: provider.logger,
             );
           },
         );

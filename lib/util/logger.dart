@@ -1,3 +1,4 @@
+/// BLoCなどプラットフォーム非依存のクラスで使う場合はこれを使ってDI
 abstract class Logger {
   void finest(message);
   void finer(message);

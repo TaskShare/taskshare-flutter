@@ -3,6 +3,7 @@ import 'package:taskshare/model/authenticator.dart';
 import 'package:taskshare/model/model.dart';
 import 'package:taskshare/model/task.dart';
 import 'package:taskshare/model/tasks_store.dart';
+import 'package:taskshare/util/logger.dart';
 
 export 'package:taskshare/model/task.dart';
 
@@ -27,21 +28,22 @@ class TasksBloc implements Bloc {
   StreamSubscription _subscription;
   final Authenticator authenticator;
   final TasksStore store;
+  final Logger logger;
   final _tasks = BehaviorSubject<List<Task>>();
   final _taskOperations = PublishSubject<TaskOperation>();
   final _taskOperationController = PublishSubject<TaskOperation>();
   final _pendingDoneIds = Set<String>();
 
-  TasksBloc({
-    @required this.authenticator,
-    @required this.store,
-  }) {
-    log.info('TasksBloc constructor called');
+  TasksBloc(
+      {@required this.authenticator,
+      @required this.store,
+      @required this.logger}) {
+    logger.info('TasksBloc constructor called');
 
     _subscription = authenticator.user.flatMap<List<Task>>((user) {
       final groupName = user?.uid;
       if (user == null) {
-        log.info('same group name is null');
+        logger.info('same group name is null');
         store.updateGroup(groupName);
         return Observable.just([]);
       }
