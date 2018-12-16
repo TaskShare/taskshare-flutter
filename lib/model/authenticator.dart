@@ -4,12 +4,26 @@ import 'package:taskshare/model/model.dart';
 
 enum AccountState { loading, signedOut, signedIn, signingIn, singingOut }
 
+class User {
+  final String id;
+  final Uri imageUrl;
+
+  User({
+    @required this.id,
+    @required this.imageUrl,
+  });
+
+  User.fromFirUser(
+    FirebaseUser user,
+  ) : this(id: user.uid, imageUrl: Uri.parse(user.photoUrl));
+}
+
 abstract class Authenticator {
-  ValueObservable<FirebaseUser> get user;
+  ValueObservable<User> get user;
 
   Observable<AccountState> get state;
 
-  Future<FirebaseUser> signIn();
+  Future<User> signIn();
 
   Future<void> signOut();
 }
@@ -17,18 +31,18 @@ abstract class Authenticator {
 class GoogleAuthenticator implements Authenticator {
   GoogleAuthenticator() {
     _auth.onAuthStateChanged.map((user) {
-      log.info('onAuthStateChanged: $user');
+      logger.info('onAuthStateChanged: $user');
       _state.add(user == null ? AccountState.signedOut : AccountState.signedIn);
-      return user;
+      return User.fromFirUser(user);
     }).pipe(_user);
   }
 
   @override
-  ValueObservable<FirebaseUser> get user => _user.stream;
+  ValueObservable<User> get user => _user.stream;
 
   @override
   Observable<AccountState> get state => _state.stream;
-  final _user = BehaviorSubject<FirebaseUser>();
+  final _user = BehaviorSubject<User>();
 
   final _state = BehaviorSubject<AccountState>(seedValue: AccountState.loading);
 
@@ -39,17 +53,17 @@ class GoogleAuthenticator implements Authenticator {
   ]);
 
   @override
-  Future<FirebaseUser> signIn() async {
+  Future<User> signIn() async {
     assert(_state.value == AccountState.signedOut);
     _state.add(AccountState.signingIn);
     final gAccount = await _googleSignIn.signIn();
     final gAuth = await gAccount.authentication;
-    final firUser = _auth.signInWithGoogle(
+    final firUser = await _auth.signInWithGoogle(
       idToken: gAuth.idToken,
       accessToken: gAuth.accessToken,
     );
-    log.info(firUser);
-    return firUser;
+    logger.info(firUser);
+    return User.fromFirUser(firUser);
   }
 
   @override

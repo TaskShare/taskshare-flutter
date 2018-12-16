@@ -3,6 +3,7 @@ import 'package:taskshare/screens/home.dart';
 import 'package:taskshare/screens/input_task.dart';
 import 'package:taskshare/screens/setting.dart';
 import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
+import 'package:taskshare/util/util.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class App extends StatelessWidget {
@@ -12,7 +13,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log.finest('App build called');
+    logger.finest('App build called');
     return AccountBlocProvider(
       child: TasksBlocProvider(
         child: MaterialApp(
@@ -46,11 +47,11 @@ class App extends StatelessWidget {
   Route _handleRoutes(RouteSettings settings) {
     switch (settings.name) {
       case InputTask.routeName:
-        log.warning('name: ${settings.name}');
+        logger.warning('name: ${settings.name}');
         return MaterialPageRoute(
             fullscreenDialog: true,
             builder: (context) {
-              log.warning('InputTaskPage returned');
+              logger.warning('InputTaskPage returned');
               return InputTask();
             });
     }

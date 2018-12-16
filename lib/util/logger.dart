@@ -1,13 +1,8 @@
-/// BLoCなどプラットフォーム非依存のクラスで使う場合はこれを使ってDI
-abstract class Logger {
-  void finest(message);
-  void finer(message);
-  void fine(message);
-  void config(message);
-  void info(message);
-  void warning(message);
-  void severe(message);
-  void shout(message);
+import 'package:simple_logger/simple_logger.dart';
 
-  void dispose();
-}
+// TODO: stacktraceEnabledはリリースビルドではfalseにする
+final logger = SimpleLogger()
+  ..setLevel(
+    Level.FINEST,
+    stacktraceEnabled: true,
+  );

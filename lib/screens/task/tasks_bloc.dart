@@ -28,27 +28,23 @@ class TasksBloc implements Bloc {
   StreamSubscription _subscription;
   final Authenticator authenticator;
   final TasksStore store;
-  final Logger logger;
   final _tasks = BehaviorSubject<List<Task>>();
   final _taskOperations = PublishSubject<TaskOperation>();
   final _taskOperationController = PublishSubject<TaskOperation>();
   final _pendingDoneIds = Set<String>();
 
-  TasksBloc(
-      {@required this.authenticator,
-      @required this.store,
-      @required this.logger}) {
+  TasksBloc({@required this.authenticator, @required this.store}) {
     logger.info('TasksBloc constructor called');
 
     _subscription = authenticator.user.flatMap<List<Task>>((user) {
-      final groupName = user?.uid;
+      final groupName = user?.id;
       if (user == null) {
         logger.info('same group name is null');
         store.updateGroup(groupName);
         return Observable.just([]);
       }
       if (store.groupName == groupName) {
-        log.info('same group name: $groupName');
+        logger.info('same group name: $groupName');
         return Observable.empty();
       }
 

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taskshare/bloc/account_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
@@ -12,7 +11,7 @@ class Setting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accountBloc = AccountBlocProvider.of(context);
-    return StreamBuilder<FirebaseUser>(
+    return StreamBuilder<User>(
       stream: accountBloc.user,
       builder: (context, snapshot) {
         final user = snapshot.data;

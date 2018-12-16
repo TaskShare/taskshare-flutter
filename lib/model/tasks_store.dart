@@ -27,7 +27,7 @@ class TasksStoreFlutter implements TasksStore {
     if (groupName == null) {
       return;
     }
-    log.info('groupName updated: $groupName');
+    logger.info('groupName updated: $groupName');
     _database = AppDatabase<Task>(
         collectionRef: _firestore
             .collection(Group.entity)

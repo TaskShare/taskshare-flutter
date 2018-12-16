@@ -1,5 +1,4 @@
 import 'package:bloc_provider/bloc_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taskshare/model/authenticator.dart';
 import 'package:taskshare/model/model.dart';
 
@@ -16,7 +15,7 @@ class AccountBloc implements Bloc {
     });
   }
 
-  ValueObservable<FirebaseUser> get user => authenticator.user;
+  ValueObservable<User> get user => authenticator.user;
 
   Observable<AccountState> get state => authenticator.state;
 

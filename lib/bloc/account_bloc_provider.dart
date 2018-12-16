@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:taskshare/bloc/account_bloc.dart';
 import 'package:taskshare/model/service_provider.dart';
 
+export 'package:taskshare/bloc/account_bloc.dart';
+
 class AccountBlocProvider extends BlocProvider<AccountBloc> {
   AccountBlocProvider({
     @required Widget child,
