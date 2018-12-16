@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskshare/l10n/l10n.dart';
-import 'package:taskshare/task_input/task_addtion_bloc_provider.dart';
+import 'package:taskshare/screens/task/addition/task_addition_bloc_provider.dart';
 
 class TaskInput extends StatefulWidget {
   final TextEditingController textController;

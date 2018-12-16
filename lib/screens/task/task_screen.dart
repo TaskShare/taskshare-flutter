@@ -1,11 +1,11 @@
-import 'package:taskshare/screens/task_screen/add_task_button.dart';
-import 'package:taskshare/screens/task_screen/bottom_menu.dart';
-import 'package:taskshare/screens/task_screen/menu_button.dart';
-import 'package:taskshare/task_input/task_addition_bloc.dart';
-import 'package:taskshare/task_input/task_addtion_bloc_provider.dart';
-import 'package:taskshare/task_input/task_input.dart';
-import 'package:taskshare/tasks/task_list.dart';
-import 'package:taskshare/widgets/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:taskshare/screens/task/add_task_button.dart';
+import 'package:taskshare/screens/task/addition/task_addition_bloc.dart';
+import 'package:taskshare/screens/task/addition/task_addition_bloc_provider.dart';
+import 'package:taskshare/screens/task/addition/task_input.dart';
+import 'package:taskshare/screens/task/bottom_menu.dart';
+import 'package:taskshare/screens/task/list/task_list.dart';
+import 'package:taskshare/screens/task/menu_button.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
@@ -84,7 +84,7 @@ class TaskScreenState extends State<TaskScreen>
     final main = Scaffold(
       bottomNavigationBar: const BottomMenu(),
       appBar: _buildAppBar(),
-      body: TaskList(),
+      body: const TaskList(),
       floatingActionButton: FadeTransition(
         child: const AddTaskButton(),
         opacity: _fabFadeAnimation,

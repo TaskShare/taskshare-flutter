@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskshare/model/task.dart';
-import 'package:taskshare/tasks/tasks_bloc.dart';
-import 'package:taskshare/tasks/tasks_bloc_provider.dart';
+import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 
 class TaskListTile extends StatelessWidget {
   final Task task;

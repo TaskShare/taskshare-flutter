@@ -1,10 +1,9 @@
-import 'package:taskshare/tasks/task_list_tile.dart';
-import 'package:taskshare/tasks/tasks_bloc.dart';
-import 'package:taskshare/tasks/tasks_bloc_provider.dart';
+import 'package:taskshare/screens/task/list/task_list_tile.dart';
+import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class TaskList extends StatefulWidget {
-  TaskList();
+  const TaskList();
 
   factory TaskList.forDesignTime() => TaskList();
 

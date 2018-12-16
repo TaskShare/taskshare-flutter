@@ -2,7 +2,7 @@ import 'package:taskshare/bloc/account_bloc_provider.dart';
 import 'package:taskshare/screens/home.dart';
 import 'package:taskshare/screens/input_task.dart';
 import 'package:taskshare/screens/setting.dart';
-import 'package:taskshare/tasks/tasks_bloc_provider.dart';
+import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class App extends StatelessWidget {
@@ -50,8 +50,6 @@ class App extends StatelessWidget {
         return MaterialPageRoute(
             fullscreenDialog: true,
             builder: (context) {
-//          log.warninging('bloc: ${TasksProvider.of(context)}');
-
               log.warning('InputTaskPage returned');
               return InputTask();
             });

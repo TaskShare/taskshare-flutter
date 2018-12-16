@@ -1,5 +1,4 @@
-import 'package:taskshare/tasks/tasks_bloc.dart';
-import 'package:taskshare/tasks/tasks_bloc_provider.dart';
+import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class InputTask extends StatelessWidget {
