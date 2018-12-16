@@ -1,29 +1,27 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:taskshare/l10n/l10n.dart';
 import 'package:taskshare/task_input/task_addtion_bloc_provider.dart';
 
 class TaskInput extends StatefulWidget {
+  final TextEditingController textController;
+
+  const TaskInput({
+    Key key,
+    @required this.textController,
+  }) : super(key: key);
+
   @override
   TaskInputState createState() => TaskInputState();
 }
 
 class TaskInputState extends State<TaskInput> {
-  // TODO: テキストを維持するために上に持っていく？
-  TextEditingController _textController;
   final _focusNode = FocusNode();
-  StreamSubscription _blocSubscription;
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController();
     final bloc = TaskAdditionBlocProvider.of(context);
-    _blocSubscription = bloc.added.listen((task) {
-      _textController.clear();
-    });
-    _textController.addListener(() {
-      bloc.updateText.add(_textController.text);
+    widget.textController.addListener(() {
+      bloc.updateText.add(widget.textController.text);
     });
   }
 
@@ -52,7 +50,7 @@ class TaskInputState extends State<TaskInput> {
             builder: (context, snap) {
               // TODO: expand touch area
               return TextField(
-                controller: _textController,
+                controller: widget.textController,
                 focusNode: _focusNode,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -77,7 +75,7 @@ class TaskInputState extends State<TaskInput> {
               ),
               FlatButton(
                 onPressed: () async {
-                  bloc.save.add(_textController.text);
+                  bloc.save.add(widget.textController.text);
                 },
                 child: Text(
                   l10n.buttonSave,
@@ -93,8 +91,6 @@ class TaskInputState extends State<TaskInput> {
 
   @override
   void dispose() {
-    _textController.dispose();
-    _blocSubscription.cancel();
     super.dispose();
   }
 }

@@ -20,6 +20,7 @@ class TaskScreenState extends State<TaskScreen>
   Animation<double> _fabFadeAnimation;
   Animation<double> _reverseInputViewFadeAnimation;
   AnimationController _animationController;
+  final _textController = TextEditingController();
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class TaskScreenState extends State<TaskScreen>
     _bloc.fullscreenDemanded.listen((x) => Navigator.of(context).pop());
     _bloc.added.listen((task) {
       _bloc.updateScreenMode.add(TaskScreenMode.list);
+      _textController.clear();
     });
     _bloc.screenMode.listen((toMode) async {
       if (toMode == _mode) {
@@ -66,6 +68,7 @@ class TaskScreenState extends State<TaskScreen>
   @override
   void dispose() {
     _animationController.dispose();
+    _textController.dispose();
     super.dispose();
   }
 
@@ -116,7 +119,9 @@ class TaskScreenState extends State<TaskScreen>
                               topRight: Radius.circular(10),
                             ),
                           ),
-                          child: TaskInput(),
+                          child: TaskInput(
+                            textController: _textController,
+                          ),
                         ),
                       ),
                     ),
