@@ -12,7 +12,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log.finest('App build called');
+    log.trace('App build called');
     return AccountBlocProvider(
       child: TasksBlocProvider(
         child: MaterialApp(
@@ -46,13 +46,13 @@ class App extends StatelessWidget {
   Route _handleRoutes(RouteSettings settings) {
     switch (settings.name) {
       case InputTask.routeName:
-        log.warning('name: ${settings.name}');
+        log.warn('name: ${settings.name}');
         return MaterialPageRoute(
             fullscreenDialog: true,
             builder: (context) {
 //          log.warning('bloc: ${TasksProvider.of(context)}');
 
-              log.warning('InputTaskPage returned');
+              log.warn('InputTaskPage returned');
               return InputTask();
             });
     }
