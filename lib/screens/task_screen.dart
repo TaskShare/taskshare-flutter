@@ -12,8 +12,6 @@ class TaskScreen extends StatefulWidget {
   TaskScreenState createState() => TaskScreenState();
 }
 
-// TODO: fade animation
-// 閉じる時は下のビューもフェードアウトしてほしい
 class TaskScreenState extends State<TaskScreen>
     with SingleTickerProviderStateMixin {
   TaskAdditionBloc _bloc;
