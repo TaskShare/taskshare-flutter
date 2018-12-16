@@ -56,7 +56,7 @@ class GoogleAuthenticator implements Authenticator {
   Future<void> signOut() async {
     assert(_state.value == AccountState.signedIn);
     _state.add(AccountState.singingOut);
-    // TODO: 呼ぶ
+    // TEMP: 本当は呼ぶけど開発中はコメントアウト
 //    await _googleSignIn.signOut();
     await _auth.signOut();
   }

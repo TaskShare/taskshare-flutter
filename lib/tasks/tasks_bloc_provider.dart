@@ -10,7 +10,10 @@ class TasksBlocProvider extends BlocProvider<TasksBloc> {
           child: child,
           creator: (context, _bag) {
             final provider = ServiceProvider.of(context);
-            return TasksBloc(authenticator: provider.authenticator);
+            return TasksBloc(
+              authenticator: provider.authenticator,
+              store: provider.tasksStore,
+            );
           },
         );
 

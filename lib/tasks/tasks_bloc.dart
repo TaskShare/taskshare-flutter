@@ -1,9 +1,8 @@
 import 'package:bloc_provider/bloc_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taskshare/model/authenticator.dart';
-import 'package:taskshare/model/group.dart';
 import 'package:taskshare/model/model.dart';
 import 'package:taskshare/model/task.dart';
+import 'package:taskshare/model/tasks_store.dart';
 
 export 'package:taskshare/model/task.dart';
 
@@ -25,53 +24,41 @@ class TasksBloc implements Bloc {
 
   Sink<TaskOperation> get taskOperation => _taskOperationController.sink;
 
-  StreamSubscription<FirebaseUser> userSubscription;
+  StreamSubscription _subscription;
   final Authenticator authenticator;
-  // TODO: 依存を引き剥がす。下のコードもスッキリできそう
-  final _firestore = Firestore.instance;
-  String _groupName;
-  Database<Task> _database;
+  final TasksStore store;
   final _tasks = BehaviorSubject<List<Task>>();
   final _taskOperations = PublishSubject<TaskOperation>();
   final _taskOperationController = PublishSubject<TaskOperation>();
   final _pendingDoneIds = Set<String>();
 
-  TasksBloc({@required this.authenticator}) {
+  TasksBloc({
+    @required this.authenticator,
+    @required this.store,
+  }) {
     log.info('TasksBloc constructor called');
 
-    userSubscription = authenticator.user.listen((user) {
+    _subscription = authenticator.user.flatMap<List<Task>>((user) {
+      final groupName = user?.uid;
       if (user == null) {
         log.info('same group name is null');
-        _groupName = null;
-        return;
+        store.updateGroup(groupName);
+        return Observable.just([]);
       }
-      final groupName = user.uid;
-      if (_groupName == groupName) {
+      if (store.groupName == groupName) {
         log.info('same group name: $groupName');
-        return;
+        return Observable.empty();
       }
-      _groupName = groupName;
-      _database = AppDatabase(
-          collectionRef: _firestore
-              .collection(Group.entity)
-              .document(groupName)
-              .collection(Task.entity),
-          encoder: TaskEncoder(),
-          decoder: TaskDecoder());
 
-      _database
-          .entities((ref) => ref
-              .orderBy('${TaskProperties.dueTime}', descending: false)
-              .orderBy('${TaskProperties.createTime}', descending: true))
-          .map((tasks) {
-        // 更新時に、ローカルと同期完了で2回呼ばれる
-        log.info('tasks updated');
-        // bug workaround. see: https://github.com/flutter/flutter/issues/15928
+      store.updateGroup(groupName);
+
+      return store.tasks.map((tasks) {
+        // ローカルでチェックしたタスクは確定したもののみカット
         tasks.removeWhere((task) =>
             task.doneTime != null && !_pendingDoneIds.contains(task.id));
         return tasks;
-      }).listen(_tasks.add);
-    });
+      });
+    }).listen(_tasks.add);
 
     _taskOperationController.stream
         .doOnData(_taskOperations.add)
@@ -98,7 +85,7 @@ class TasksBloc implements Bloc {
           _setTask(task);
           break;
         case TaskOperationType.deleted:
-          await _database.delete(task);
+          store.delete(task);
           break;
       }
     });
@@ -108,12 +95,12 @@ class TasksBloc implements Bloc {
     final now = DateTime.now();
     task.createTime ??= now;
     task.updateTime = now;
-    _database.set(task);
+    store.set(task);
   }
 
   @override
   void dispose() {
-    userSubscription.cancel();
+    _subscription.cancel();
     _taskOperations.close();
     _taskOperationController.close();
     _tasks.close();
