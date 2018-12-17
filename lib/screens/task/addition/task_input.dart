@@ -73,7 +73,7 @@ class TaskInputState extends State<TaskInput> {
               ),
               FlatButton(
                 onPressed: () async {
-                  bloc.save.add(widget.textController.text);
+                  bloc.save.add(bloc.text.value);
                 },
                 child: Text(
                   l10n.buttonSave,

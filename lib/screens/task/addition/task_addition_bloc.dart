@@ -9,7 +9,7 @@ class TaskAdditionBloc implements Bloc {
   final _fullscreenController = PublishSubject<void>();
   final _addedController = PublishSubject<Task>();
   final _failedController = BehaviorSubject<String>(seedValue: null);
-  final _textController = PublishSubject<String>();
+  final _textController = BehaviorSubject<String>();
   final _screenStateController =
       BehaviorSubject<TaskScreenMode>(seedValue: TaskScreenMode.list);
 
@@ -39,6 +39,7 @@ class TaskAdditionBloc implements Bloc {
       _screenStateController.stream;
   Sink<TaskScreenMode> get updateScreenMode => _screenStateController.sink;
   Sink<String> get updateText => _textController.sink;
+  ValueObservable<String> get text => _textController.stream;
 
   @override
   void dispose() {
