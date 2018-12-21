@@ -43,7 +43,8 @@ class TaskScreenState extends State<TaskScreen>
     _bloc = TaskAdditionBlocProvider.of(context);
     _mode = _bloc.screenMode.value;
 
-    _bloc.fullscreenDemanded.listen((x) => Navigator.of(context).pop());
+    // フルスクリーン画面が無いのでとりあえず閉じるだけ
+    _bloc.fullscreenDemanded.listen((x) => _updateMode(TaskScreenMode.list));
 
     _bloc.added.listen((task) {
       _bloc.updateScreenMode.add(TaskScreenMode.list);
@@ -54,22 +55,24 @@ class TaskScreenState extends State<TaskScreen>
       _bloc.updateText.add(_textController.text);
     });
 
-    _bloc.screenMode.listen((toMode) async {
-      if (toMode == _mode) {
-        return;
-      }
-      switch (toMode) {
-        case TaskScreenMode.input:
-          setState(() => _mode = toMode);
-          _animationController.forward();
-          break;
-        case TaskScreenMode.list:
-          FocusScope.of(context).requestFocus(FocusNode());
-          await _animationController.reverse(); //from: 1);
-          setState(() => _mode = toMode);
-          break;
-      }
-    });
+    _bloc.screenMode.listen(_updateMode);
+  }
+
+  void _updateMode(TaskScreenMode mode) async {
+    if (mode == _mode) {
+      return;
+    }
+    switch (mode) {
+      case TaskScreenMode.input:
+        setState(() => _mode = mode);
+        _animationController.forward();
+        break;
+      case TaskScreenMode.list:
+        FocusScope.of(context).requestFocus(FocusNode());
+        await _animationController.reverse(); //from: 1);
+        setState(() => _mode = mode);
+        break;
+    }
   }
 
   @override
