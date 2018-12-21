@@ -33,12 +33,12 @@ class TaskScreenState extends State<TaskScreen>
         Tween<double>(begin: 0, end: 0.4).animate(_animationController);
     _fabFadeAnimation = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Interval(0, 0.4),
+      curve: const Interval(0, 0.4),
     ));
     _reverseInputViewFadeAnimation =
         Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Interval(0.4, 1),
+      curve: const Interval(0.4, 1),
     ));
     _bloc = TaskAdditionBlocProvider.of(context);
     _mode = _bloc.screenMode.value;
@@ -121,7 +121,7 @@ class TaskScreenState extends State<TaskScreen>
                         child: Container(
                           decoration: BoxDecoration(
                             color: Theme.of(context).scaffoldBackgroundColor,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10),
                             ),
@@ -144,7 +144,7 @@ class TaskScreenState extends State<TaskScreen>
   }
 
   AppBar _buildAppBar() => AppBar(
-        title: Text('TaskShare'),
+        title: const Text('TaskShare'),
         actions: [const MenuButton()],
       );
 }

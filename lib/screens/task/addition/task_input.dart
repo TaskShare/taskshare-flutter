@@ -32,7 +32,7 @@ class TaskInputState extends State<TaskInput> {
     final bloc = TaskAdditionBlocProvider.of(context);
     final l10n = L10N.of(context);
     return Padding(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 20.0,
         right: 20.0,
         top: 20.0,
@@ -62,8 +62,8 @@ class TaskInputState extends State<TaskInput> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
-                padding: EdgeInsets.all(0.0),
-                icon: Icon(
+                padding: const EdgeInsets.all(0.0),
+                icon: const Icon(
                   Icons.open_in_new,
                 ),
                 onPressed: () {
