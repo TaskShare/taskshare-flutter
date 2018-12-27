@@ -46,7 +46,7 @@ class TaskListTile extends StatelessWidget {
             ),
           ),
           const Divider(
-            height: 0.0,
+            height: 0,
           )
         ],
       ),

@@ -8,9 +8,7 @@ class TaskList extends StatefulWidget {
   factory TaskList.forDesignTime() => const TaskList();
 
   @override
-  TaskListState createState() {
-    return new TaskListState();
-  }
+  TaskListState createState() => TaskListState();
 }
 
 class TaskListState extends State<TaskList> {

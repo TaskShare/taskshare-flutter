@@ -21,7 +21,7 @@ class Welcome extends StatelessWidget {
               children: [
                 const Text('グループ共有に特化したタスク管理アプリです(　´･‿･｀)'),
                 const SizedBox(
-                  height: 16.0,
+                  height: 16,
                 ),
                 RaisedButton(
                   child: const Text('Googleログイン'),

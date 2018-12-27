@@ -25,7 +25,7 @@ class Setting extends StatelessWidget {
                   title: Text(user?.toString() ?? ''),
                 ),
                 const Divider(
-                  height: 1.0,
+                  height: 1,
                 ),
                 ListTile(
                   title: Text(
