@@ -3,9 +3,9 @@ import 'package:taskshare/bloc/account_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class Welcome extends StatelessWidget {
-  Welcome();
+  const Welcome();
 
-  factory Welcome.forDesignTime() => Welcome();
+  factory Welcome.forDesignTime() => const Welcome();
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,12 @@ class Welcome extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('グループ共有に特化したタスク管理アプリです(　´･‿･｀)'),
-                SizedBox(
+                const Text('グループ共有に特化したタスク管理アプリです(　´･‿･｀)'),
+                const SizedBox(
                   height: 16.0,
                 ),
                 RaisedButton(
-                  child: Text('Googleログイン'),
+                  child: const Text('Googleログイン'),
                   onPressed: () {
                     accountBloc.signIn.add(null);
                   },

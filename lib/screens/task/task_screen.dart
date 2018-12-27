@@ -148,6 +148,6 @@ class TaskScreenState extends State<TaskScreen>
 
   AppBar _buildAppBar() => AppBar(
         title: const Text('TaskShare'),
-        actions: [const MenuButton()],
+        actions: const [MenuButton()],
       );
 }

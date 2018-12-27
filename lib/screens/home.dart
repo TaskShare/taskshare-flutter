@@ -8,9 +8,9 @@ import 'package:taskshare/widgets/widgets.dart';
 class Home extends StatelessWidget {
   static const routeName = '/';
 
-  Home();
+  const Home();
 
-  factory Home.forDesignTime() => Home();
+  factory Home.forDesignTime() => const Home();
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
             return const AppProgressIndicator();
           case AccountState.signedOut:
           case AccountState.signingIn:
-            return Welcome();
+            return const Welcome();
           case AccountState.signedIn:
           case AccountState.singingOut:
             return TaskAdditionBlocProvider(child: TaskScreen());

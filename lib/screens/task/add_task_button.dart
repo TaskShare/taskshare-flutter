@@ -6,14 +6,14 @@ import 'package:taskshare/screens/task/addition/task_addition_bloc_provider.dart
 class AddTaskButton extends StatelessWidget {
   const AddTaskButton();
 
-  factory AddTaskButton.forDesignTime() => AddTaskButton();
+  factory AddTaskButton.forDesignTime() => const AddTaskButton();
 
   @override
   Widget build(BuildContext context) {
     final l10n = L10N.of(context);
     final bloc = TaskAdditionBlocProvider.of(context);
     return FloatingActionButton.extended(
-      icon: Icon(Icons.add),
+      icon: const Icon(Icons.add),
       label: Text(l10n.addTask),
       onPressed: () async {
         bloc.updateScreenMode.add(TaskScreenMode.input);

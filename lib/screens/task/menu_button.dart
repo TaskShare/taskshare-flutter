@@ -5,7 +5,7 @@ import 'package:taskshare/widgets/widgets.dart';
 class MenuButton extends StatelessWidget {
   const MenuButton();
 
-  factory MenuButton.forDesignTime() => MenuButton();
+  factory MenuButton.forDesignTime() => const MenuButton();
 
   @override
   Widget build(BuildContext context) {

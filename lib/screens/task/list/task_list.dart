@@ -5,7 +5,7 @@ import 'package:taskshare/widgets/widgets.dart';
 class TaskList extends StatefulWidget {
   const TaskList();
 
-  factory TaskList.forDesignTime() => TaskList();
+  factory TaskList.forDesignTime() => const TaskList();
 
   @override
   TaskListState createState() {

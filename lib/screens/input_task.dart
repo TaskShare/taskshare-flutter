@@ -4,9 +4,9 @@ import 'package:taskshare/widgets/widgets.dart';
 class InputTask extends StatelessWidget {
   static const routeName = '/input_task';
 
-  InputTask();
+  const InputTask();
 
-  factory InputTask.forDesignTime() => InputTask();
+  factory InputTask.forDesignTime() => const InputTask();
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class InputTask extends StatelessWidget {
     final bloc = TasksBlocProvider.of(context);
     return Scaffold(
         appBar: AppBar(
-          title: Text('Input New Task'),
+          title: const Text('Input New Task'),
           actions: <Widget>[
             FlatButton(
               child: Text(
@@ -35,7 +35,7 @@ class InputTask extends StatelessWidget {
           ],
         ),
         body: ListView(
-          children: <Widget>[
+          children: const [
             TextField(
               autofocus: true,
             )

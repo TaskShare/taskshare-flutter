@@ -10,7 +10,7 @@ void main() {
     ServiceProvider(
       authenticator: GoogleAuthenticator(),
       tasksStore: TasksStoreFlutter(),
-      child: App(),
+      child: const App(),
     ),
   );
 }

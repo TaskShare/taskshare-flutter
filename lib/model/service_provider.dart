@@ -6,7 +6,7 @@ class ServiceProvider extends InheritedWidget {
   final Authenticator authenticator;
   final TasksStore tasksStore;
 
-  ServiceProvider({
+  const ServiceProvider({
     @required this.authenticator,
     @required this.tasksStore,
     @required Widget child,

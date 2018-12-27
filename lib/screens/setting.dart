@@ -4,9 +4,9 @@ import 'package:taskshare/widgets/widgets.dart';
 class Setting extends StatelessWidget {
   static const routeName = '/settings';
 
-  Setting();
+  const Setting();
 
-  factory Setting.forDesignTime() => Setting();
+  factory Setting.forDesignTime() => const Setting();
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +17,14 @@ class Setting extends StatelessWidget {
         final user = snapshot.data;
         return Scaffold(
             appBar: AppBar(
-              title: Text('Settings'),
+              title: const Text('Settings'),
             ),
             body: ListView(
               children: <Widget>[
                 ListTile(
                   title: Text(user?.toString() ?? ''),
                 ),
-                Divider(
+                const Divider(
                   height: 1.0,
                 ),
                 ListTile(

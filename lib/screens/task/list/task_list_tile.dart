@@ -45,7 +45,7 @@ class TaskListTile extends StatelessWidget {
               value: task.doneTime != null,
             ),
           ),
-          Divider(
+          const Divider(
             height: 0.0,
           )
         ],

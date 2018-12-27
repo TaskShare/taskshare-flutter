@@ -7,9 +7,9 @@ import 'package:taskshare/util/util.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class App extends StatelessWidget {
-  App();
+  const App();
 
-  factory App.forDesignTime() => App();
+  factory App.forDesignTime() => const App();
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +17,12 @@ class App extends StatelessWidget {
     return AccountBlocProvider(
       child: TasksBlocProvider(
         child: MaterialApp(
-          localizationsDelegates: [
+          localizationsDelegates: const [
             AppLocalizationsDelegate(),
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate
           ],
-          supportedLocales: [
+          supportedLocales: const [
             Locale('en', 'US'),
             Locale('ja', 'JP'),
           ],
@@ -40,8 +40,8 @@ class App extends StatelessWidget {
   }
 
   Map<String, WidgetBuilder> get _routes => {
-        Home.routeName: (context) => Home(),
-        Setting.routeName: (context) => Setting(),
+        Home.routeName: (context) => const Home(),
+        Setting.routeName: (context) => const Setting(),
       };
 
   Route _handleRoutes(RouteSettings settings) {
@@ -52,7 +52,7 @@ class App extends StatelessWidget {
             fullscreenDialog: true,
             builder: (context) {
               logger.warning('InputTaskPage returned');
-              return InputTask();
+              return const InputTask();
             });
     }
     return null;
