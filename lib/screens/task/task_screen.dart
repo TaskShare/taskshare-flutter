@@ -84,7 +84,7 @@ class TaskScreenState extends State<TaskScreen>
 
   @override
   Widget build(BuildContext context) {
-    final main = Scaffold(
+    final list = Scaffold(
       bottomNavigationBar: const BottomMenu(),
       appBar: _buildAppBar(),
       body: const TaskList(),
@@ -96,14 +96,14 @@ class TaskScreenState extends State<TaskScreen>
     );
     switch (_mode) {
       case TaskScreenMode.list:
-        return main;
+        return list;
       case TaskScreenMode.input:
         final mediaQuery = MediaQuery.of(context);
         final EdgeInsets minInsets =
             mediaQuery.padding.copyWith(bottom: mediaQuery.viewInsets.bottom);
         return Stack(
           children: [
-            main,
+            list,
             Stack(
               children: <Widget>[
                 GestureDetector(
