@@ -30,6 +30,7 @@ class TaskAdditionBloc implements Bloc {
     });
   }
 
+  // TODO: Should be moved to other class such as ScopedModel?
   Stream<void> get fullscreenDemanded => _fullscreenController.stream;
   Sink<void> get demandFullscreen => _fullscreenController.sink;
   Stream<Task> get added => _addedController.stream;
