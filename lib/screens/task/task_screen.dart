@@ -97,7 +97,7 @@ class TaskScreenState extends State<TaskScreen>
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
     final mediaQuery = MediaQuery.of(context);
-    final EdgeInsets minInsets =
+    final minInsets =
         mediaQuery.padding.copyWith(bottom: mediaQuery.viewInsets.bottom);
     final input = Stack(
       children: <Widget>[

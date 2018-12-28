@@ -14,7 +14,7 @@ class Welcome extends StatelessWidget {
       initialData: accountBloc.state.value,
       stream: accountBloc.state,
       builder: (context, snap) {
-        final List<Widget> children = [
+        final children = <Widget>[
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
