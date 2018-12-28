@@ -10,6 +10,16 @@ import 'package:taskshare/screens/task/task_page_state.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen();
+
+  static Widget withDependencies() {
+    return ScopedModel<TaskPageModel>(
+      model: TaskPageModel(),
+      child: TaskAdditionBlocProvider(
+        child: const TaskScreen(),
+      ),
+    );
+  }
+
   @override
   TaskScreenState createState() => TaskScreenState();
 }
