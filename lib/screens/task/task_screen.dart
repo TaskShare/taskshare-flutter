@@ -6,6 +6,7 @@ import 'package:taskshare/screens/task/addition/task_input.dart';
 import 'package:taskshare/screens/task/bottom_menu.dart';
 import 'package:taskshare/screens/task/list/task_list.dart';
 import 'package:taskshare/screens/task/menu_button.dart';
+import 'package:taskshare/screens/task/task_page_state.dart';
 
 class TaskScreen extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class TaskScreen extends StatefulWidget {
 class TaskScreenState extends State<TaskScreen>
     with SingleTickerProviderStateMixin {
   TaskAdditionBloc _bloc;
-  TaskScreenMode _mode;
+  var _mode = TaskScreenMode.list;
   Animation<double> _backgroundFadeAnimation;
   Animation<double> _fabFadeAnimation;
   Animation<double> _reverseInputViewFadeAnimation;
@@ -42,21 +43,22 @@ class TaskScreenState extends State<TaskScreen>
       curve: const Interval(0.4, 1),
     ));
     _bloc = TaskAdditionBlocProvider.of(context);
-    _mode = _bloc.screenMode.value;
-
-    // フルスクリーン画面が無いのでとりあえず閉じるだけ
-    _bloc.fullscreenDemanded.listen((x) => _updateMode(TaskScreenMode.list));
 
     _bloc.added.listen((task) {
-      _bloc.updateScreenMode.add(TaskScreenMode.list);
+      TaskPageModel.of(context).update(mode: TaskScreenMode.list);
       _textController.clear();
     });
 
     _textController.addListener(() {
       _bloc.updateText.add(_textController.text);
     });
+  }
 
-    _bloc.screenMode.listen(_updateMode);
+  @override
+  void didChangeDependencies() {
+    final model = TaskPageModel.of(context, rebuildOnChange: true);
+    _updateMode(model.mode);
+    super.didChangeDependencies();
   }
 
   void _updateMode(TaskScreenMode mode) async {
@@ -69,6 +71,8 @@ class TaskScreenState extends State<TaskScreen>
         _animationController.forward();
         _taskInputKey.currentState.focus();
         break;
+      case TaskScreenMode.fullscreen:
+      // フルスクリーン画面が無いのでとりあえずlistに合わせる
       case TaskScreenMode.list:
         FocusScope.of(context).requestFocus(FocusNode());
         await _animationController.reverse();
@@ -102,7 +106,8 @@ class TaskScreenState extends State<TaskScreen>
     final input = Stack(
       children: <Widget>[
         GestureDetector(
-          onTap: () => _bloc.updateScreenMode.add(TaskScreenMode.list),
+          onTap: () =>
+              TaskPageModel.of(context).update(mode: TaskScreenMode.list),
           child: FadeTransition(
             opacity: _backgroundFadeAnimation,
             child: Container(color: Colors.black),

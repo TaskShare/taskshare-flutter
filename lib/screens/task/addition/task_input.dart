@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskshare/l10n/l10n.dart';
 import 'package:taskshare/screens/task/addition/task_addition_bloc_provider.dart';
+import 'package:taskshare/screens/task/task_page_state.dart';
 
 class TaskInput extends StatefulWidget {
   final TextEditingController textController;
@@ -57,7 +58,7 @@ class TaskInputState extends State<TaskInput> {
                   Icons.open_in_new,
                 ),
                 onPressed: () {
-                  bloc.demandFullscreen.add(null);
+                  TaskPageModel.of(context).update(mode: TaskScreenMode.input);
                 },
                 color: Theme.of(context).accentColor,
               ),

@@ -1,6 +1,7 @@
 import 'package:taskshare/bloc/account_bloc.dart';
 import 'package:taskshare/bloc/account_bloc_provider.dart';
 import 'package:taskshare/screens/task/addition/task_addition_bloc_provider.dart';
+import 'package:taskshare/screens/task/task_page_state.dart';
 import 'package:taskshare/screens/task/task_screen.dart';
 import 'package:taskshare/screens/welcome.dart';
 import 'package:taskshare/widgets/widgets.dart';
@@ -27,7 +28,12 @@ class Home extends StatelessWidget {
             return const Welcome();
           case AccountState.signedIn:
           case AccountState.singingOut:
-            return TaskAdditionBlocProvider(child: TaskScreen());
+            return ScopedModel<TaskPageModel>(
+              model: TaskPageModel(),
+              child: TaskAdditionBlocProvider(
+                child: TaskScreen(),
+              ),
+            );
         }
         assert(false);
         return Container();

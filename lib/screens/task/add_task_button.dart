@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskshare/l10n/l10n.dart';
-import 'package:taskshare/screens/task/addition/task_addition_bloc.dart';
 import 'package:taskshare/screens/task/addition/task_addition_bloc_provider.dart';
+import 'package:taskshare/screens/task/task_page_state.dart';
 
 class AddTaskButton extends StatelessWidget {
   const AddTaskButton();
@@ -16,7 +16,7 @@ class AddTaskButton extends StatelessWidget {
       icon: const Icon(Icons.add),
       label: Text(l10n.addTask),
       onPressed: () async {
-        bloc.updateScreenMode.add(TaskScreenMode.input);
+        TaskPageModel.of(context).update(mode: TaskScreenMode.input);
       },
     );
   }
