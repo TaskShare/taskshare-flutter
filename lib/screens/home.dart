@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
             return ScopedModel<TaskPageModel>(
               model: TaskPageModel(),
               child: TaskAdditionBlocProvider(
-                child: TaskScreen(),
+                child: const TaskScreen(),
               ),
             );
         }

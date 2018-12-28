@@ -9,6 +9,7 @@ import 'package:taskshare/screens/task/menu_button.dart';
 import 'package:taskshare/screens/task/task_page_state.dart';
 
 class TaskScreen extends StatefulWidget {
+  const TaskScreen();
   @override
   TaskScreenState createState() => TaskScreenState();
 }
