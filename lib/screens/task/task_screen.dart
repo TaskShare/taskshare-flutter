@@ -21,6 +21,7 @@ class TaskScreenState extends State<TaskScreen>
   Animation<double> _reverseInputViewFadeAnimation;
   AnimationController _animationController;
   final _textController = TextEditingController();
+  final _taskInputKey = GlobalKey<TaskInputState>();
 
   @override
   void initState() {
@@ -66,10 +67,11 @@ class TaskScreenState extends State<TaskScreen>
       case TaskScreenMode.input:
         setState(() => _mode = mode);
         _animationController.forward();
+        _taskInputKey.currentState.focus();
         break;
       case TaskScreenMode.list:
         FocusScope.of(context).requestFocus(FocusNode());
-        await _animationController.reverse(); //from: 1);
+        await _animationController.reverse();
         setState(() => _mode = mode);
         break;
     }
@@ -94,56 +96,56 @@ class TaskScreenState extends State<TaskScreen>
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
-    switch (_mode) {
-      case TaskScreenMode.list:
-        return list;
-      case TaskScreenMode.input:
-        final mediaQuery = MediaQuery.of(context);
-        final EdgeInsets minInsets =
-            mediaQuery.padding.copyWith(bottom: mediaQuery.viewInsets.bottom);
-        return Stack(
-          children: [
-            list,
-            Stack(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () => _bloc.updateScreenMode.add(TaskScreenMode.list),
-                  child: FadeTransition(
-                    opacity: _backgroundFadeAnimation,
-                    child: Container(color: Colors.black),
-                  ),
-                ),
-                Positioned.fill(
-                  top: null,
-                  child: Padding(
-                    padding: minInsets,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: FadeTransition(
-                        opacity: _reverseInputViewFadeAnimation,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
-                          ),
-                          child: TaskInput(
-                            textController: _textController,
-                          ),
-                        ),
-                      ),
+    final mediaQuery = MediaQuery.of(context);
+    final EdgeInsets minInsets =
+        mediaQuery.padding.copyWith(bottom: mediaQuery.viewInsets.bottom);
+    final input = Stack(
+      children: <Widget>[
+        GestureDetector(
+          onTap: () => _bloc.updateScreenMode.add(TaskScreenMode.list),
+          child: FadeTransition(
+            opacity: _backgroundFadeAnimation,
+            child: Container(color: Colors.black),
+          ),
+        ),
+        Positioned.fill(
+          top: null,
+          child: Padding(
+            padding: minInsets,
+            child: Material(
+              color: Colors.transparent,
+              child: FadeTransition(
+                opacity: _reverseInputViewFadeAnimation,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10),
                     ),
                   ),
+                  child: TaskInput(
+                    key: _taskInputKey,
+                    textController: _textController,
+                  ),
                 ),
-              ],
+              ),
             ),
-          ],
-        );
-    }
-    assert(false);
-    return null;
+          ),
+        ),
+      ],
+    );
+
+    final showInput = _mode == TaskScreenMode.input;
+    return Stack(
+      children: [
+        list,
+        Offstage(
+          offstage: !showInput,
+          child: input,
+        )
+      ],
+    );
   }
 
   AppBar _buildAppBar() => AppBar(

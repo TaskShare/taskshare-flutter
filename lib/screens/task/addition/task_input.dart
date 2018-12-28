@@ -18,12 +18,6 @@ class TaskInputState extends State<TaskInput> {
   final _focusNode = FocusNode();
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    FocusScope.of(context).requestFocus(_focusNode);
-  }
-
-  @override
   Widget build(BuildContext context) {
     final bloc = TaskAdditionBlocProvider.of(context);
     final l10n = L10N.of(context);
@@ -81,5 +75,9 @@ class TaskInputState extends State<TaskInput> {
         ],
       ),
     );
+  }
+
+  void focus() {
+    FocusScope.of(context).requestFocus(_focusNode);
   }
 }
