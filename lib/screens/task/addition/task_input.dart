@@ -16,10 +16,6 @@ class TaskInput extends StatefulWidget {
 
 class TaskInputState extends State<TaskInput> {
   final _focusNode = FocusNode();
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {
@@ -85,10 +81,5 @@ class TaskInputState extends State<TaskInput> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

@@ -11,8 +11,8 @@ class MenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final accountBloc = AccountBlocProvider.of(context);
     return StreamBuilder<User>(
-      stream: accountBloc.user,
       initialData: accountBloc.user.value,
+      stream: accountBloc.user,
       builder: (context, snap) {
         final user = snap.data;
         if (user == null) {

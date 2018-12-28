@@ -30,9 +30,9 @@ class TasksStoreFlutter implements TasksStore {
     logger.info('groupName updated: $groupName');
     _database = AppDatabase<Task>(
         collectionRef: _firestore
-            .collection(Group.entity)
+            .collection(Group.name)
             .document(groupName)
-            .collection(Task.entity),
+            .collection(Task.name),
         encoder: TaskEncoder(),
         decoder: TaskDecoder());
 

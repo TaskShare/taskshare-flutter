@@ -27,7 +27,7 @@ class TaskListTile extends StatelessWidget {
         color: Theme.of(context).errorColor,
       ),
       child: Column(
-        children: <Widget>[
+        children: [
           ListTile(
             title: Text(task.title),
             leading: Checkbox(

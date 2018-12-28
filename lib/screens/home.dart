@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final accountBloc = AccountBlocProvider.of(context);
     return StreamBuilder<AccountState>(
-      initialData: AccountState.loading,
+      initialData: accountBloc.state.value,
       stream: accountBloc.state,
       builder: (context, snapshot) {
         switch (snapshot.data) {

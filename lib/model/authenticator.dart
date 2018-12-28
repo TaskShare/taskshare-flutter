@@ -20,11 +20,8 @@ class User {
 
 abstract class Authenticator {
   ValueObservable<User> get user;
-
-  Observable<AccountState> get state;
-
+  ValueObservable<AccountState> get state;
   Future<User> signIn();
-
   Future<void> signOut();
 }
 
@@ -41,7 +38,7 @@ class GoogleAuthenticator implements Authenticator {
   ValueObservable<User> get user => _user.stream;
 
   @override
-  Observable<AccountState> get state => _state.stream;
+  ValueObservable<AccountState> get state => _state.stream;
   final _user = BehaviorSubject<User>();
 
   final _state = BehaviorSubject<AccountState>(seedValue: AccountState.loading);

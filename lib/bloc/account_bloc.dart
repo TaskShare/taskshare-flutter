@@ -17,7 +17,7 @@ class AccountBloc implements Bloc {
 
   ValueObservable<User> get user => authenticator.user;
 
-  Observable<AccountState> get state => authenticator.state;
+  ValueObservable<AccountState> get state => authenticator.state;
 
   Sink<void> get signIn => _signInController.sink;
 

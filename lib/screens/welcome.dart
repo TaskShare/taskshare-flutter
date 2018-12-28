@@ -11,7 +11,7 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     final accountBloc = AccountBlocProvider.of(context);
     final body = StreamBuilder<AccountState>(
-      initialData: AccountState.loading,
+      initialData: accountBloc.state.value,
       stream: accountBloc.state,
       builder: (context, snap) {
         final List<Widget> children = [

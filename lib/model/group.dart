@@ -1,3 +1,3 @@
 class Group {
-  static const entity = 'groups';
+  static const name = 'groups';
 }

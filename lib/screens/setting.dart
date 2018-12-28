@@ -12,6 +12,7 @@ class Setting extends StatelessWidget {
   Widget build(BuildContext context) {
     final accountBloc = AccountBlocProvider.of(context);
     return StreamBuilder<User>(
+      initialData: accountBloc.user.value,
       stream: accountBloc.user,
       builder: (context, snapshot) {
         final user = snapshot.data;

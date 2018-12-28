@@ -66,8 +66,8 @@ class TaskListState extends State<TaskList> {
   Widget build(BuildContext context) {
     final bloc = TasksBlocProvider.of(context);
     return StreamBuilder<List<Task>>(
-      stream: bloc.tasks,
       initialData: bloc.tasks.value,
+      stream: bloc.tasks,
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const AppProgressIndicator();

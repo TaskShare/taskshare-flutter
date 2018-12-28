@@ -1,7 +1,7 @@
 import 'package:taskshare/model/model.dart';
 
 class Task implements Entity {
-  static const entity = 'tasks';
+  static const name = 'tasks';
   @override
   final String id;
   final String title;
@@ -18,18 +18,11 @@ class Task implements Entity {
       this.createTime,
       this.updateTime});
 
-  // MEMO: == はid比較だけにするべきかも？
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Task &&
-          runtimeType == other.runtimeType &&
-          id == other.id &&
-          title == other.title &&
-          doneTime == other.doneTime &&
-          dueTime == other.dueTime &&
-          createTime == other.createTime &&
-          updateTime == other.updateTime;
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is Task && runtimeType == other.runtimeType && id == other.id;
+  }
 
   @override
   int get hashCode => id.hashCode ^ title.hashCode;
