@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskshare/model/task.dart';
 
 import '../test.dart';
@@ -16,10 +17,10 @@ void main() {
     final data = {
       'id': 'id_test',
       'title': 'title_test',
-      'doneTime': DateTime(2000),
-      'dueTime': DateTime(2001),
-      'createTime': DateTime(2002),
-      'updateTime': DateTime(2003)
+      'doneTime': Timestamp.fromDate(DateTime(2000)),
+      'dueTime': Timestamp.fromDate(DateTime(2001)),
+      'createTime': Timestamp.fromDate(DateTime(2002)),
+      'updateTime': Timestamp.fromDate(DateTime(2003))
     };
     final decoder = TaskDecoder();
     final task = decoder.decode(data);
@@ -29,10 +30,10 @@ void main() {
         Task(
           id: 'id_test',
           title: 'title_test',
-          doneTime: DateTime(2000),
-          dueTime: DateTime(2001),
-          createTime: DateTime(2002),
-          updateTime: DateTime(2003),
+          doneTime: Timestamp.fromDate(DateTime(2000)),
+          dueTime: Timestamp.fromDate(DateTime(2001)),
+          createTime: Timestamp.fromDate(DateTime(2002)),
+          updateTime: Timestamp.fromDate(DateTime(2003)),
         ),
       ),
       true,
@@ -44,18 +45,18 @@ void main() {
     final data = encoder.encode(Task(
         id: 'id_test',
         title: 'title_test',
-        doneTime: DateTime(2000),
-        dueTime: DateTime(2001),
-        createTime: DateTime(2002),
-        updateTime: DateTime(2003)));
+        doneTime: Timestamp.fromDate(DateTime(2000)),
+        dueTime: Timestamp.fromDate(DateTime(2001)),
+        createTime: Timestamp.fromDate(DateTime(2002)),
+        updateTime: Timestamp.fromDate(DateTime(2003))));
     expect(
       {
         'id': 'id_test',
         'title': 'title_test',
-        'doneTime': DateTime(2000),
-        'dueTime': DateTime(2001),
-        'createTime': DateTime(2002),
-        'updateTime': DateTime(2003)
+        'doneTime': Timestamp.fromDate(DateTime(2000)),
+        'dueTime': Timestamp.fromDate(DateTime(2001)),
+        'createTime': Timestamp.fromDate(DateTime(2002)),
+        'updateTime': Timestamp.fromDate(DateTime(2003))
       },
       data,
     );

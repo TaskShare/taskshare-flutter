@@ -90,7 +90,7 @@ class TasksBloc implements Bloc {
   }
 
   void _setTask(Task task) {
-    final now = DateTime.now();
+    final now = Timestamp.now();
     task.createTime ??= now;
     task.updateTime = now;
     store.set(task);

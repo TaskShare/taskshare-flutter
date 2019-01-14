@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:taskshare/model/task.dart';
 import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
@@ -32,7 +33,8 @@ class TaskListTile extends StatelessWidget {
             title: Text(task.title),
             leading: Checkbox(
               onChanged: (value) {
-                task.doneTime = value ? DateTime.now() : null;
+                // server valueの方が良さそう
+                task.doneTime = value ? Timestamp.now() : null;
                 bloc.taskOperation.add(
                   TaskOperation(
                     task: task,

@@ -5,10 +5,10 @@ class Task implements Entity {
   @override
   final String id;
   final String title;
-  DateTime doneTime;
-  DateTime dueTime;
-  DateTime createTime;
-  DateTime updateTime;
+  Timestamp doneTime;
+  Timestamp dueTime;
+  Timestamp createTime;
+  Timestamp updateTime;
 
   Task(
       {@required this.id,
@@ -57,10 +57,10 @@ class TaskDecoder extends SnapshotDecoder<Task> {
   Task decode(Map<String, dynamic> data) => Task(
         id: data[Entity.idKey] as String,
         title: data[TaskProperties.title] as String,
-        doneTime: data[TaskProperties.doneTime] as DateTime,
-        dueTime: data[TaskProperties.dueTime] as DateTime,
-        createTime: data[TaskProperties.createTime] as DateTime,
-        updateTime: data[TaskProperties.updateTime] as DateTime,
+        doneTime: data[TaskProperties.doneTime] as Timestamp,
+        dueTime: data[TaskProperties.dueTime] as Timestamp,
+        createTime: data[TaskProperties.createTime] as Timestamp,
+        updateTime: data[TaskProperties.updateTime] as Timestamp,
       );
 }
 
