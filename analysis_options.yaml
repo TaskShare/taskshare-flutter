@@ -106,6 +106,8 @@ linter:
     - prefer_single_quotes
 #    - prefer_typing_uninitialized_variables  under review (see 1068)
 #    - prefer_void_to_null  under review (see 1068)
+    - prefer_int_literals
+    - prefer_mixin
 #    - public_member_api_docs
     - recursive_getters
     - slash_for_doc_comments
