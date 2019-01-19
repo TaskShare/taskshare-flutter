@@ -31,7 +31,6 @@ class TasksBloc implements Bloc {
   final _tasks = BehaviorSubject<List<Task>>();
   final _taskOperations = PublishSubject<TaskOperation>();
   final _taskOperationController = PublishSubject<TaskOperation>();
-  final _pendingDoneIds = Set<String>();
 
   TasksBloc({@required this.authenticator, @required this.store}) {
     logger.info('TasksBloc constructor called');
@@ -50,12 +49,7 @@ class TasksBloc implements Bloc {
 
       store.updateGroup(groupName);
 
-      return store.tasks.map((tasks) {
-        // ローカルでチェックしたタスクは確定したもののみカット
-        tasks.removeWhere((task) =>
-            task.doneTime != null && !_pendingDoneIds.contains(task.id));
-        return tasks;
-      });
+      return store.tasks;
     }).listen(_tasks.add);
 
     _taskOperationController.stream
@@ -64,21 +58,7 @@ class TasksBloc implements Bloc {
       final task = operation.task;
       switch (operation.type) {
         case TaskOperationType.checked:
-          _pendingDoneIds.add(task.id);
-          _setTask(task);
-          await Future<void>.delayed(Duration(milliseconds: 1000));
-          final tasks = _tasks.value;
-          if (_pendingDoneIds.remove(task.id)) {
-            tasks.removeWhere((t) => t.id == task.id);
-            _tasks.add(tasks);
-          }
-          break;
         case TaskOperationType.updated:
-          if (task.doneTime == null) {
-            _pendingDoneIds.remove(task.id);
-          }
-          _setTask(task);
-          break;
         case TaskOperationType.add:
           _setTask(task);
           break;

@@ -1,3 +1,4 @@
+import 'package:taskshare/screens/task/list/task_animated_list.dart';
 import 'package:taskshare/screens/task/list/task_list_tile.dart';
 import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
@@ -12,11 +13,25 @@ class TaskList extends StatefulWidget {
 }
 
 class TaskListState extends State<TaskList> {
+  final _listKey = GlobalKey<AnimatedListState>();
+  TaskAnimatedList _list;
   StreamSubscription _subscription;
   @override
   void initState() {
     super.initState();
     final bloc = TasksBlocProvider.of(context);
+    _list = TaskAnimatedList(
+      listKey: _listKey,
+      bloc: bloc,
+      removedItemBuilder: (task, context, animation) {
+        return TaskListTile(
+          key: ValueKey(task.id),
+          task: task,
+          animation: animation,
+          onDismissed: null,
+        );
+      },
+    );
     _subscription = bloc.taskOperations.listen((operation) {
       final l10n = L10N.of(context);
       final task = operation.task;
@@ -64,23 +79,26 @@ class TaskListState extends State<TaskList> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = TasksBlocProvider.of(context);
-    return StreamBuilder<List<Task>>(
-      initialData: bloc.tasks.value,
-      stream: bloc.tasks,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const AppProgressIndicator();
-        }
-        return ListView.builder(
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              final task = snapshot.data[index];
-              return TaskListTile(
-                key: ValueKey(task.id),
+    return AnimatedList(
+      key: _listKey,
+      initialItemCount: _list.length,
+      itemBuilder: (context, index, animation) {
+        final task = _list[index];
+        return TaskListTile(
+          key: ValueKey(task.id),
+          task: task,
+          animation: animation,
+          onDismissed: (_) {
+            final bloc = TasksBlocProvider.of(context);
+            _list.remove(task, skipAnimation: true);
+            bloc.taskOperation.add(
+              TaskOperation(
                 task: task,
-              );
-            });
+                type: TaskOperationType.deleted,
+              ),
+            );
+          },
+        );
       },
     );
   }

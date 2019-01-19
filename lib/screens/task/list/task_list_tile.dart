@@ -5,10 +5,14 @@ import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 
 class TaskListTile extends StatelessWidget {
   final Task task;
+  final Animation<double> animation;
+  final DismissDirectionCallback onDismissed;
 
   const TaskListTile({
     @required Key key,
     @required this.task,
+    @required this.animation,
+    @required this.onDismissed,
   }) : super(key: key);
 
   @override
@@ -16,41 +20,37 @@ class TaskListTile extends StatelessWidget {
     final bloc = TasksBlocProvider.of(context);
     return Dismissible(
       key: ValueKey(task.id),
-      onDismissed: (direction) {
-        bloc.taskOperation.add(
-          TaskOperation(
-            task: task,
-            type: TaskOperationType.deleted,
-          ),
-        );
-      },
+      onDismissed: onDismissed,
       background: Container(
         color: Theme.of(context).errorColor,
       ),
-      child: Column(
-        children: [
-          ListTile(
-            title: Text(task.title),
-            leading: Checkbox(
-              onChanged: (value) {
-                // server valueの方が良さそう
-                task.doneTime = value ? Timestamp.now() : null;
-                bloc.taskOperation.add(
-                  TaskOperation(
-                    task: task,
-                    type: value
-                        ? TaskOperationType.checked
-                        : TaskOperationType.updated,
-                  ),
-                );
-              },
-              value: task.doneTime != null,
+      child: SizeTransition(
+        sizeFactor: animation,
+        child: Column(
+          children: [
+            ListTile(
+              title: Text(task.title),
+              leading: Checkbox(
+                onChanged: (value) {
+                  // server valueの方が良さそう
+                  task.doneTime = value ? Timestamp.now() : null;
+                  bloc.taskOperation.add(
+                    TaskOperation(
+                      task: task,
+                      type: value
+                          ? TaskOperationType.checked
+                          : TaskOperationType.updated,
+                    ),
+                  );
+                },
+                value: task.doneTime != null,
+              ),
             ),
-          ),
-          const Divider(
-            height: 0,
-          )
-        ],
+            const Divider(
+              height: 0,
+            )
+          ],
+        ),
       ),
     );
   }

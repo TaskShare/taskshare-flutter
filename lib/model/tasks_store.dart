@@ -37,6 +37,7 @@ class TasksStoreFlutter implements TasksStore {
         decoder: TaskDecoder());
 
     _tasks = _database.entities((ref) => ref
+        .where('${TaskProperties.doneTime}', isNull: true)
         .orderBy('${TaskProperties.dueTime}', descending: false)
         .orderBy('${TaskProperties.createTime}', descending: true));
   }
