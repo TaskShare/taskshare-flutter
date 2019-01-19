@@ -18,7 +18,6 @@ class TaskAnimatedList {
     @required this.bloc,
     @required this.removedItemBuilder,
   }) : _tasks = bloc.tasks.value ?? [] {
-    // TODO:
     bloc.tasks.listen((tasks) {
       // TODO: Enhance diff algorithm
       final taskIds = Set.from(tasks.map((x) => x.id));
