@@ -22,7 +22,7 @@ class TaskListState extends State<TaskList> {
     final bloc = TasksBlocProvider.of(context);
     _list = TaskAnimatedList(
       listKey: _listKey,
-      bloc: bloc,
+      stream: bloc.tasks,
       removedItemBuilder: (task, context, animation) {
         return TaskListTile(
           key: ValueKey(task.id),

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:taskshare/model/task.dart';
 import 'package:taskshare/screens/task/tasks_bloc.dart';
 
@@ -15,10 +16,10 @@ typedef TaskRemovedItemBuilder = Widget Function(
 class TaskAnimatedList {
   TaskAnimatedList({
     @required this.listKey,
-    @required this.bloc,
+    @required this.stream,
     @required this.removedItemBuilder,
-  }) : _tasks = bloc.tasks.value ?? [] {
-    bloc.tasks.listen((tasks) {
+  }) : _tasks = stream.value ?? [] {
+    stream.listen((tasks) {
       // TODO: Enhance diff algorithm
       final taskIds = Set.from(tasks.map((x) => x.id));
 
@@ -43,7 +44,7 @@ class TaskAnimatedList {
   }
 
   final GlobalKey<AnimatedListState> listKey;
-  final TasksBloc bloc;
+  final ValueObservable<List<Task>> stream;
   final TaskRemovedItemBuilder removedItemBuilder;
   final List<Task> _tasks;
   Set<String> get _previousTaskIds => Set.from(_tasks.map((x) => x.id));
