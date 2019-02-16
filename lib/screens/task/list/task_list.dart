@@ -55,6 +55,8 @@ class TaskListState extends State<TaskList> {
           ),
           action: SnackBarAction(
             label: l10n.buttonUndo,
+            textColor:
+                (Theme.of(context).accentColor as MaterialAccentColor)[100],
             onPressed: () {
               switch (type) {
                 case TaskOperationType.checked:
