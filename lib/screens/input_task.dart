@@ -5,7 +5,7 @@ class InputTask extends StatelessWidget {
   const InputTask();
 
   static Widget withDependencies(BuildContext context) {
-    return TasksBlocProvider.unmanaged(
+    return TasksBlocProvider.fromBlocContext(
       context: context,
       child: const InputTask(),
     );

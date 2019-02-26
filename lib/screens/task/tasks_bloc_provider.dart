@@ -18,11 +18,11 @@ class TasksBlocProvider extends BlocProvider<TasksBloc> {
           },
         );
 
-  TasksBlocProvider.unmanaged({
+  TasksBlocProvider.fromBlocContext({
     @required BuildContext context,
     @required Widget child,
-  }) : super.unmanaged(
-          bloc: TasksBlocProvider.of(context),
+  }) : super.fromBlocContext(
+          context: context,
           child: child,
         );
 
