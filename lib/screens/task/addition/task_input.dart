@@ -58,11 +58,13 @@ class TaskInputState extends State<TaskInput> {
                   Icons.open_in_new,
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
                       fullscreenDialog: true,
-                      builder: (_context) {
-                        return InputTask.withDependencies(context);
-                      }));
+                      builder: (_context) =>
+                          InputTask.withDependencies(context),
+                    ),
+                  );
                 },
                 color: Theme.of(context).accentColor,
               ),
