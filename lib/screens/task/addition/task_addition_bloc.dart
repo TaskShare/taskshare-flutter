@@ -5,7 +5,7 @@ import 'package:taskshare/model/task.dart';
 class TaskAdditionBloc implements Bloc {
   final _saveController = PublishSubject<String>();
   final _addedController = PublishSubject<Task>();
-  final _failedController = BehaviorSubject<String>(seedValue: null);
+  final _failedController = BehaviorSubject<String>.seeded(null);
   final _textController = BehaviorSubject<String>();
 
   TaskAdditionBloc() {

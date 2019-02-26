@@ -41,7 +41,7 @@ class GoogleAuthenticator implements Authenticator {
   ValueObservable<AccountState> get state => _state.stream;
   final _user = BehaviorSubject<User>();
 
-  final _state = BehaviorSubject<AccountState>(seedValue: AccountState.loading);
+  final _state = BehaviorSubject<AccountState>.seeded(AccountState.loading);
 
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn(scopes: [
@@ -55,9 +55,11 @@ class GoogleAuthenticator implements Authenticator {
     _state.add(AccountState.signingIn);
     final gAccount = await _googleSignIn.signIn();
     final gAuth = await gAccount.authentication;
-    final firUser = await _auth.signInWithGoogle(
-      idToken: gAuth.idToken,
-      accessToken: gAuth.accessToken,
+    final firUser = await _auth.signInWithCredential(
+      GoogleAuthProvider.getCredential(
+        idToken: gAuth.idToken,
+        accessToken: gAuth.accessToken,
+      ),
     );
     logger.info(firUser);
     return User.fromFirUser(firUser);
