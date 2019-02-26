@@ -6,9 +6,8 @@ import 'package:taskshare/screens/task/tasks_bloc.dart';
 export 'package:taskshare/screens/task/tasks_bloc.dart';
 
 class TasksBlocProvider extends BlocProvider<TasksBloc> {
-  TasksBlocProvider({
-    @required Widget child,
-  }) : super(
+  TasksBlocProvider({@required Widget child})
+      : super(
           child: child,
           creator: (context, _bag) {
             final provider = ServiceProvider.of(context);
@@ -17,6 +16,14 @@ class TasksBlocProvider extends BlocProvider<TasksBloc> {
               store: provider.tasksStore,
             );
           },
+        );
+
+  TasksBlocProvider.unmanaged({
+    @required BuildContext context,
+    @required Widget child,
+  }) : super.unmanaged(
+          bloc: TasksBlocProvider.of(context),
+          child: child,
         );
 
   static TasksBloc of(BuildContext context) => BlocProvider.of(context);

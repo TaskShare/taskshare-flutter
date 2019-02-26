@@ -7,15 +7,18 @@ import 'package:taskshare/screens/task/bottom_menu.dart';
 import 'package:taskshare/screens/task/list/task_list.dart';
 import 'package:taskshare/screens/task/menu_button.dart';
 import 'package:taskshare/screens/task/task_page_state.dart';
+import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen();
 
   static Widget withDependencies() {
-    return ScopedModel<TaskPageModel>(
-      model: TaskPageModel(),
-      child: TaskAdditionBlocProvider(
-        child: const TaskScreen(),
+    return TasksBlocProvider(
+      child: ScopedModel<TaskPageModel>(
+        model: TaskPageModel(),
+        child: TaskAdditionBlocProvider(
+          child: const TaskScreen(),
+        ),
       ),
     );
   }

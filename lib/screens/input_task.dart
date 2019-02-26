@@ -2,11 +2,14 @@ import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class InputTask extends StatelessWidget {
-  static const routeName = '/input_task';
-
   const InputTask();
 
-  factory InputTask.forDesignTime() => const InputTask();
+  static Widget withDependencies(BuildContext context) {
+    return TasksBlocProvider.unmanaged(
+      context: context,
+      child: const InputTask(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
