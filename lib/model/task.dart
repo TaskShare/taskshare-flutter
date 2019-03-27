@@ -3,6 +3,7 @@ import 'package:taskshare/model/model.dart';
 class Task implements Entity {
   static const name = 'tasks';
   @override
+  // MEMO: @required にしてidはdocumentRef()経由で持ってくるとかもありかも？？
   final String id;
   final String title;
   Timestamp doneTime;
@@ -31,11 +32,11 @@ class Task implements Entity {
   String toString() => '''
 
 Task{
-  id: $id, 
-  title: $title, 
-  doneTime: $doneTime, 
-  dueTime: $dueTime, 
-  createTime: $createTime, 
+  id: $id,
+  title: $title,
+  doneTime: $doneTime,
+  dueTime: $dueTime,
+  createTime: $createTime,
   updateTime: $updateTime
 }''';
 }
