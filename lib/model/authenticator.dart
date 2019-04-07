@@ -30,7 +30,7 @@ class GoogleAuthenticator implements Authenticator {
     _auth.onAuthStateChanged.map((user) {
       logger.info('onAuthStateChanged: $user');
       _state.add(user == null ? AccountState.signedOut : AccountState.signedIn);
-      return User.fromFirUser(user);
+      return user == null ? null : User.fromFirUser(user);
     }).pipe(_user);
   }
 
