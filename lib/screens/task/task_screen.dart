@@ -32,7 +32,6 @@ class TaskScreenState extends State<TaskScreen>
   TaskAdditionBloc _bloc;
   var _mode = TaskScreenMode.list;
   Animation<double> _backgroundFadeAnimation;
-  Animation<double> _fabFadeAnimation;
   Animation<double> _reverseInputViewFadeAnimation;
   AnimationController _animationController;
   final _textController = TextEditingController();
@@ -47,10 +46,6 @@ class TaskScreenState extends State<TaskScreen>
     );
     _backgroundFadeAnimation =
         Tween<double>(begin: 0, end: 0.4).animate(_animationController);
-    _fabFadeAnimation = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: const Interval(0, 0.4),
-    ));
     _reverseInputViewFadeAnimation =
         Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(
       parent: _animationController,
@@ -105,13 +100,11 @@ class TaskScreenState extends State<TaskScreen>
   @override
   Widget build(BuildContext context) {
     final list = Scaffold(
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: const BottomMenu(),
       appBar: _buildAppBar(),
       body: const TaskList(),
-      floatingActionButton: FadeTransition(
-        child: const AddTaskButton(),
-        opacity: _fabFadeAnimation,
-      ),
+      floatingActionButton: const AddTaskButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
     final mediaQuery = MediaQuery.of(context);
