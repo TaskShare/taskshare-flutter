@@ -5,6 +5,8 @@ import 'package:taskshare/widgets/widgets.dart';
 class InputTask extends StatelessWidget {
   const InputTask();
 
+  static const routeName = '/input_task';
+
   static Widget withDependencies(BuildContext context) {
     return TasksBlocProvider.fromBlocContext(
       context: context,
