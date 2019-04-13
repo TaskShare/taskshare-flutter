@@ -20,21 +20,20 @@ class InputTask extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Input New Task'),
           actions: <Widget>[
-            FlatButton(
-              child: Text(
-                'ADD',
-                style: TextStyle(
-                  color: Theme.of(context).canvasColor,
-                ),
-              ),
-              onPressed: () {
-                bloc.taskOperation.add(
-                  TaskOperation(
-                    task: Task(id: null, title: 'xxxx'),
-                    type: TaskOperationType.add,
+            Builder(
+              builder: (context) => FlatButton(
+                    child: Text(
+                      'ADD',
+                      style: TextStyle(
+                        color: Theme.of(context).canvasColor,
+                      ),
+                    ),
+                    onPressed: () {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: const Text('Not implemented'),
+                      ));
+                    },
                   ),
-                );
-              },
             ),
           ],
         ),
