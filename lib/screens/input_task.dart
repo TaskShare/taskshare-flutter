@@ -14,8 +14,6 @@ class InputTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.info('InputTaskPage build called');
-    final bloc = TasksBlocProvider.of(context);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Input New Task'),
