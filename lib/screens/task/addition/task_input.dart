@@ -4,12 +4,11 @@ import 'package:taskshare/screens/input_task.dart';
 import 'package:taskshare/screens/task/addition/task_addition_bloc_provider.dart';
 
 class TaskInput extends StatefulWidget {
-  final TextEditingController textController;
-
   const TaskInput({
     Key key,
     @required this.textController,
   }) : super(key: key);
+  final TextEditingController textController;
 
   @override
   TaskInputState createState() => TaskInputState();

@@ -20,10 +20,10 @@ class TaskAnimatedList {
     @required this.removedItemBuilder,
   }) : _tasks = stream.value ?? [] {
     stream.listen((tasks) {
-      // TODO: Enhance diff algorithm
-      final taskIds = Set.from(tasks.map((x) => x.id));
+      // TODO(mono): Enhance diff algorithm
+      final taskIds = Set<String>.from(tasks.map<String>((x) => x.id));
 
-      // TODO: 末尾から削除していく必要あり
+      // TODO(mono): 末尾から削除していく必要あり
       final taskIdsRemoved = _previousTaskIds.difference(taskIds);
       logger.info('taskIdsRemoved: $taskIdsRemoved');
       for (final id in taskIdsRemoved) {
@@ -31,7 +31,7 @@ class TaskAnimatedList {
         remove(task);
       }
 
-      // TODO: 先頭から追加していく必要あり
+      // TODO(mono): 先頭から追加していく必要あり
       final taskIdsAdded = taskIds.difference(_previousTaskIds);
       logger.info('taskIdsAdded: $taskIdsAdded');
       for (final id in taskIdsAdded) {
@@ -47,7 +47,7 @@ class TaskAnimatedList {
   final ValueObservable<List<Task>> stream;
   final TaskRemovedItemBuilder removedItemBuilder;
   final List<Task> _tasks;
-  Set<String> get _previousTaskIds => Set.from(_tasks.map((x) => x.id));
+  Set<String> get _previousTaskIds => Set.from(_tasks.map<String>((x) => x.id));
   int get length => _tasks.length;
   Task operator [](int index) => _tasks[index];
 

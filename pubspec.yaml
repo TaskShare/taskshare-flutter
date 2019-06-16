@@ -22,7 +22,7 @@ dependencies:
   tuple:
   bloc_provider:
   simple_logger:
-
+  observable:
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -5,11 +5,10 @@ import 'package:taskshare/screens/welcome.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class Home extends StatelessWidget {
-  static const routeName = '/';
-
   const Home();
 
   factory Home.forDesignTime() => const Home();
+  static const routeName = '/';
 
   @override
   Widget build(BuildContext context) {

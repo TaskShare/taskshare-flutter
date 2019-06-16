@@ -1,6 +1,13 @@
 import 'package:taskshare/model/model.dart';
 
 class Task implements Entity {
+  Task(
+      {@required this.id,
+      @required this.title,
+      this.doneTime,
+      this.dueTime,
+      this.createTime,
+      this.updateTime});
   static const name = 'tasks';
   @override
   // MEMO: @required にしてidはdocumentRef()経由で持ってくるとかもありかも？？
@@ -10,14 +17,6 @@ class Task implements Entity {
   Timestamp dueTime;
   Timestamp createTime;
   Timestamp updateTime;
-
-  Task(
-      {@required this.id,
-      @required this.title,
-      this.doneTime,
-      this.dueTime,
-      this.createTime,
-      this.updateTime});
 
   @override
   bool operator ==(Object other) {
@@ -43,7 +42,7 @@ Task{
 
 class TaskEncoder extends SnapshotEncoder<Task> {
   @override
-  Map<String, dynamic> encode(Task entity) => {
+  Map<String, dynamic> encode(Task entity) => <String, dynamic>{
         Entity.idKey: entity.id,
         TaskProperties.title: entity.title,
         TaskProperties.doneTime: entity.doneTime,

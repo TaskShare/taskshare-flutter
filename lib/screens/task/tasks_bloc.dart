@@ -10,28 +10,15 @@ export 'package:taskshare/model/task.dart';
 enum TaskOperationType { deleted, checked, add, updated }
 
 class TaskOperation {
-  final Task task;
-  final TaskOperationType type;
-
   TaskOperation({
     @required this.task,
     @required this.type,
   });
+  final Task task;
+  final TaskOperationType type;
 }
 
 class TasksBloc implements Bloc {
-  ValueObservable<List<Task>> get tasks => _tasks.stream;
-  Stream<TaskOperation> get taskOperations => _taskOperations.stream;
-
-  Sink<TaskOperation> get taskOperation => _taskOperationController.sink;
-
-  StreamSubscription _subscription;
-  final Authenticator authenticator;
-  final TasksStore store;
-  final _tasks = BehaviorSubject<List<Task>>();
-  final _taskOperations = PublishSubject<TaskOperation>();
-  final _taskOperationController = PublishSubject<TaskOperation>();
-
   TasksBloc({@required this.authenticator, @required this.store}) {
     logger.info('TasksBloc constructor called');
 
@@ -68,6 +55,18 @@ class TasksBloc implements Bloc {
       }
     });
   }
+
+  ValueObservable<List<Task>> get tasks => _tasks.stream;
+  Stream<TaskOperation> get taskOperations => _taskOperations.stream;
+
+  Sink<TaskOperation> get taskOperation => _taskOperationController.sink;
+
+  StreamSubscription _subscription;
+  final Authenticator authenticator;
+  final TasksStore store;
+  final _tasks = BehaviorSubject<List<Task>>();
+  final _taskOperations = PublishSubject<TaskOperation>();
+  final _taskOperationController = PublishSubject<TaskOperation>();
 
   void _setTask(Task task) {
     final now = Timestamp.now();

@@ -3,11 +3,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:taskshare/model/task.dart';
 
 class TaskAdditionBloc implements Bloc {
-  final _saveController = PublishSubject<String>();
-  final _addedController = PublishSubject<Task>();
-  final _failedController = BehaviorSubject<String>.seeded(null);
-  final _textController = BehaviorSubject<String>();
-
   TaskAdditionBloc() {
     _saveController.listen((title) {
       if (title == null || title.isEmpty) {
@@ -24,6 +19,10 @@ class TaskAdditionBloc implements Bloc {
       }
     });
   }
+  final _saveController = PublishSubject<String>();
+  final _addedController = PublishSubject<Task>();
+  final _failedController = BehaviorSubject<String>.seeded(null);
+  final _textController = BehaviorSubject<String>();
 
   Stream<Task> get added => _addedController.stream;
   ValueObservable<String> get failed => _failedController.stream;

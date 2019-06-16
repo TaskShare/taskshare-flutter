@@ -4,16 +4,15 @@ import 'package:taskshare/model/task.dart';
 import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 
 class TaskListTile extends StatelessWidget {
-  final Task task;
-  final Animation<double> animation;
-  final DismissDirectionCallback onDismissed;
-
   const TaskListTile({
     @required Key key,
     @required this.task,
     @required this.animation,
     @required this.onDismissed,
   }) : super(key: key);
+  final Task task;
+  final Animation<double> animation;
+  final DismissDirectionCallback onDismissed;
 
   @override
   Widget build(BuildContext context) {

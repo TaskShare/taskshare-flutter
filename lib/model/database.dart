@@ -11,21 +11,20 @@ abstract class Database<T> {
 }
 
 abstract class Entity {
+  Entity({@required this.id});
   static const idKey = 'id';
   final String id;
-  Entity({@required this.id});
 }
 
 class AppDatabase<T extends Entity> implements Database<T> {
-  final CollectionReference collectionRef;
-  final SnapshotEncoder<T> encoder;
-  final SnapshotDecoder<T> decoder;
-
   AppDatabase({
     @required this.collectionRef,
     @required this.encoder,
     @required this.decoder,
   });
+  final CollectionReference collectionRef;
+  final SnapshotEncoder<T> encoder;
+  final SnapshotDecoder<T> decoder;
 
   @override
   Stream<List<T>> entities(MakeQuery makeQuery) =>
@@ -62,10 +61,12 @@ class AppDatabase<T extends Entity> implements Database<T> {
   }
 }
 
+// ignore: one_member_abstracts
 abstract class SnapshotDecoder<T extends Entity> {
   T decode(Map<String, dynamic> data);
 }
 
+// ignore: one_member_abstracts
 abstract class SnapshotEncoder<T extends Entity> {
   Map<String, dynamic> encode(T entity);
 }

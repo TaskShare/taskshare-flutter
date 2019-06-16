@@ -2,11 +2,10 @@ import 'package:taskshare/bloc/account_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
 
 class Setting extends StatelessWidget {
-  static const routeName = '/settings';
-
   const Setting();
 
   factory Setting.forDesignTime() => const Setting();
+  static const routeName = '/settings';
 
   @override
   Widget build(BuildContext context) {

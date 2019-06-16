@@ -1,11 +1,10 @@
 import 'package:taskshare/widgets/widgets.dart';
 
 class AppProgressIndicator extends StatelessWidget {
-  final Color color;
-
   const AppProgressIndicator({this.color});
 
   factory AppProgressIndicator.forDesignTime() => const AppProgressIndicator();
+  final Color color;
 
   @override
   Widget build(BuildContext context) => Container(

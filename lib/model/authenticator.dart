@@ -5,9 +5,6 @@ import 'package:taskshare/model/model.dart';
 enum AccountState { loading, signedOut, signedIn, signingIn, singingOut }
 
 class User {
-  final String id;
-  final Uri imageUrl;
-
   User({
     @required this.id,
     @required this.imageUrl,
@@ -16,6 +13,9 @@ class User {
   User.fromFirUser(
     FirebaseUser user,
   ) : this(id: user.uid, imageUrl: Uri.parse(user.photoUrl));
+
+  final String id;
+  final Uri imageUrl;
 }
 
 abstract class Authenticator {

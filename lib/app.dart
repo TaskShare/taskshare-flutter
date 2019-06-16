@@ -44,7 +44,7 @@ class App extends StatelessWidget {
   Route _handleRoutes(RouteSettings settings) {
     switch (settings.name) {
       case InputTask.routeName:
-        return MaterialPageRoute(
+        return MaterialPageRoute<dynamic>(
           settings: settings,
           fullscreenDialog: true,
           builder: (_context) =>
