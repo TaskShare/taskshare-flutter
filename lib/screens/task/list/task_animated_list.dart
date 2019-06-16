@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
+import 'package:observable/observable.dart';
+import 'package:quiver/iterables.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:taskshare/model/task.dart';
 import 'package:taskshare/screens/task/tasks_bloc.dart';
@@ -21,24 +23,16 @@ class TaskAnimatedList {
   }) : _tasks = stream.value ?? [] {
     stream.listen((tasks) {
       // TODO(mono): Enhance diff algorithm
-      final taskIds = Set<String>.from(tasks.map<String>((x) => x.id));
-
-      // TODO(mono): 末尾から削除していく必要あり
-      final taskIdsRemoved = _previousTaskIds.difference(taskIds);
-      logger.info('taskIdsRemoved: $taskIdsRemoved');
-      for (final id in taskIdsRemoved) {
-        final task = _tasks.firstWhere((t) => t.id == id);
-        remove(task);
-      }
-
-      // TODO(mono): 先頭から追加していく必要あり
-      final taskIdsAdded = taskIds.difference(_previousTaskIds);
-      logger.info('taskIdsAdded: $taskIdsAdded');
-      for (final id in taskIdsAdded) {
-        final task = tasks.firstWhere((t) => t.id == id);
-        final index = tasks.indexOf(task);
-        _tasks.insert(index, task);
-        _animatedList.insertItem(index);
+      final diffs = _differ.diff(_tasks, tasks);
+      for (final diff in diffs) {
+        diff.removed.forEach(remove);
+        final added = diff.added.toList();
+        for (final i in range(0, added.length).cast<int>()) {
+          final task = added[i];
+          final index = diff.index + i;
+          _tasks.insert(index, task);
+          _animatedList.insertItem(index);
+        }
       }
     });
   }
@@ -47,7 +41,7 @@ class TaskAnimatedList {
   final ValueObservable<List<Task>> stream;
   final TaskRemovedItemBuilder removedItemBuilder;
   final List<Task> _tasks;
-  Set<String> get _previousTaskIds => Set.from(_tasks.map<String>((x) => x.id));
+  final _differ = const ListDiffer<Task>();
   int get length => _tasks.length;
   Task operator [](int index) => _tasks[index];
 
