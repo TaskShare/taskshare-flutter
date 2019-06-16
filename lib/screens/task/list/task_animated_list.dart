@@ -22,7 +22,6 @@ class TaskAnimatedList {
     @required this.removedItemBuilder,
   }) : _tasks = stream.value ?? [] {
     stream.listen((tasks) {
-      // TODO(mono): Enhance diff algorithm
       final diffs = _differ.diff(_tasks, tasks);
       for (final diff in diffs) {
         diff.removed.forEach(remove);
