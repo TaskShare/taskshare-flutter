@@ -5,7 +5,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
-      sdk: flutter
+    sdk: flutter
   cupertino_icons:
   firebase_auth:
   google_sign_in:
@@ -14,7 +14,7 @@ dependencies:
   path_provider:
   rxdart:
   cloud_firestore:
-#  cached_network_image:
+  #  cached_network_image:
   shared_preferences:
   intl:
   built_value:
