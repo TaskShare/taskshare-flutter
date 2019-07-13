@@ -1,9 +1,10 @@
 import 'package:taskshare/bloc/account_bloc_provider.dart';
-import 'package:taskshare/screens/home.dart';
-import 'package:taskshare/screens/input_task.dart';
-import 'package:taskshare/screens/setting.dart';
 import 'package:taskshare/util/util.dart';
 import 'package:taskshare/widgets/widgets.dart';
+
+import 'pages/home.dart';
+import 'pages/input_task.dart';
+import 'pages/setting.dart';
 
 class App extends StatelessWidget {
   const App();

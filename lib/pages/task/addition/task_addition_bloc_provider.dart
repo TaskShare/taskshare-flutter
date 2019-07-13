@@ -1,8 +1,9 @@
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/widgets.dart';
-import 'package:taskshare/screens/task/addition/task_addition_bloc.dart';
-import 'package:taskshare/screens/task/tasks_bloc.dart';
-import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
+
+import '../tasks_bloc.dart';
+import '../tasks_bloc_provider.dart';
+import 'task_addition_bloc.dart';
 
 class TaskAdditionBlocProvider extends BlocProvider<TaskAdditionBloc> {
   TaskAdditionBlocProvider({

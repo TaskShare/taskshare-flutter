@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:taskshare/screens/task/add_task_button.dart';
-import 'package:taskshare/screens/task/addition/task_addition_bloc.dart';
-import 'package:taskshare/screens/task/addition/task_addition_bloc_provider.dart';
-import 'package:taskshare/screens/task/addition/task_input.dart';
-import 'package:taskshare/screens/task/bottom_menu.dart';
-import 'package:taskshare/screens/task/list/task_list.dart';
-import 'package:taskshare/screens/task/menu_button.dart';
-import 'package:taskshare/screens/task/task_page_state.dart';
-import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+import 'add_task_button.dart';
+import 'addition/task_addition_bloc.dart';
+import 'addition/task_addition_bloc_provider.dart';
+import 'addition/task_input.dart';
+import 'bottom_menu.dart';
+import 'list/task_list.dart';
+import 'menu_button.dart';
+import 'task_page_state.dart';
+import 'tasks_bloc_provider.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen();

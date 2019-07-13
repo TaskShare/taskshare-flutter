@@ -1,8 +1,9 @@
 import 'package:taskshare/bloc/account_bloc.dart';
 import 'package:taskshare/bloc/account_bloc_provider.dart';
-import 'package:taskshare/screens/task/task_screen.dart';
-import 'package:taskshare/screens/welcome.dart';
 import 'package:taskshare/widgets/widgets.dart';
+
+import 'task/task_page.dart';
+import 'welcome.dart';
 
 class Home extends StatelessWidget {
   const Home();
