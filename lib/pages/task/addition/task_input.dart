@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taskshare/l10n/l10n.dart';
-import 'package:taskshare/screens/input_task.dart';
-import 'package:taskshare/screens/task/addition/task_addition_bloc_provider.dart';
+
+import '../../input_task.dart';
+import 'task_addition_bloc_provider.dart';
 
 class TaskInput extends StatefulWidget {
   const TaskInput({

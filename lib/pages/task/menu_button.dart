@@ -1,6 +1,7 @@
 import 'package:taskshare/bloc/account_bloc_provider.dart';
-import 'package:taskshare/screens/setting.dart';
 import 'package:taskshare/widgets/widgets.dart';
+
+import '../setting.dart';
 
 class MenuButton extends StatelessWidget {
   const MenuButton();

@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:taskshare/model/task.dart';
-import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
+
+import '../tasks_bloc.dart';
+import '../tasks_bloc_provider.dart';
 
 class TaskListTile extends StatelessWidget {
   const TaskListTile({

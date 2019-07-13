@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taskshare/l10n/l10n.dart';
-import 'package:taskshare/screens/task/task_page_state.dart';
+
+import 'task_page_state.dart';
 
 class AddTaskButton extends StatelessWidget {
   const AddTaskButton();

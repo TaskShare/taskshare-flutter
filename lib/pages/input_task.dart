@@ -1,5 +1,6 @@
-import 'package:taskshare/screens/task/tasks_bloc_provider.dart';
 import 'package:taskshare/widgets/widgets.dart';
+
+import 'task/tasks_bloc_provider.dart';
 
 // TOOD: 途中
 class InputTask extends StatelessWidget {
@@ -22,18 +23,18 @@ class InputTask extends StatelessWidget {
           actions: <Widget>[
             Builder(
               builder: (context) => FlatButton(
-                    child: Text(
-                      'ADD',
-                      style: TextStyle(
-                        color: Theme.of(context).canvasColor,
-                      ),
-                    ),
-                    onPressed: () {
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                        content: const Text('Not implemented'),
-                      ));
-                    },
+                child: Text(
+                  'ADD',
+                  style: TextStyle(
+                    color: Theme.of(context).canvasColor,
                   ),
+                ),
+                onPressed: () {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: const Text('Not implemented'),
+                  ));
+                },
+              ),
             ),
           ],
         ),

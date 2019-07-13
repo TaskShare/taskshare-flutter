@@ -4,7 +4,6 @@ import 'package:observable/observable.dart';
 import 'package:quiver/iterables.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:taskshare/model/task.dart';
-import 'package:taskshare/screens/task/tasks_bloc.dart';
 
 import '../../../util/util.dart';
 
