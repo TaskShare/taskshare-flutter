@@ -1,22 +1,15 @@
-name: CI
+name: Add issue to projects
+
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+  issues:
+    types:
+      - opened
+
 jobs:
-  terraform:
-    name: test
+  add-to-project:
+    name: Add issue to projects
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        shell: bash
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - name: Generate github token
         id: generate_token
         uses: tibdex/github-app-token@v1
@@ -27,3 +20,7 @@ jobs:
         run: echo "$GITHUB_TOKEN"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+      - uses: actions/add-to-project@v0.2.0
+        with:
+          project-url: https://github.com/orgs/TaskShare/projects/2
+          github-token: ${{ steps.generate_token.outputs.token }}
